@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Single Cell Sequening | Single Cell Sequencing Analysis</title>
+  <meta name="description" content="Training Class of Single Cell Sequencing Analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Single Cell Sequening | Single Cell Sequencing Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Single Cell Sequening | Single Cell Sequencing Analysis" />
+  
+  <meta name="twitter:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+<meta name="author" content="Zhilong Jia" />
+
+
+<meta name="date" content="2021-04-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Single Cell Sequencing Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#read-data-library-packages"><i class="fa fa-check"></i><b>1.1</b> Read data Library packages</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#dimplot-cell-or-cluster"><i class="fa fa-check"></i><b>1.2</b> DimPlot : cell or cluster</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#单细胞可视化"><i class="fa fa-check"></i><b>1.3</b> 单细胞可视化</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#dimplot1"><i class="fa fa-check"></i><b>1.4</b> dimplot1</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#比例"><i class="fa fa-check"></i><b>1.5</b> 比例</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#数据转化"><i class="fa fa-check"></i><b>1.6</b> 数据转化</a></li>
+<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#sessioninfo"><i class="fa fa-check"></i><b>1.7</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="single-cell-sequening.html"><a href="single-cell-sequening.html"><i class="fa fa-check"></i><b>2</b> Single Cell Sequening</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="single-cell-sequening.html"><a href="single-cell-sequening.html#data-format"><i class="fa fa-check"></i><b>2.1</b> data format</a></li>
+<li class="chapter" data-level="2.2" data-path="single-cell-sequening.html"><a href="single-cell-sequening.html#test-read-h5-file."><i class="fa fa-check"></i><b>2.2</b> test read h5 file.</a></li>
+<li class="chapter" data-level="2.3" data-path="single-cell-sequening.html"><a href="single-cell-sequening.html#reproduce-umap-fig-1a"><i class="fa fa-check"></i><b>2.3</b> reproduce UMAP fig 1a</a></li>
+<li class="chapter" data-level="2.4" data-path="single-cell-sequening.html"><a href="single-cell-sequening.html#sessioninfo-1"><i class="fa fa-check"></i><b>2.4</b> sessionInfo</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single Cell Sequencing Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="single-cell-sequening" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Single Cell Sequening</h1>
+<div id="data-format" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> data format</h2>
+<ul>
+<li>Bioconductor主导的SingleCellExperiment数据格式：例如scran、scater、monocle（尽管它的对象不直接使用SingleCellExperiment，但灵感来源于SingleCellExperiment，并且操作也是类似的）</li>
+<li>Seurat：SeuratObject格式</li>
+<li>scanpy：AnnData格式</li>
+</ul>
+<p>ref: <a href="https://www.jianshu.com/p/50e289a694d2" class="uri">https://www.jianshu.com/p/50e289a694d2</a></p>
+<div class="figure">
+<img src="figure/Seurat%E5%AF%B9%E8%B1%A1.png" alt="" />
+<p class="caption">Seurat对象</p>
+</div>
+<div class="figure">
+<img src="figure/%E5%8D%95%E7%BB%86%E8%83%9E%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.png" alt="" />
+<p class="caption">单细胞分析流程</p>
+</div>
+</div>
+<div id="test-read-h5-file." class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> test read h5 file.</h2>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="single-cell-sequening.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;Seurat&quot;</span>)</span>
+<span id="cb41-2"><a href="single-cell-sequening.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="single-cell-sequening.html#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="single-cell-sequening.html#cb41-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">Read10X_h5</span>(<span class="st">&quot;../covid_balf/GSM4339769_C141_filtered_feature_bc_matrix.h5&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in sparseMatrix(i = indices[] + 1, p = indptr[], x = as.numeric(x =
+## counts[]), : &#39;giveCsparse&#39; has been deprecated; setting &#39;repr = &quot;T&quot;&#39; for you</code></pre>
+</div>
+<div id="reproduce-umap-fig-1a" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> reproduce UMAP fig 1a</h2>
+<p>paper “Single-cell landscape of bronchoalveolar immune cells in patients with COVID-19”</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="single-cell-sequening.html#cb43-1" aria-hidden="true" tabindex="-1"></a>bm <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;../covid_balf/nCoV.rds&quot;</span>)</span>
+<span id="cb43-2"><a href="single-cell-sequening.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="single-cell-sequening.html#cb43-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(bm, <span class="at">reduction=</span><span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span>
+<span id="cb43-4"><a href="single-cell-sequening.html#cb43-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(bm, <span class="at">group.by =</span> <span class="st">&#39;group&#39;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">2.5</span>)</span>
+<span id="cb43-5"><a href="single-cell-sequening.html#cb43-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="sessioninfo-1" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> sessionInfo</h2>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="single-cell-sequening.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.4 (2021-02-15)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.10
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] forcats_0.5.1           stringr_1.4.0           dplyr_1.0.5            
+##  [4] purrr_0.3.4             readr_1.4.0             tidyr_1.1.3            
+##  [7] tibble_3.1.0            ggplot2_3.3.3           tidyverse_1.3.0        
+## [10] pbmc3k.SeuratData_3.1.4 SeuratData_0.2.1        SeuratObject_4.0.0     
+## [13] Seurat_4.0.1           
+## 
+## loaded via a namespace (and not attached):
+##   [1] readxl_1.3.1          backports_1.2.1       plyr_1.8.6           
+##   [4] igraph_1.2.6          lazyeval_0.2.2        splines_4.0.4        
+##   [7] listenv_0.8.0         scattermore_0.7       digest_0.6.27        
+##  [10] htmltools_0.5.1.1     fansi_0.4.2           magrittr_2.0.1       
+##  [13] tensor_1.5            cluster_2.1.1         ROCR_1.0-11          
+##  [16] globals_0.14.0        modelr_0.1.8          matrixStats_0.58.0   
+##  [19] spatstat.sparse_2.0-0 colorspace_2.0-0      rvest_1.0.0          
+##  [22] rappdirs_0.3.3        ggrepel_0.9.1         haven_2.3.1          
+##  [25] xfun_0.22             crayon_1.4.1          jsonlite_1.7.2       
+##  [28] spatstat.data_2.0-0   survival_3.2-10       zoo_1.8-9            
+##  [31] glue_1.4.2            polyclip_1.10-0       gtable_0.3.0         
+##  [34] leiden_0.3.7          future.apply_1.7.0    abind_1.4-5          
+##  [37] scales_1.1.1          DBI_1.1.1             miniUI_0.1.1.1       
+##  [40] Rcpp_1.0.6            viridisLite_0.3.0     xtable_1.8-4         
+##  [43] reticulate_1.18       spatstat.core_1.65-5  bit_4.0.4            
+##  [46] htmlwidgets_1.5.3     httr_1.4.2            RColorBrewer_1.1-2   
+##  [49] ellipsis_0.3.1        ica_1.0-2             pkgconfig_2.0.3      
+##  [52] farver_2.1.0          sass_0.3.1            uwot_0.1.10          
+##  [55] dbplyr_2.1.0          deldir_0.2-10         utf8_1.2.1           
+##  [58] tidyselect_1.1.0      labeling_0.4.2        rlang_0.4.10         
+##  [61] reshape2_1.4.4        later_1.1.0.1         munsell_0.5.0        
+##  [64] cellranger_1.1.0      tools_4.0.4           cli_2.3.1            
+##  [67] generics_0.1.0        broom_0.7.5           ggridges_0.5.3       
+##  [70] evaluate_0.14         fastmap_1.1.0         yaml_2.2.1           
+##  [73] goftest_1.2-2         bit64_4.0.5           knitr_1.31           
+##  [76] fs_1.5.0              fitdistrplus_1.1-3    RANN_2.6.1           
+##  [79] pbapply_1.4-3         future_1.21.0         nlme_3.1-152         
+##  [82] mime_0.10             xml2_1.3.2            hdf5r_1.3.3          
+##  [85] compiler_4.0.4        rstudioapi_0.13       plotly_4.9.3         
+##  [88] png_0.1-7             spatstat.utils_2.1-0  reprex_1.0.0         
+##  [91] bslib_0.2.4           stringi_1.5.3         highr_0.8            
+##  [94] lattice_0.20-41       Matrix_1.3-2          vctrs_0.3.6          
+##  [97] pillar_1.5.1          lifecycle_1.0.0       spatstat.geom_1.65-5 
+## [100] lmtest_0.9-38         jquerylib_0.1.3       RcppAnnoy_0.0.18     
+## [103] data.table_1.14.0     cowplot_1.1.1         irlba_2.3.3          
+## [106] httpuv_1.5.5          patchwork_1.1.1       R6_2.5.0             
+## [109] bookdown_0.21         promises_1.2.0.1      KernSmooth_2.23-17   
+## [112] gridExtra_2.3         parallelly_1.24.0     codetools_0.2-17     
+## [115] MASS_7.3-53.1         assertthat_0.2.1      withr_2.4.1          
+## [118] sctransform_0.3.2     mgcv_1.8-33           parallel_4.0.4       
+## [121] hms_1.0.0             grid_4.0.4            rpart_4.1-15         
+## [124] rmarkdown_2.7         Rtsne_0.15            shiny_1.6.0          
+## [127] lubridate_1.7.10</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Single_cell_training.pdf", "Single_cell_training.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

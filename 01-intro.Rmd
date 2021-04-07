@@ -1,0 +1,148 @@
+# Introduction {#intro}
+
+## Read data Library packages
+
+```{r message=FALSE, warning=FALSE}
+library(Seurat)
+library(SeuratData)
+library(tidyverse)
+pbmc <- pbmc3k.final
+head(pbmc@meta.data)
+pbmc@commands$FindClusters
+```
+
+## DimPlot : cell or cluster
+
+```{r}
+plot1<-DimPlot(pbmc, reduction = "umap")
+plot2<-DimPlot(pbmc, reduction = "umap",label = T)
+CombinePlots(plots = list(plot1, plot2),legend="bottom")
+```
+
+## 单细胞可视化
+
+## dimplot1
+```{r}
+library(ggplot2)
+DimPlot(pbmc3k.final)+ ggtitle('Zhilong')
+```
+## umap1
+```{r}
+library(Seurat)
+library(SeuratData)
+library(tidyverse)
+p1<- DimPlot(pbmc3k.final)
+head(DimPlot(pbmc3k.final)$data)
+```
+
+```{r}
+p2<- ggplot(DimPlot(pbmc3k.final)$data, aes(UMAP_1, UMAP_2, fill=ident)) + 
+  geom_point(shape=21,colour="black", stroke=0.25, alpha=0.8) +
+  DimPlot(pbmc3k.final, label = T)$theme +
+  theme_bw()+ NoLegend()
+
+
+p2+ p1
+```
+## umap2
+```{r}
+pbmc<- pbmc3k.final
+pbmc<-AddMetaData(pbmc,pbmc@reductions$umap@cell.embeddings,col.name = colnames(pbmc@reductions$umap@cell.embeddings))
+
+head(pbmc@meta.data)
+```
+
+
+```{r}
+library(dplyr)
+class_avg <- pbmc@meta.data %>%
+  group_by(seurat_annotations) %>%
+  summarise(
+    UMAP_1 = median(UMAP_1),
+    UMAP_2 = median(UMAP_2)
+  )
+allcolour=c("#DC143C","#0000FF","#20B2AA","#FFA500","#9370DB","#98FB98","#F08080","#1E90FF","#7CFC00","#FFFF00",
+            "#808000","#FF00FF","#FA8072","#7B68EE","#9400D3","#800080","#A0522D","#D2B48C","#D2691E","#87CEEB","#40E0D0","#5F9EA0",
+            "#FF1493","#0000CD","#008B8B","#FFE4B5","#8A2BE2","#228B22","#E9967A","#4682B4","#32CD32","#F0E68C","#FFFFE0","#EE82EE",
+            "#FF6347","#6A5ACD","#9932CC","#8B008B","#8B4513","#DEB887")
+
+umap <-  ggplot(pbmc@meta.data ,aes(x=UMAP_1,y=UMAP_2))+
+  geom_point(aes(color=seurat_annotations))+
+  scale_color_manual(values = allcolour)+
+  geom_text(aes(label = seurat_annotations), data = class_avg)+
+  theme(text=element_text(family="Arial",size=18)) +
+  theme(panel.background = element_rect(fill='white', colour='black'), 
+        panel.grid=element_blank(), axis.title = element_text(color='black',
+                                                              family="Arial",size=18),axis.ticks.length = unit(0.4,"lines"), 
+        axis.ticks = element_line(color='black'), 
+        axis.ticks.margin = unit(0.6,"lines"),
+        axis.line = element_line(colour = "black"), 
+        axis.title.x=element_text(colour='black', size=18),
+        axis.title.y=element_text(colour='black', size=18),
+        axis.text=element_text(colour='black',size=18),
+        legend.title=element_blank(),
+        legend.text=element_text(family="Arial", size=18),
+        legend.key=element_blank())+
+  theme(plot.title = element_text(size=22,colour = "black",face = "bold"))  + 
+  guides(colour = guide_legend(override.aes = list(size=5)))
+umap
+```
+
+
+```{r}
+set.seed(42)#可重复性的
+pbmc$replicate <- sample(c("rep1", "rep2"), size = ncol(pbmc), replace = TRUE)
+head(pbmc@meta.data)
+```
+
+
+```{r}
+as.data.frame(prop.table(table(Idents(pbmc), pbmc@meta.data[,"replicate"]), margin = 2))-> pdf -> td
+library(tidyverse)
+allcolour=c("#DC143C","#0000FF","#20B2AA","#FFA500","#9370DB","#98FB98","#F08080","#1E90FF","#7CFC00","#FFFF00","#808000","#FF00FF","#FA8072","#7B68EE","#9400D3","#800080","#A0522D","#D2B48C","#D2691E","#87CEEB","#40E0D0","#5F9EA0","#FF1493","#0000CD","#008B8B","#FFE4B5","#8A2BE2","#228B22","#E9967A","#4682B4","#32CD32","#F0E68C","#FFFFE0","#EE82EE","#FF6347","#6A5ACD","#9932CC","#8B008B","#8B4513","#DEB887")
+allcolour -> colour1
+plt<- ggplot(td,aes(x=td[,2],y=td[,3],fill=td[,1]))+
+  geom_bar(position = 'stack',stat="identity")+
+  labs(x="replicate",y="Cells Ratio")+
+  theme(panel.background=element_rect(fill='transparent', color='black'),
+        legend.key=element_rect(fill='transparent', color='transparent'),axis.text = element_text(color="black"))+
+  scale_y_continuous(expand=c(0.001,0.001))+
+  scale_fill_manual(values=colour1)+
+  guides(fill = guide_legend(keywidth = 1, keyheight = 1,ncol=1,title = 'Cluster'))
+
+plt
+```
+
+## 比例
+```{r}
+col <- c('red','blue','cyan4','yellow','skyblue','purple', 'olivedrab3','springgreen','olivedrab1','forestgreen','darkslateblue')
+p3<-  ggplot(td,aes(x=td[,2],y=td[,3],fill=td[,1])) +
+  geom_bar(stat = "identity", position = "fill")+
+  scale_fill_manual(values=col) +coord_flip()
+
+p4<- ggplot(td,aes(x=td[,2],y=td[,3],fill=td[,1])) +
+  geom_bar(stat = "identity", position = "fill")+
+  scale_fill_manual(values=col) +facet_wrap(~ td[,2], scales = 'free')
+
+
+p5<- ggplot(td,aes(x=td[,2],y=td[,3],fill=td[,1])) +
+  geom_bar(stat = "identity", position = "fill")+
+  scale_fill_manual(values=col) +coord_polar(theta = 'y')
+p5
+```
+
+##  数据转化
+
+```{r}
+library(tidyr)
+head( pbmc@meta.data)
+td_tidy<-spread(data = td, key = "Var1", value = "Freq")
+head(td_tidy)
+td_tidy2 <- gather(data = td_tidy,key = "Var1", value = "Freq", -Var2)
+head(td_tidy2)
+```
+
+## sessionInfo
+```{r}
+sessionInfo()
+```

@@ -1,0 +1,11 @@
+--- 
+title: "Single Cell Sequencing Analysis"
+author: "Zhilong Jia"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+description: Training Class of Single Cell Sequencing Analysis.
+---
+

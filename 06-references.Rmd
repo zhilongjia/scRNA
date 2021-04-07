@@ -1,0 +1,25 @@
+# References
+
+https://github.com/singleron-RD/CeleScope
+
+https://www.runoob.com/python/python-basic-syntax.html
+
+Analysis of single cell RNA-seq data  #  分析流程
+https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
+
+Orchestrating Single-Cell Analysis with Bioconductor #  分析流程 
+http://bioconductor.org/books/release/OSCA/
+
+Assigning cell types with SingleR  # 细胞类型注释
+http://bioconductor.org/books/release/SingleRBook/
+
+Museum of Spatial Transcriptomics  # 空转简史
+https://bookdown.org/lambdamoses/museumst/
+
+Archr  # ATAC  分析 
+https://www.archrproject.com/bookdown/index.html#section   
+
+Analysis of single cell RNA-seq data
+https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
+
+

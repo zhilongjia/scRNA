@@ -1,0 +1,12 @@
+book_filename: "Single_cell_training"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
+output_dir: "docs"
+
+rmd_files: ["index.Rmd",
+             "01-intro.Rmd",
+             "02-scRNAintro.Rmd",
+             "06-references.Rmd"
+             ]

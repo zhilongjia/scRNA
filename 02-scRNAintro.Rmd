@@ -1,0 +1,42 @@
+# A introduction to Single Cell Sequening
+
+## data format of Seurat
+* Bioconductor主导的SingleCellExperiment数据格式：例如scran、scater、monocle（尽管它的对象不直接使用SingleCellExperiment，但灵感来源于SingleCellExperiment，并且操作也是类似的）
+* Seurat：SeuratObject格式
+* scanpy：AnnData格式
+
+ref: https://www.jianshu.com/p/50e289a694d2
+
+![Seurat对象](./figure/Seurat对象.png)
+
+
+![单细胞分析流程](./figure/单细胞分析流程.png)
+
+
+## test read h5 file.
+```{r}
+library("Seurat")
+
+
+tmp <- Read10X_h5("../covid_balf/GSM4339769_C141_filtered_feature_bc_matrix.h5")
+
+
+```
+
+## reproduce  UMAP fig 1a
+
+paper "Single-cell landscape of bronchoalveolar immune cells in patients with COVID-19"
+
+```{r}
+bm <- readRDS("../covid_balf/nCoV.rds")
+
+p1 <- DimPlot(bm, reduction="umap", label = TRUE, repel = TRUE, label.size = 2.5) + NoLegend()
+p2 <- DimPlot(bm, group.by = 'group', label = TRUE, repel = TRUE, label.size = 2.5)
+p1 + p2
+
+```
+
+## sessionInfo
+```{r}
+sessionInfo()
+```
