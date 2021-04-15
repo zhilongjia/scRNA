@@ -1,0 +1,417 @@
+--- 
+date: "`r Sys.Date()`"
+---
+
+
+
+# Pipeline
+本次课程主要以测试数据为例，实际展示和操作基于Seurat的单细胞测序数据的基本分析流程。
+
+## 数据准备
+
+### 下载测试数据
+本教程分析数据10X单细胞2700个细胞的PBMC数据，下载地址：
+`https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz`
+
+```{r show_10x_data_structure}
+dir_10x <- './data/pbmc3k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/hg19/'
+list.files(dir_10x)
+```
+
+### 载入表达矩阵
+```{r Read10X}
+library(Seurat)
+library(ggplot2)
+
+## 直接读取表达矩阵文件
+mat <- Read10X(dir_10x)
+
+# mat <- read.table('../pbmc3k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/SingleCell_matrix.tsv', header=T, row.names=1, sep='\t', check.names=F )
+mat[1:5, 1:3]
+```
+
+## 数据预处理
+数据预处理过程主要包括：
+
+* 基于QC指标的细胞和基因过滤
+* 数据标准化
+* 数据归一化
+* 高变基因选择
+* 数据降维
+
+
+### 构建Seurat数据对象
+```{r CreateSeuratObject}
+PRO <- CreateSeuratObject(count = mat, project = 'PBMC')
+PRO
+# 每个基因至少在5个细胞中表达
+# 每个细胞至少检测到300个基因
+PRO1 <- CreateSeuratObject(count = mat, project = 'PBMC', min.cells = 5, min.features = 300 )
+PRO1
+
+PRO <- RenameCells(PRO, add.cell.id='PBMC')
+head(PRO@meta.data)
+
+```
+
+
+### 多个单细胞矩阵合并
+
+当有多个单细胞样本需要合并分析时，可基于单个样本构建的Seurat数据对象进行合并。
+```{r merge, warning=FALSE}
+# Only for test.
+# paths = c(path1, path2, path3, ... )
+mats = c(dir_10x, dir_10x, dir_10x)
+sc_list <- list()
+for ( i in 1:length(mats) ){
+  name <- paste0('sample_',i)
+  mat_i <- Read10X( mats[i] )
+  PRO_i <- CreateSeuratObject(mat_i, project= name, min.cells = 5, min.features = 200 )
+  PRO_i <- RenameCells(PRO_i, add.cell.id= name )
+  sc_list <- c(sc_list, PRO_i)
+}
+sc_list
+
+PRO_merge <- Reduce(merge, sc_list)
+PRO_merge
+rm(list=c('PRO_merge','sc_list','PRO_i','mat_i','mat'))
+```
+
+
+
+### 单细胞表达矩阵质控
+
+单细胞分析之前，需要筛选得到高质量，高可靠性的细胞，保证后续分析结果的准确性。
+常用的过滤条件包括三个：
+
+1. 单个细胞的UMI数
+2. 单个细胞中检测到的gene数
+    - 低质量细胞或者空的droplet液滴含有的少量基因
+    - doublets双胞体或多胞体含有很高的gene counts
+3. 线粒体基因含量比例
+    - 低质量或者死亡细胞含有很高的线粒体基因
+    - 不同组织正常线粒体含量范围有差异
+
+#### 通过单个细胞count数和feature数分布的可视化帮助确定过滤条件的阈值
+```{r VlnPlot}
+head(PRO@meta.data)
+VlnPlot(PRO, features=c('nCount_RNA','nFeature_RNA') , pt.size=0.1 )
+```
+
+#### 单个细胞线粒体基因和核糖体基因含量统计
+```{r percent.mt}
+## 在人类基因组中，线粒体基因命名规则是以"MT-"为开头
+mt.genes <- rownames(PRO)[grep("^MT-",rownames(PRO), ignore.case = TRUE)]
+PRO$percent.mt <- PercentageFeatureSet(PRO, features = mt.genes )
+## 统计核糖体基因含量，同样需要知道核糖体基因的名字规则"RPS"或"RPL"
+rb.genes <- rownames(PRO)[grep("^RP[SL]",rownames(PRO), ignore.case = TRUE)]
+PRO$percent.rb <- PercentageFeatureSet(PRO, features = rb.genes )
+head(PRO@meta.data)
+VlnPlot(PRO, features=c('percent.mt','percent.rb') , pt.size=0.1 )
+```
+
+#### 质控条件之间的相关性展示
+```{r FeatureScatter}
+p1 = FeatureScatter(PRO, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+p2 = FeatureScatter(PRO, feature1 = "nCount_RNA", feature2 = "percent.mt")
+p1 + p2
+```
+
+#### 低质量细胞过滤
+基于上面的单细胞质量可视化结果，当存在质量较差的细胞时，为避免低质量细胞对下游分析的影响，需要在表达矩阵中去除这些细胞
+使用subset函数用于seurat对象过滤.
+```{r subset_filter}
+PRO0 <- subset(PRO, subset= nCount_RNA> 300 & 
+                      nCount_RNA< 10000 & 
+                      nFeature_RNA> 200 & 
+                      nFeature_RNA< 2500 & 
+                      percent.mt< 5 )
+PRO0
+```
+
+也可根据细胞表达count百分位数，feature百分位数进行过滤
+```{r quantile_filter}
+ncount <- quantile(PRO$nCount_RNA, 0.98)
+nfeature <- quantile(PRO$nFeature_RNA, 0.98)
+PRO1 <- subset(PRO, 
+               subset= nCount_RNA>200 & 
+                       nCount_RNA< ncount & 
+                       nFeature_RNA> 300 & 
+                       nFeature_RNA< nfeature & 
+                       percent.mt< 10 )
+PRO1
+
+VlnPlot(PRO, features=c('nCount_RNA','nFeature_RNA','percent.mt') , pt.size=0.1 )
+```
+
+Compare two seurat objects.
+After filter
+```{r VlnPlot_filter}
+VlnPlot(PRO1, features=c('nCount_RNA','nFeature_RNA','percent.mt') , pt.size=0.1 )
+```
+
+### 单细胞数据标准化和均一化
+由于实验和测序步骤都具有随机性，即便是同一细胞在两次捕获测序中得到的深度也不一定相同，因此直接比较原始表达计数得到的差异可能是由于技术偏差造成。
+表达矩阵标准化通过对count数进行调整，使获得具有可比性的相对表达丰度。
+数据处理的目的：
+
+- 使细胞间表达具有可比性
+- 使表达量分布符合统计学分布
+
+#### 数据标准化
+最常用的方法是针对测序深度进行标准化，使每个细胞具有相同的reads数据量
+Seurat默认的标准化方法为 LogNormalize ：
+以e为底数，log（每个细胞中基因的nCount_RNA /该细胞内总Count*10000 + 1）
+```{r NormalizeData}
+## 默认标准化算法： 
+## LogNormalize: Feature counts for each cell are divided by the total counts for that cell and multiplied by the scale.factor 10000. This is then natural-log transformed using log1p
+PRO_norm <- NormalizeData(object=PRO, 
+                     normalization.method= 'LogNormalize', 
+                     scale.factor=10000 )
+PRO@assays$RNA@data[40:45,30:32]
+PRO_norm@assays$RNA@data[40:45,30:32]
+```
+
+#### 数据归一化
+对表达矩阵进行scale处理，scale之后的矩阵每个基因表达均值为0
+经过scale之后，所有基因的表达分布基本一致，有助于后续的降维聚类
+```{r ScaleData}
+all.genes <- rownames(PRO_norm)
+
+# the results will be PRO@assays$RNA@scale.data
+PRO <- ScaleData(PRO_norm, features = all.genes)
+
+PRO@assays$RNA@scale.data[40:45,30:32]
+```
+
+移除细胞周期等影响因素
+```{r CellCycleScoring}
+s.genes <- cc.genes$s.genes
+g2m.genes <- cc.genes$g2m.genes
+PRO <- CellCycleScoring(PRO, 
+                        s.features = s.genes, 
+                        g2m.features = g2m.genes )
+head(PRO@meta.data)
+
+# check vars.to.regress
+PRO_cc <- ScaleData(PRO, features = all.genes[1:1000], vars.to.regress = c("S.Score", "G2M.Score") ) ## 耗时较长, 只用了1000个基因用于展示
+```
+
+#### 筛选高变基因
+人单细胞RNA-seq数据集可包含多达20000+个基因的表达值。对于一个给定的单细胞数据集，其中有许多基因都不能提供有用信息，并且大多只包含零计数。即使在QC步骤中滤除了这些零计数基因后，单细胞数据集也可能超过15,000个基因；
+为了减轻下游分析工具的计算负担、减少数据中的噪声并方便数据可视化，可对数据集基因进行过滤仅保留对数据的变异性具有信息贡献的基因（变化程度大）；
+高变基因：在表达矩阵中表达变化大的基因，即在一些细胞中高表达，在另外一些细胞中低表达；
+一般使用均值与方差之间的关系来挑选高变基因：
+
+- vst（默认）：首先利用loess回归对log(variance)和log(mean)拟合一条直线，然后利用观测均值和期望方差对基因表达量进行标准化，最后根据标准化后的表达量计算方差；
+- mean.var.plot（mvp）: 首先分别计算每个基因的平均表达量和离散情况，然后根据平均表达量将基因们分散到一定数量（默认是20个）的小区间（bin）中，并且计算每个区间的z-score；
+- dispersion (disp): 挑选离差值最高的基因
+
+```{r VariableFeatures}
+PRO <- FindVariableFeatures(PRO,
+                            selection.method = "vst", 
+                            nfeatures = 2000)
+head(VariableFeatures(PRO))
+
+LabelPoints(VariableFeaturePlot(PRO), points = head(VariableFeatures(PRO),10) , repel=TRUE)
+```
+
+
+
+### 数据降维
+降维是通过算法最优地保留原始数据的一些关键属性来将数据投影到更低的维度空间中，便于可视化和后续分析
+
+#### PCA降维
+```{r RunPCA}
+hvg <- VariableFeatures(object = PRO)
+PRO <- RunPCA(PRO, features = hvg )
+# print(PRO@reductions$pca)
+VizDimLoadings(PRO, dims = 1:2, reduction = "pca")
+```
+
+
+
+```{r DimHeatmap_PCA}
+DimHeatmap(PRO, dims = 1:6, cells = 500, balanced = TRUE)
+```
+
+```{r DimPlot_pca}
+DimPlot(PRO, reduction = "pca")
+```
+
+#### 选择维度
+维度的选择标准是再保证足够的信息同时减少噪音
+```{r ElbowPlot}
+ElbowPlot(PRO)
+
+```
+
+```{r ScoreJackStraw}
+PRO_sub <- subset(PRO, downsample=200)        ##  耗时较长，downsample矩阵进行展示
+PRO_sub <- ScaleData(PRO_sub, features = all.genes)
+
+PRO_sub <- JackStraw(PRO_sub, num.replicate = 100) 
+PRO_sub <- ScoreJackStraw(PRO_sub, dims = 1:20)
+JackStrawPlot(PRO_sub, dims = 1:20)
+```
+
+## 单细胞聚类
+基于细胞基因表达谱的相似性,将细胞聚类成簇通常是任何单细胞分析的第一个中间结果。细胞聚类可以帮助我们推断数据集中各细胞的身份。
+
+### 聚类分簇
+表达谱的相似性采用降维之后表达空间上的欧氏距离度量。
+
+```{r FindNeighbors}
+# 使用k最近邻法来对细胞进行聚类（K-nearest neighbor (KNN) graph），具有相似基因表达模式的细胞之间绘制边,然后尝试将这张图划分为高度相互关联的“群体”
+PRO <- FindNeighbors(PRO, reduction = "pca", dims = 1:10)
+
+# 使用多分辨率模块优化算法，迭代地将细胞分组
+PRO <- FindClusters(PRO, resolution = 0.5)
+
+head(PRO@meta.data)
+levels(PRO)
+```
+
+### 单细胞聚类可视化
+Seurat提供了t-SNE和UMAP两种降维可视化算法
+
+```{r UMAP}
+# UMAP
+PRO <- RunUMAP(PRO, 
+               reduction = "pca", 
+               dims = 1:10,
+               verbose=TRUE )
+DimPlot(PRO, reduction = "umap", label=TRUE)
+head(  PRO@reductions$umap@cell.embeddings  )
+```
+
+```{r tSNE}
+# tSNE
+PRO <- RunTSNE(PRO, 
+               reduction = "pca", 
+               dims = 1:10)
+
+DimPlot(PRO, reduction = "tsne", label=TRUE)
+
+head(  Embeddings(object = PRO, reduction = "tsne")  )
+```
+
+
+```{r DimPlot_UMAP}
+DimPlot(PRO, reduction = "umap", cols=c('red','pink',3:10))
+```
+
+
+## 单细胞聚类簇类型鉴定
+在基因水平上，对每个簇的marker gene进行分析，这些marker gene代表了细胞簇的特征，可帮助定义细胞簇有生物学意义的标签。
+
+### 细胞簇差异基因分析
+
+```{r FindMarkers}
+c1_marker <- FindMarkers(PRO, 
+                         ident.1= 0 ,               
+                         min.pct= 0.1, 
+                         logfc.threshold= 0.25 )
+head(c1_marker)
+all_markers <- FindAllMarkers(PRO, 
+                              only.pos = TRUE, 
+                              min.pct= 0.1, 
+                              logfc.threshold= 0.25)
+head(all_markers)
+
+
+library(dplyr)
+top_markers <- all_markers %>% group_by( cluster) %>% top_n( n = 5, wt= avg_log2FC )
+top_markers
+```
+
+```{r DoHeatmap_topgene}
+DoHeatmap(PRO, features = top_markers$gene) + NoLegend()
+```
+
+
+
+### marker基因展示
+marker基因为已知的在特定细胞中特异性表达得基因
+marker基因收集：
+
+- 已知的数据库（CellMarker及PanglaoDB等）
+- 已发表的文献
+```{r VlnPlot_marker_genes}
+marker_genes = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A")
+VlnPlot(PRO, features =marker_genes, pt.size= 0)
+```
+
+
+
+
+```{r FeaturePlot_marker_genes}
+FeaturePlot(PRO, features = marker_genes )
+```
+
+```{r RidgePlot, message=FALSE, warning=FALSE}
+RidgePlot(PRO, features = marker_genes )
+```
+
+```{r DotPlot_marker_genes}
+DotPlot(PRO, features = marker_genes ) + theme(axis.text.x = element_text(angle = 45,hjust=1))
+```
+
+
+### 细胞类型标签注释
+根据细胞中特异性表达marker确定细胞簇类型
+```{r cluster_cell}
+cluster_cell <- c("Naive CD4 T", "Memory CD4 T", "CD14+ Mono", "B", "CD8 T", "FCGR3A+ Mono", "NK", "DC", "Platelet")
+names(cluster_cell) <- levels(PRO)
+cluster_cell
+```
+
+
+```{r DimPlot_cluster_cell}
+PRO <- RenameIdents(PRO, cluster_cell)
+DimPlot(PRO, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+```
+
+
+### 细胞类型比例可视化
+```{r barplot_freq_tab}
+# PRO@active.ident
+num_tab <- table( Idents(PRO), PRO$orig.ident )
+num_tab
+freq_tab <- prop.table(x= num_tab , margin=2)
+freq_tab
+
+barplot(height=freq_tab, width=1, xlim=c(0,5), col=c(1:10), legend= rownames(freq_tab), xlab="")
+
+# 保存分析结果为rds文件
+# saveRDS(PRO, file='PBMC_3K.rds')
+# pro <- readRDS('PBMC_3K.rds')
+```
+
+### 细胞类型marker基因展示
+```{r VlnPlot_feature}
+feature1 <- c('CD79A','MS4A1','HLA-DQA1','HLA-DQB1','CD14','VCAN','CD3D','IL7R','CLEC10A','GP9')
+# 堆叠小提琴图
+VlnPlot(PRO, features= feature1, stack = TRUE, flip = T, fill.by='ident')
+```
+```{r DotPlot_feature}
+# 气泡图
+DotPlot(object = PRO, features=feature1, cluster.idents=T) + theme(axis.text.x = element_text(angle = 45,hjust=1))
+```
+
+
+```{r DotPlot_cell_feature} 
+# 分类型气泡图
+feature2 <- list(Bcell = c("CD19","CD79A","CD79B","MS4A1"),
+                 Mono = c("CD14","VCAN","FCN1"),
+                 Tcell = c("CD3D","CD3E","CD3G","IL7R","TRAC","TRGC2","TRDC", "CD8A", "CD8B", "CD4"),
+                 DC = c("HLA-DQA1", "HLA-DQB1", "HLA-DRB3","CLEC10A","CLEC9A"),
+                 platelet = c("GP9","PF4") )
+DotPlot(object = PRO, features=feature2, cluster.idents=T) + theme(axis.text.x = element_text(angle = 45,hjust=1) )
+
+```
+
+## sessionInfo
+```{r}
+sessionInfo()
+```
