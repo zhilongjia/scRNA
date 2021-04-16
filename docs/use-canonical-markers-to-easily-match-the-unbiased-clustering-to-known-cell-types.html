@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 use canonical markers to easily match the unbiased clustering to known cell types: | Single Cell Sequencing Analysis</title>
+  <meta name="description" content="Training Class of Single Cell Sequencing Analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 use canonical markers to easily match the unbiased clustering to known cell types: | Single Cell Sequencing Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 use canonical markers to easily match the unbiased clustering to known cell types: | Single Cell Sequencing Analysis" />
+  
+  <meta name="twitter:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+<meta name="author" content="Zhilong Jia" />
+
+
+<meta name="date" content="2021-04-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pipeline.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Single Cell Sequencing Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Content</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#read-data-library-packages"><i class="fa fa-check"></i><b>2.1</b> Read data Library packages</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#dimplot-cell-or-cluster"><i class="fa fa-check"></i><b>2.2</b> DimPlot : cell or cluster</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#单细胞可视化"><i class="fa fa-check"></i><b>2.3</b> 单细胞可视化</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#dimplot1"><i class="fa fa-check"></i><b>2.4</b> dimplot1</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#比例"><i class="fa fa-check"></i><b>2.5</b> 比例</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#数据转化"><i class="fa fa-check"></i><b>2.6</b> 数据转化</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#sessioninfo"><i class="fa fa-check"></i><b>2.7</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html"><i class="fa fa-check"></i><b>3</b> A introduction to Single Cell Sequening</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-format-of-seurat"><i class="fa fa-check"></i><b>3.1</b> data format of Seurat</a></li>
+<li class="chapter" data-level="3.2" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#test-read-h5-file."><i class="fa fa-check"></i><b>3.2</b> test read h5 file.</a></li>
+<li class="chapter" data-level="3.3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#reproduce-umap-fig-1a"><i class="fa fa-check"></i><b>3.3</b> reproduce UMAP fig 1a</a></li>
+<li class="chapter" data-level="3.4" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#sessioninfo-1"><i class="fa fa-check"></i><b>3.4</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pipeline.html"><a href="pipeline.html"><i class="fa fa-check"></i><b>4</b> Pipeline</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pipeline.html"><a href="pipeline.html#数据准备"><i class="fa fa-check"></i><b>4.1</b> 数据准备</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="pipeline.html"><a href="pipeline.html#下载测试数据"><i class="fa fa-check"></i><b>4.1.1</b> 下载测试数据</a></li>
+<li class="chapter" data-level="4.1.2" data-path="pipeline.html"><a href="pipeline.html#载入表达矩阵"><i class="fa fa-check"></i><b>4.1.2</b> 载入表达矩阵</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="pipeline.html"><a href="pipeline.html#数据预处理"><i class="fa fa-check"></i><b>4.2</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pipeline.html"><a href="pipeline.html#构建seurat数据对象"><i class="fa fa-check"></i><b>4.2.1</b> 构建Seurat数据对象</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pipeline.html"><a href="pipeline.html#多个单细胞矩阵合并"><i class="fa fa-check"></i><b>4.2.2</b> 多个单细胞矩阵合并</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pipeline.html"><a href="pipeline.html#单细胞表达矩阵质控"><i class="fa fa-check"></i><b>4.2.3</b> 单细胞表达矩阵质控</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pipeline.html"><a href="pipeline.html#单细胞数据标准化和均一化"><i class="fa fa-check"></i><b>4.2.4</b> 单细胞数据标准化和均一化</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pipeline.html"><a href="pipeline.html#数据降维"><i class="fa fa-check"></i><b>4.2.5</b> 数据降维</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类"><i class="fa fa-check"></i><b>4.3</b> 单细胞聚类</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pipeline.html"><a href="pipeline.html#聚类分簇"><i class="fa fa-check"></i><b>4.3.1</b> 聚类分簇</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类可视化"><i class="fa fa-check"></i><b>4.3.2</b> 单细胞聚类可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类簇类型鉴定differential-expression-analysis"><i class="fa fa-check"></i><b>4.4</b> 单细胞聚类簇类型鉴定(Differential expression analysis)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="pipeline.html"><a href="pipeline.html#细胞簇差异基因分析"><i class="fa fa-check"></i><b>4.4.1</b> 细胞簇差异基因分析</a></li>
+<li class="chapter" data-level="4.4.2" data-path="pipeline.html"><a href="pipeline.html#marker基因展示"><i class="fa fa-check"></i><b>4.4.2</b> marker基因展示</a></li>
+<li class="chapter" data-level="4.4.3" data-path="pipeline.html"><a href="pipeline.html#细胞类型标签注释"><i class="fa fa-check"></i><b>4.4.3</b> 细胞类型标签注释</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html"><i class="fa fa-check"></i><b>5</b> use canonical markers to easily match the unbiased clustering to known cell types:</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#细胞类型比例可视化"><i class="fa fa-check"></i><b>5.0.1</b> 细胞类型比例可视化</a></li>
+<li class="chapter" data-level="5.0.2" data-path="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#细胞类型marker基因展示"><i class="fa fa-check"></i><b>5.0.2</b> 细胞类型marker基因展示</a></li>
+<li class="chapter" data-level="5.1" data-path="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#sessioninfo-2"><i class="fa fa-check"></i><b>5.1</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single Cell Sequencing Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> use canonical markers to easily match the unbiased clustering to known cell types:</h1>
+<div class="figure">
+<img src="%22./figure/cell_biomarker.png" alt="" />
+<p class="caption">cell_biomarker</p>
+</div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb144-1" aria-hidden="true" tabindex="-1"></a>cluster_cell <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Naive CD4 T&quot;</span>, <span class="st">&quot;Memory CD4 T&quot;</span>, <span class="st">&quot;CD14+ Mono&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;CD8 T&quot;</span>, <span class="st">&quot;FCGR3A+ Mono&quot;</span>, <span class="st">&quot;NK&quot;</span>, <span class="st">&quot;DC&quot;</span>, <span class="st">&quot;Platelet&quot;</span>)</span>
+<span id="cb144-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cluster_cell) <span class="ot">&lt;-</span> <span class="fu">levels</span>(PRO)</span>
+<span id="cb144-3"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb144-3" aria-hidden="true" tabindex="-1"></a>cluster_cell</span></code></pre></div>
+<pre><code>##              0              1              2              3              4 
+##  &quot;Naive CD4 T&quot; &quot;Memory CD4 T&quot;   &quot;CD14+ Mono&quot;            &quot;B&quot;        &quot;CD8 T&quot; 
+##              5              6              7              8 
+## &quot;FCGR3A+ Mono&quot;           &quot;NK&quot;           &quot;DC&quot;     &quot;Platelet&quot;</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb146-1" aria-hidden="true" tabindex="-1"></a>PRO <span class="ot">&lt;-</span> <span class="fu">RenameIdents</span>(PRO, cluster_cell)</span>
+<span id="cb146-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(PRO, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">pt.size =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/DimPlot_cluster_cell-1.png" width="672" /></p>
+<div id="细胞类型比例可视化" class="section level3" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> 细胞类型比例可视化</h3>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PRO@active.ident</span></span>
+<span id="cb147-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb147-2" aria-hidden="true" tabindex="-1"></a>num_tab <span class="ot">&lt;-</span> <span class="fu">table</span>( <span class="fu">Idents</span>(PRO), PRO<span class="sc">$</span>orig.ident )</span>
+<span id="cb147-3"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb147-3" aria-hidden="true" tabindex="-1"></a>num_tab</span></code></pre></div>
+<pre><code>##               
+##                PBMC
+##   Naive CD4 T   686
+##   Memory CD4 T  479
+##   CD14+ Mono    455
+##   B             344
+##   CD8 T         325
+##   FCGR3A+ Mono  160
+##   NK            140
+##   DC             35
+##   Platelet       14</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb149-1" aria-hidden="true" tabindex="-1"></a>freq_tab <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="at">x=</span> num_tab , <span class="at">margin=</span><span class="dv">2</span>)</span>
+<span id="cb149-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb149-2" aria-hidden="true" tabindex="-1"></a>freq_tab</span></code></pre></div>
+<pre><code>##               
+##                       PBMC
+##   Naive CD4 T  0.260045489
+##   Memory CD4 T 0.181576952
+##   CD14+ Mono   0.172479151
+##   B            0.130401820
+##   CD8 T        0.123199393
+##   FCGR3A+ Mono 0.060652009
+##   NK           0.053070508
+##   DC           0.013267627
+##   Platelet     0.005307051</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height=</span>freq_tab, <span class="at">width=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">legend=</span> <span class="fu">rownames</span>(freq_tab), <span class="at">xlab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/barplot_freq_tab-1.png" width="672" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存分析结果为rds文件</span></span>
+<span id="cb152-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(PRO, file=&#39;PBMC_3K.rds&#39;)</span></span>
+<span id="cb152-3"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pro &lt;- readRDS(&#39;PBMC_3K.rds&#39;)</span></span></code></pre></div>
+</div>
+<div id="细胞类型marker基因展示" class="section level3" number="5.0.2">
+<h3><span class="header-section-number">5.0.2</span> 细胞类型marker基因展示</h3>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb153-1" aria-hidden="true" tabindex="-1"></a>feature1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;CD79A&#39;</span>,<span class="st">&#39;MS4A1&#39;</span>,<span class="st">&#39;HLA-DQA1&#39;</span>,<span class="st">&#39;HLA-DQB1&#39;</span>,<span class="st">&#39;CD14&#39;</span>,<span class="st">&#39;VCAN&#39;</span>,<span class="st">&#39;CD3D&#39;</span>,<span class="st">&#39;IL7R&#39;</span>,<span class="st">&#39;CLEC10A&#39;</span>,<span class="st">&#39;GP9&#39;</span>)</span>
+<span id="cb153-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 堆叠小提琴图</span></span>
+<span id="cb153-3"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(PRO, <span class="at">features=</span> feature1, <span class="at">stack =</span> <span class="cn">TRUE</span>, <span class="at">flip =</span> T, <span class="at">fill.by=</span><span class="st">&#39;ident&#39;</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/VlnPlot_feature-1.png" width="672" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 气泡图</span></span>
+<span id="cb154-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(<span class="at">object =</span> PRO, <span class="at">features=</span>feature1, <span class="at">cluster.idents=</span>T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/DotPlot_feature-1.png" width="672" /></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 分类型气泡图</span></span>
+<span id="cb155-2"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-2" aria-hidden="true" tabindex="-1"></a>feature2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Bcell =</span> <span class="fu">c</span>(<span class="st">&quot;CD19&quot;</span>,<span class="st">&quot;CD79A&quot;</span>,<span class="st">&quot;CD79B&quot;</span>,<span class="st">&quot;MS4A1&quot;</span>),</span>
+<span id="cb155-3"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Mono =</span> <span class="fu">c</span>(<span class="st">&quot;CD14&quot;</span>,<span class="st">&quot;VCAN&quot;</span>,<span class="st">&quot;FCN1&quot;</span>),</span>
+<span id="cb155-4"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Tcell =</span> <span class="fu">c</span>(<span class="st">&quot;CD3D&quot;</span>,<span class="st">&quot;CD3E&quot;</span>,<span class="st">&quot;CD3G&quot;</span>,<span class="st">&quot;IL7R&quot;</span>,<span class="st">&quot;TRAC&quot;</span>,<span class="st">&quot;TRGC2&quot;</span>,<span class="st">&quot;TRDC&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, <span class="st">&quot;CD8B&quot;</span>, <span class="st">&quot;CD4&quot;</span>),</span>
+<span id="cb155-5"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">DC =</span> <span class="fu">c</span>(<span class="st">&quot;HLA-DQA1&quot;</span>, <span class="st">&quot;HLA-DQB1&quot;</span>, <span class="st">&quot;HLA-DRB3&quot;</span>,<span class="st">&quot;CLEC10A&quot;</span>,<span class="st">&quot;CLEC9A&quot;</span>),</span>
+<span id="cb155-6"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">platelet =</span> <span class="fu">c</span>(<span class="st">&quot;GP9&quot;</span>,<span class="st">&quot;PF4&quot;</span>) )</span>
+<span id="cb155-7"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb155-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(<span class="at">object =</span> PRO, <span class="at">features=</span>feature2, <span class="at">cluster.idents=</span>T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>) )</span></code></pre></div>
+<pre><code>## Warning in FetchData(object = object, vars = features, cells = cells): The
+## following requested variables were not found: TRAC, TRGC2, TRDC, HLA-DRB3</code></pre>
+<p><img src="Single_cell_training_files/figure-html/DotPlot_cell_feature-1.png" width="672" /></p>
+</div>
+<div id="sessioninfo-2" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> sessionInfo</h2>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="use-canonical-markers-to-easily-match-the-unbiased-clustering-to-known-cell-types.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.4 (2021-02-15)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.10
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] forcats_0.5.1           stringr_1.4.0           dplyr_1.0.5            
+##  [4] purrr_0.3.4             readr_1.4.0             tidyr_1.1.3            
+##  [7] tibble_3.1.0            ggplot2_3.3.3           tidyverse_1.3.0        
+## [10] pbmc3k.SeuratData_3.1.4 SeuratData_0.2.1        SeuratObject_4.0.0     
+## [13] Seurat_4.0.1           
+## 
+## loaded via a namespace (and not attached):
+##   [1] readxl_1.3.1          backports_1.2.1       plyr_1.8.6           
+##   [4] igraph_1.2.6          lazyeval_0.2.2        splines_4.0.4        
+##   [7] listenv_0.8.0         scattermore_0.7       digest_0.6.27        
+##  [10] htmltools_0.5.1.1     fansi_0.4.2           magrittr_2.0.1       
+##  [13] tensor_1.5            cluster_2.1.1         ROCR_1.0-11          
+##  [16] limma_3.46.0          globals_0.14.0        modelr_0.1.8         
+##  [19] matrixStats_0.58.0    spatstat.sparse_2.0-0 colorspace_2.0-0     
+##  [22] rvest_1.0.0           rappdirs_0.3.3        ggrepel_0.9.1        
+##  [25] haven_2.3.1           xfun_0.22             crayon_1.4.1         
+##  [28] jsonlite_1.7.2        spatstat.data_2.0-0   survival_3.2-10      
+##  [31] zoo_1.8-9             glue_1.4.2            polyclip_1.10-0      
+##  [34] gtable_0.3.0          leiden_0.3.7          future.apply_1.7.0   
+##  [37] abind_1.4-5           scales_1.1.1          DBI_1.1.1            
+##  [40] miniUI_0.1.1.1        Rcpp_1.0.6            viridisLite_0.3.0    
+##  [43] xtable_1.8-4          reticulate_1.18       spatstat.core_1.65-5 
+##  [46] bit_4.0.4             htmlwidgets_1.5.3     httr_1.4.2           
+##  [49] RColorBrewer_1.1-2    ellipsis_0.3.1        ica_1.0-2            
+##  [52] pkgconfig_2.0.3       farver_2.1.0          sass_0.3.1           
+##  [55] uwot_0.1.10           dbplyr_2.1.0          deldir_0.2-10        
+##  [58] utf8_1.2.1            tidyselect_1.1.0      labeling_0.4.2       
+##  [61] rlang_0.4.10          reshape2_1.4.4        later_1.1.0.1        
+##  [64] munsell_0.5.0         cellranger_1.1.0      tools_4.0.4          
+##  [67] cli_2.3.1             generics_0.1.0        broom_0.7.5          
+##  [70] ggridges_0.5.3        evaluate_0.14         fastmap_1.1.0        
+##  [73] yaml_2.2.1            goftest_1.2-2         bit64_4.0.5          
+##  [76] knitr_1.31            fs_1.5.0              fitdistrplus_1.1-3   
+##  [79] RANN_2.6.1            pbapply_1.4-3         future_1.21.0        
+##  [82] nlme_3.1-152          mime_0.10             xml2_1.3.2           
+##  [85] hdf5r_1.3.3           compiler_4.0.4        rstudioapi_0.13      
+##  [88] plotly_4.9.3          png_0.1-7             spatstat.utils_2.1-0 
+##  [91] reprex_1.0.0          bslib_0.2.4           stringi_1.5.3        
+##  [94] highr_0.8             RSpectra_0.16-0       lattice_0.20-41      
+##  [97] Matrix_1.3-2          vctrs_0.3.6           pillar_1.5.1         
+## [100] lifecycle_1.0.0       spatstat.geom_1.65-5  lmtest_0.9-38        
+## [103] jquerylib_0.1.3       RcppAnnoy_0.0.18      data.table_1.14.0    
+## [106] cowplot_1.1.1         irlba_2.3.3           httpuv_1.5.5         
+## [109] patchwork_1.1.1       R6_2.5.0              bookdown_0.21        
+## [112] promises_1.2.0.1      KernSmooth_2.23-17    gridExtra_2.3        
+## [115] parallelly_1.24.0     codetools_0.2-17      MASS_7.3-53.1        
+## [118] assertthat_0.2.1      withr_2.4.1           sctransform_0.3.2    
+## [121] mgcv_1.8-33           parallel_4.0.4        hms_1.0.0            
+## [124] grid_4.0.4            rpart_4.1-15          rmarkdown_2.7        
+## [127] Rtsne_0.15            shiny_1.6.0           lubridate_1.7.10</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pipeline.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Single_cell_training.pdf", "Single_cell_training.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

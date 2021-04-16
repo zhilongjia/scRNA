@@ -9,6 +9,8 @@ dimplot1
 sessioninfo
 a-introduction-to-single-cell-sequening
 data-format-of-seurat
+data-access
+methods
 test-read-h5-file.
 reproduce-umap-fig-1a
 sessioninfo-1
@@ -26,7 +28,6 @@ pipeline
 低质量细胞过滤
 单细胞数据标准化和均一化
 数据标准化
-数据归一化
 筛选高变基因
 数据降维
 pca降维
@@ -34,7 +35,7 @@ pca降维
 单细胞聚类
 聚类分簇
 单细胞聚类可视化
-单细胞聚类簇类型鉴定
+单细胞聚类簇类型鉴定differential-expression-analysis
 细胞簇差异基因分析
 marker基因展示
 细胞类型标签注释

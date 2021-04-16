@@ -24,7 +24,7 @@
 <meta name="author" content="Zhilong Jia" />
 
 
-<meta name="date" content="2021-04-15" />
+<meta name="date" content="2021-04-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -148,9 +148,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html"><i class="fa fa-check"></i><b>3</b> A introduction to Single Cell Sequening</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-format-of-seurat"><i class="fa fa-check"></i><b>3.1</b> data format of Seurat</a></li>
-<li class="chapter" data-level="3.2" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#test-read-h5-file."><i class="fa fa-check"></i><b>3.2</b> test read h5 file.</a></li>
-<li class="chapter" data-level="3.3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#reproduce-umap-fig-1a"><i class="fa fa-check"></i><b>3.3</b> reproduce UMAP fig 1a</a></li>
-<li class="chapter" data-level="3.4" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#sessioninfo-1"><i class="fa fa-check"></i><b>3.4</b> sessionInfo</a></li>
+<li class="chapter" data-level="3.2" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-access"><i class="fa fa-check"></i><b>3.2</b> Data Access</a></li>
+<li class="chapter" data-level="3.3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#methods"><i class="fa fa-check"></i><b>3.3</b> Methods</a></li>
+<li class="chapter" data-level="3.4" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#test-read-h5-file."><i class="fa fa-check"></i><b>3.4</b> test read h5 file.</a></li>
+<li class="chapter" data-level="3.5" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#reproduce-umap-fig-1a"><i class="fa fa-check"></i><b>3.5</b> reproduce UMAP fig 1a</a></li>
+<li class="chapter" data-level="3.6" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#sessioninfo-1"><i class="fa fa-check"></i><b>3.6</b> sessionInfo</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="pipeline.html"><a href="pipeline.html"><i class="fa fa-check"></i><b>4</b> Pipeline</a>
 <ul>
@@ -172,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.1" data-path="pipeline.html"><a href="pipeline.html#聚类分簇"><i class="fa fa-check"></i><b>4.3.1</b> 聚类分簇</a></li>
 <li class="chapter" data-level="4.3.2" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类可视化"><i class="fa fa-check"></i><b>4.3.2</b> 单细胞聚类可视化</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类簇类型鉴定"><i class="fa fa-check"></i><b>4.4</b> 单细胞聚类簇类型鉴定</a>
+<li class="chapter" data-level="4.4" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类簇类型鉴定differential-expression-analysis"><i class="fa fa-check"></i><b>4.4</b> 单细胞聚类簇类型鉴定(Differential expression analysis)</a>
 <ul>
 <li class="chapter" data-level="4.4.1" data-path="pipeline.html"><a href="pipeline.html#细胞簇差异基因分析"><i class="fa fa-check"></i><b>4.4.1</b> 细胞簇差异基因分析</a></li>
 <li class="chapter" data-level="4.4.2" data-path="pipeline.html"><a href="pipeline.html#marker基因展示"><i class="fa fa-check"></i><b>4.4.2</b> marker基因展示</a></li>
@@ -209,38 +211,92 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Seurat：SeuratObject格式</li>
 <li>scanpy：AnnData格式</li>
 </ul>
-<p>ref: <a href="https://www.jianshu.com/p/50e289a694d2" class="uri">https://www.jianshu.com/p/50e289a694d2</a></p>
+<p>ref:</p>
+<ul>
+<li><a href="https://github.com/satijalab/seurat/wiki/Seurat" class="uri">https://github.com/satijalab/seurat/wiki/Seurat</a></li>
+<li><a href="https://www.jianshu.com/p/50e289a694d2" class="uri">https://www.jianshu.com/p/50e289a694d2</a></li>
+</ul>
 <div class="figure">
 <img src="figure/Seurat%E5%AF%B9%E8%B1%A1.png" alt="" />
 <p class="caption">Seurat对象</p>
 </div>
+</div>
+<div id="data-access" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Data Access</h2>
+<p>Summary information about Seurat objects can be had quickly and easily using standard R functions. Object shape/dimensions can be found using the <code>dim</code>, <code>ncol</code>, and <code>nrow</code> functions; cell and feature names can be found using the <code>colnames</code> and <code>rownames</code> functions, respectively, or the <code>dimnames</code> function. A vector of names of Assay, DimReduc, and Graph objects contained in a Seurat object can be had by using <code>names</code>.</p>
+<p>Pulling specific Assay, DimReduc, or Graph objects can be done with the double <code>[[</code> extract operator. Adding new objects to a Seurat object is also done with the double <code>[[</code> extract operator; Seurat will figure out where in the Seurat object a new associated object belongs.</p>
+<p>Accessing data from an Seurat object is done with the <code>GetAssayData</code> function. Adding expression data to either the counts, data, or scale.data slots can be done with <code>SetAssayData</code>. New data must have the same cells in the same order as the current expression data. Data added to counts or data must have the same features as the current expression data.</p>
+<p>Cell-level meta data can be accessed with the single <code>[[</code> extract operator or using the <code>$</code> sigil. Pulling with the <code>$</code> sigil means only one bit of meta data can be pulled at a time, though tab-autocompletion has been enabled for it, making it ideal for interactive use. Adding cell-level meta data can be set using the single <code>[[</code> extract operator as well, or by using AddMetaData.</p>
+<p>The <code>HVFInfo</code> function pulls feature mean and dispersion from an Assay object. The vector of variable features can be pulled with the <code>VariableFeatures</code> function. <code>VariableFeatures</code> can also set the vector of variable features.</p>
+<p>A vector of standard deviations for a DimReduc stored within the Seurat object can be found with <code>Stdev</code>.</p>
+</div>
+<div id="methods" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Methods</h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="a-introduction-to-single-cell-sequening.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb28-2"><a href="a-introduction-to-single-cell-sequening.html#cb28-2" aria-hidden="true" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;Seurat&#39;</span>)</span></code></pre></div>
+<pre><code>##  [1] [                             [[                           
+##  [3] [[&lt;-                          $                            
+##  [5] $&lt;-                           AddMetaData                  
+##  [7] as.CellDataSet                as.SingleCellExperiment      
+##  [9] colMeans                      colSums                      
+## [11] Command                       DefaultAssay                 
+## [13] DefaultAssay&lt;-                dim                          
+## [15] dimnames                      droplevels                   
+## [17] Embeddings                    FindClusters                 
+## [19] FindMarkers                   FindNeighbors                
+## [21] FindSpatiallyVariableFeatures FindVariableFeatures         
+## [23] FoldChange                    GetAssay                     
+## [25] GetAssayData                  GetImage                     
+## [27] GetTissueCoordinates          HVFInfo                      
+## [29] Idents                        Idents&lt;-                     
+## [31] Key                           levels                       
+## [33] levels&lt;-                      Loadings                     
+## [35] merge                         Misc                         
+## [37] Misc&lt;-                        names                        
+## [39] NormalizeData                 Project                      
+## [41] Project&lt;-                     ProjectUMAP                  
+## [43] RenameCells                   RenameIdents                 
+## [45] ReorderIdent                  rowMeans                     
+## [47] rowSums                       RunCCA                       
+## [49] RunICA                        RunLDA                       
+## [51] RunPCA                        RunSPCA                      
+## [53] RunTSNE                       RunUMAP                      
+## [55] ScaleData                     ScoreJackStraw               
+## [57] SCTResults                    SetAssayData                 
+## [59] SetIdent                      show                         
+## [61] SpatiallyVariableFeatures     StashIdent                   
+## [63] Stdev                         subset                       
+## [65] SVFInfo                       Tool                         
+## [67] Tool&lt;-                        VariableFeatures             
+## [69] VariableFeatures&lt;-            WhichCells                   
+## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <div class="figure">
 <img src="figure/%E5%8D%95%E7%BB%86%E8%83%9E%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.png" alt="" />
 <p class="caption">单细胞分析流程</p>
 </div>
 </div>
-<div id="test-read-h5-file." class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> test read h5 file.</h2>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="a-introduction-to-single-cell-sequening.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;Seurat&quot;</span>)</span>
-<span id="cb28-2"><a href="a-introduction-to-single-cell-sequening.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="a-introduction-to-single-cell-sequening.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="a-introduction-to-single-cell-sequening.html#cb28-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">Read10X_h5</span>(<span class="st">&quot;../covid_balf/GSM4339769_C141_filtered_feature_bc_matrix.h5&quot;</span>)</span></code></pre></div>
+<div id="test-read-h5-file." class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> test read h5 file.</h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="a-introduction-to-single-cell-sequening.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;Seurat&quot;</span>)</span>
+<span id="cb30-2"><a href="a-introduction-to-single-cell-sequening.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="a-introduction-to-single-cell-sequening.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="a-introduction-to-single-cell-sequening.html#cb30-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">Read10X_h5</span>(<span class="st">&quot;../covid_balf/GSM4339769_C141_filtered_feature_bc_matrix.h5&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in sparseMatrix(i = indices[] + 1, p = indptr[], x = as.numeric(x =
 ## counts[]), : &#39;giveCsparse&#39; has been deprecated; setting &#39;repr = &quot;T&quot;&#39; for you</code></pre>
 </div>
-<div id="reproduce-umap-fig-1a" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> reproduce UMAP fig 1a</h2>
+<div id="reproduce-umap-fig-1a" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> reproduce UMAP fig 1a</h2>
 <p>paper “Single-cell landscape of bronchoalveolar immune cells in patients with COVID-19”</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="a-introduction-to-single-cell-sequening.html#cb30-1" aria-hidden="true" tabindex="-1"></a>bm <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;../covid_balf/nCoV.rds&quot;</span>)</span>
-<span id="cb30-2"><a href="a-introduction-to-single-cell-sequening.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="a-introduction-to-single-cell-sequening.html#cb30-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(bm, <span class="at">reduction=</span><span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span>
-<span id="cb30-4"><a href="a-introduction-to-single-cell-sequening.html#cb30-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(bm, <span class="at">group.by =</span> <span class="st">&#39;group&#39;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">2.5</span>)</span>
-<span id="cb30-5"><a href="a-introduction-to-single-cell-sequening.html#cb30-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
-<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="a-introduction-to-single-cell-sequening.html#cb32-1" aria-hidden="true" tabindex="-1"></a>bm <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;../covid_balf/nCoV.rds&quot;</span>)</span>
+<span id="cb32-2"><a href="a-introduction-to-single-cell-sequening.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="a-introduction-to-single-cell-sequening.html#cb32-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(bm, <span class="at">reduction=</span><span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span>
+<span id="cb32-4"><a href="a-introduction-to-single-cell-sequening.html#cb32-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(bm, <span class="at">group.by =</span> <span class="st">&#39;group&#39;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">label.size =</span> <span class="fl">2.5</span>)</span>
+<span id="cb32-5"><a href="a-introduction-to-single-cell-sequening.html#cb32-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
-<div id="sessioninfo-1" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> sessionInfo</h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="a-introduction-to-single-cell-sequening.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div id="sessioninfo-1" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> sessionInfo</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="a-introduction-to-single-cell-sequening.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.4 (2021-02-15)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.10

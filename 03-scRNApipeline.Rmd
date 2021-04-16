@@ -1,11 +1,8 @@
---- 
-date: "`r Sys.Date()`"
----
-
 
 
 # Pipeline
 本次课程主要以测试数据为例，实际展示和操作基于Seurat的单细胞测序数据的基本分析流程。
+REF: https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
 
 ## 数据准备
 
@@ -28,6 +25,12 @@ mat <- Read10X(dir_10x)
 
 # mat <- read.table('../pbmc3k_filtered_gene_bc_matrices/filtered_gene_bc_matrices/SingleCell_matrix.tsv', header=T, row.names=1, sep='\t', check.names=F )
 mat[1:5, 1:3]
+
+#sparse-matrix saves memory and speed.
+dense.size <- object.size(as.matrix(mat))
+dense.size
+sparse.size <- object.size(mat)
+sparse.size
 ```
 
 ## 数据预处理
@@ -61,20 +64,20 @@ head(PRO@meta.data)
 ```{r merge, warning=FALSE}
 # Only for test.
 # paths = c(path1, path2, path3, ... )
-mats = c(dir_10x, dir_10x, dir_10x)
-sc_list <- list()
-for ( i in 1:length(mats) ){
-  name <- paste0('sample_',i)
-  mat_i <- Read10X( mats[i] )
-  PRO_i <- CreateSeuratObject(mat_i, project= name, min.cells = 5, min.features = 200 )
-  PRO_i <- RenameCells(PRO_i, add.cell.id= name )
-  sc_list <- c(sc_list, PRO_i)
-}
-sc_list
-
-PRO_merge <- Reduce(merge, sc_list)
-PRO_merge
-rm(list=c('PRO_merge','sc_list','PRO_i','mat_i','mat'))
+# mats = c(dir_10x, dir_10x, dir_10x)
+# sc_list <- list()
+# for ( i in 1:length(mats) ){
+#   name <- paste0('sample_',i)
+#   mat_i <- Read10X( mats[i] )
+#   PRO_i <- CreateSeuratObject(mat_i, project= name, min.cells = 5, min.features = 200 )
+#   PRO_i <- RenameCells(PRO_i, add.cell.id= name )
+#   sc_list <- c(sc_list, PRO_i)
+# }
+# sc_list
+# 
+# PRO_merge <- Reduce(merge, sc_list)
+# PRO_merge
+# rm(list=c('PRO_merge','sc_list','PRO_i','mat_i','mat'))
 ```
 
 
@@ -101,11 +104,21 @@ VlnPlot(PRO, features=c('nCount_RNA','nFeature_RNA') , pt.size=0.1 )
 #### 单个细胞线粒体基因和核糖体基因含量统计
 ```{r percent.mt}
 ## 在人类基因组中，线粒体基因命名规则是以"MT-"为开头
-mt.genes <- rownames(PRO)[grep("^MT-",rownames(PRO), ignore.case = TRUE)]
-PRO$percent.mt <- PercentageFeatureSet(PRO, features = mt.genes )
+# mt.genes <- rownames(PRO)[grep("^MT-",rownames(PRO), ignore.case = TRUE)]
+# PRO$percent.mt <- PercentageFeatureSet(PRO, features = mt.genes )
+
+# The [[ operator can add columns to object metadata. This is a great place to stash QC stats
+PRO[["percent.mt"]] <- PercentageFeatureSet(PRO, pattern = "^MT-")
+
+head(PRO@meta.data, 5)
+
 ## 统计核糖体基因含量，同样需要知道核糖体基因的名字规则"RPS"或"RPL"
 rb.genes <- rownames(PRO)[grep("^RP[SL]",rownames(PRO), ignore.case = TRUE)]
 PRO$percent.rb <- PercentageFeatureSet(PRO, features = rb.genes )
+
+PRO[["percent.rb"]] <- PercentageFeatureSet(PRO, pattern = "^RP[SL]")
+
+
 head(PRO@meta.data)
 VlnPlot(PRO, features=c('percent.mt','percent.rb') , pt.size=0.1 )
 ```
@@ -121,12 +134,12 @@ p1 + p2
 基于上面的单细胞质量可视化结果，当存在质量较差的细胞时，为避免低质量细胞对下游分析的影响，需要在表达矩阵中去除这些细胞
 使用subset函数用于seurat对象过滤.
 ```{r subset_filter}
-PRO0 <- subset(PRO, subset= nCount_RNA> 300 & 
+PRO <- subset(PRO, subset= nCount_RNA> 300 & 
                       nCount_RNA< 10000 & 
                       nFeature_RNA> 200 & 
                       nFeature_RNA< 2500 & 
                       percent.mt< 5 )
-PRO0
+PRO
 ```
 
 也可根据细胞表达count百分位数，feature百分位数进行过滤
@@ -165,36 +178,10 @@ Seurat默认的标准化方法为 LogNormalize ：
 ```{r NormalizeData}
 ## 默认标准化算法： 
 ## LogNormalize: Feature counts for each cell are divided by the total counts for that cell and multiplied by the scale.factor 10000. This is then natural-log transformed using log1p
-PRO_norm <- NormalizeData(object=PRO, 
+PRO <- NormalizeData(object=PRO, 
                      normalization.method= 'LogNormalize', 
                      scale.factor=10000 )
 PRO@assays$RNA@data[40:45,30:32]
-PRO_norm@assays$RNA@data[40:45,30:32]
-```
-
-#### 数据归一化
-对表达矩阵进行scale处理，scale之后的矩阵每个基因表达均值为0
-经过scale之后，所有基因的表达分布基本一致，有助于后续的降维聚类
-```{r ScaleData}
-all.genes <- rownames(PRO_norm)
-
-# the results will be PRO@assays$RNA@scale.data
-PRO <- ScaleData(PRO_norm, features = all.genes)
-
-PRO@assays$RNA@scale.data[40:45,30:32]
-```
-
-移除细胞周期等影响因素
-```{r CellCycleScoring}
-s.genes <- cc.genes$s.genes
-g2m.genes <- cc.genes$g2m.genes
-PRO <- CellCycleScoring(PRO, 
-                        s.features = s.genes, 
-                        g2m.features = g2m.genes )
-head(PRO@meta.data)
-
-# check vars.to.regress
-PRO_cc <- ScaleData(PRO, features = all.genes[1:1000], vars.to.regress = c("S.Score", "G2M.Score") ) ## 耗时较长, 只用了1000个基因用于展示
 ```
 
 #### 筛选高变基因
@@ -215,6 +202,37 @@ head(VariableFeatures(PRO))
 
 LabelPoints(VariableFeaturePlot(PRO), points = head(VariableFeatures(PRO),10) , repel=TRUE)
 ```
+#### 数据归一化
+对表达矩阵进行scale处理，scale之后的矩阵每个基因表达均值为0
+经过scale之后，所有基因的表达分布基本一致，有助于后续的降维聚类
+
+ScaleData use 2000 HVG default, if not defined by features. 
+
+Your PCA and clustering results will be unaffected. However, Seurat heatmaps (produced as shown below with `DoHeatmap()`) require genes in the heatmap to be scaled, to make sure highly-expressed genes don’t dominate the heatmap. To make sure we don’t leave any genes out of the heatmap later, we are scaling all genes in this tutorial.
+
+```{r ScaleData}
+all.genes <- rownames(PRO)
+PRO <- ScaleData(PRO, features = all.genes)
+
+# the results will be PRO@assays$RNA@scale.data
+# the default in ScaleData() is only to perform scaling on the previously identified variable features (2,000 by default). 
+# PRO <- ScaleData(PRO)
+
+PRO@assays$RNA@scale.data[40:45,30:32]
+```
+
+移除细胞周期等影响因素
+```{r CellCycleScoring}
+# s.genes <- cc.genes$s.genes
+# g2m.genes <- cc.genes$g2m.genes
+# PRO <- CellCycleScoring(PRO, 
+#                         s.features = s.genes, 
+#                         g2m.features = g2m.genes )
+# head(PRO@meta.data)
+# 
+# # check vars.to.regress
+# PRO_cc <- ScaleData(PRO, features = all.genes[1:1000], vars.to.regress = c("S.Score", "G2M.Score") ) ## 耗时较长, 只用了1000个基因用于展示
+```
 
 
 
@@ -222,15 +240,19 @@ LabelPoints(VariableFeaturePlot(PRO), points = head(VariableFeatures(PRO),10) , 
 降维是通过算法最优地保留原始数据的一些关键属性来将数据投影到更低的维度空间中，便于可视化和后续分析
 
 #### PCA降维
+Seurat provides several useful ways of visualizing both cells and features that define the PCA, including `VizDimReduction()`, `DimPlot()`, and `DimHeatmap()`
 ```{r RunPCA}
 hvg <- VariableFeatures(object = PRO)
 PRO <- RunPCA(PRO, features = hvg )
 # print(PRO@reductions$pca)
+
+print(PRO[["pca"]], dims = 1:3, nfeatures = 5)
+
 VizDimLoadings(PRO, dims = 1:2, reduction = "pca")
 ```
 
 
-
+In particular `DimHeatmap()` allows for easy exploration of the primary sources of heterogeneity in a dataset, and can be useful when trying to decide which PCs to include for further downstream analyses. Both cells and features are ordered according to their PCA scores. Setting cells to a number plots the ‘extreme’ cells on both ends of the spectrum, which dramatically speeds plotting for large datasets. Though clearly a supervised analysis, we find this to be a valuable tool for exploring correlated feature sets.
 ```{r DimHeatmap_PCA}
 DimHeatmap(PRO, dims = 1:6, cells = 500, balanced = TRUE)
 ```
@@ -240,7 +262,13 @@ DimPlot(PRO, reduction = "pca")
 ```
 
 #### 选择维度
-维度的选择标准是再保证足够的信息同时减少噪音
+维度的选择标准是再保证足够的信息同时减少噪音.
+
+* Dendritic cell and NK aficionados may recognize that genes strongly associated with PCs 12 and 13 define rare immune subsets (i.e. MZB1 is a marker for plasmacytoid DCs). However, these groups are so rare, they are difficult to distinguish from background noise for a dataset of this size without prior knowledge.
+* We encourage users to repeat downstream analyses with a different number of PCs (10, 15, or even 50!). As you will observe, the results often do not differ dramatically.
+* We advise users to err on the higher side when choosing this parameter. For example, performing downstream analyses with only 5 PCs does significantly and adversely affect results.
+
+an ‘Elbow plot’: a ranking of principle components based on the percentage of variance explained by each one
 ```{r ElbowPlot}
 ElbowPlot(PRO)
 
@@ -270,6 +298,8 @@ PRO <- FindClusters(PRO, resolution = 0.5)
 
 head(PRO@meta.data)
 levels(PRO)
+
+head(Idents(PRO), 5)
 ```
 
 ### 单细胞聚类可视化
@@ -302,17 +332,25 @@ DimPlot(PRO, reduction = "umap", cols=c('red','pink',3:10))
 ```
 
 
-## 单细胞聚类簇类型鉴定
+## 单细胞聚类簇类型鉴定(Differential expression analysis)
 在基因水平上，对每个簇的marker gene进行分析，这些marker gene代表了细胞簇的特征，可帮助定义细胞簇有生物学意义的标签。
 
 ### 细胞簇差异基因分析
 
 ```{r FindMarkers}
+# min.pct: a feature to be detected at a minimum percentage in either of the two groups of cells
+# cluster 0. check levels(PRO)
 c1_marker <- FindMarkers(PRO, 
                          ident.1= 0 ,               
                          min.pct= 0.1, 
                          logfc.threshold= 0.25 )
 head(c1_marker)
+
+# find all markers distinguishing cluster 5 from clusters 0 and 3
+cluster5.markers <- FindMarkers(PRO, ident.1 = 5, ident.2 = c(0, 3), min.pct = 0.25)
+head(cluster5.markers, n = 5)
+
+# find markers for every cluster compared to all remaining cells, report only the positive ones
 all_markers <- FindAllMarkers(PRO, 
                               only.pos = TRUE, 
                               min.pct= 0.1, 
@@ -323,6 +361,10 @@ head(all_markers)
 library(dplyr)
 top_markers <- all_markers %>% group_by( cluster) %>% top_n( n = 5, wt= avg_log2FC )
 top_markers
+
+# Seurat has several tests for differential expression which can be set with the test.use parameter
+
+cluster0.markers <- FindMarkers(PRO, ident.1 = 0, logfc.threshold = 0.25, test.use = "roc", only.pos = TRUE)
 ```
 
 ```{r DoHeatmap_topgene}
@@ -338,15 +380,27 @@ marker基因收集：
 - 已知的数据库（CellMarker及PanglaoDB等）
 - 已发表的文献
 ```{r VlnPlot_marker_genes}
-marker_genes = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A")
+# marker_genes = c("MS4A1", "GNLY", "CD3E", "CD14", "FCER1A", "FCGR3A", "LYZ", "PPBP", "CD8A")
+marker_genes = c("MS4A1", "GNLY", "CD3E")
 VlnPlot(PRO, features =marker_genes, pt.size= 0)
+# plot raw counts as well
+VlnPlot(PRO, features =marker_genes, pt.size= 0, slot = "counts", log = TRUE)
+
 ```
 
 
-
+* `VlnPlot()` (shows expression probability distributions across clusters), and 
+* `FeaturePlot()` (visualizes feature expression on a tSNE or PCA plot) are our most commonly used visualizations. 
+* `DoHeatmap()` generates an expression heatmap for given cells and features.
+* `RidgePlot()`, `CellScatter()`, and `DotPlot()` as additional methods to view your dataset.
 
 ```{r FeaturePlot_marker_genes}
 FeaturePlot(PRO, features = marker_genes )
+```
+
+```{r DoHeatmap_top10gene}
+top10 <- all_markers %>% group_by(cluster) %>% top_n(n = 10, wt = avg_log2FC)
+DoHeatmap(PRO, features = top10$gene) + NoLegend()
 ```
 
 ```{r RidgePlot, message=FALSE, warning=FALSE}
@@ -360,7 +414,12 @@ DotPlot(PRO, features = marker_genes ) + theme(axis.text.x = element_text(angle 
 
 ### 细胞类型标签注释
 根据细胞中特异性表达marker确定细胞簇类型
+
+use canonical markers to easily match the unbiased clustering to known cell types:
+![cell_biomarker](./figure/cell_biomarker.png)
+
 ```{r cluster_cell}
+
 cluster_cell <- c("Naive CD4 T", "Memory CD4 T", "CD14+ Mono", "B", "CD8 T", "FCGR3A+ Mono", "NK", "DC", "Platelet")
 names(cluster_cell) <- levels(PRO)
 cluster_cell
