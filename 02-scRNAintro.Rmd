@@ -5,10 +5,32 @@
 * Seurat：SeuratObject格式
 * scanpy：AnnData格式
 
-ref: https://www.jianshu.com/p/50e289a694d2
+ref: 
+
+* https://github.com/satijalab/seurat/wiki/Seurat
+* https://www.jianshu.com/p/50e289a694d2
 
 ![Seurat对象](./figure/Seurat对象.png)
 
+## Data Access
+Summary information about Seurat objects can be had quickly and easily using standard R functions. Object shape/dimensions can be found using the `dim`, `ncol`, and `nrow` functions; cell and feature names can be found using the `colnames` and `rownames` functions, respectively, or the `dimnames` function. A vector of names of Assay, DimReduc, and Graph objects contained in a Seurat object can be had by using `names`.
+
+Pulling specific Assay, DimReduc, or Graph objects can be done with the double `[[` extract operator. Adding new objects to a Seurat object is also done with the double `[[` extract operator; Seurat will figure out where in the Seurat object a new associated object belongs.
+
+Accessing data from an Seurat object is done with the `GetAssayData` function. Adding expression data to either the counts, data, or scale.data slots can be done with `SetAssayData`. New data must have the same cells in the same order as the current expression data. Data added to counts or data must have the same features as the current expression data.
+
+Cell-level meta data can be accessed with the single `[[` extract operator or using the `$` sigil. Pulling with the `$` sigil means only one bit of meta data can be pulled at a time, though tab-autocompletion has been enabled for it, making it ideal for interactive use. Adding cell-level meta data can be set using the single `[[` extract operator as well, or by using AddMetaData.
+
+The `HVFInfo` function pulls feature mean and dispersion from an Assay object. The vector of variable features can be pulled with the `VariableFeatures` function. `VariableFeatures` can also set the vector of variable features.
+
+A vector of standard deviations for a DimReduc stored within the Seurat object can be found with `Stdev`.
+
+## Methods
+
+```{r}
+library(Seurat)
+utils::methods(class = 'Seurat')
+```
 
 ![单细胞分析流程](./figure/单细胞分析流程.png)
 
