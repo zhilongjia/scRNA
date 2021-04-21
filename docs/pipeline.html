@@ -24,7 +24,7 @@
 <meta name="author" content="Zhilong Jia" />
 
 
-<meta name="date" content="2021-04-16" />
+<meta name="date" content="2021-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="a-introduction-to-single-cell-sequening.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="富集分析.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -184,7 +184,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="pipeline.html"><a href="pipeline.html#sessioninfo-2"><i class="fa fa-check"></i><b>4.5</b> sessionInfo</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+<li class="chapter" data-level="5" data-path="富集分析.html"><a href="富集分析.html"><i class="fa fa-check"></i><b>5</b> 富集分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="富集分析.html"><a href="富集分析.html#获取差异基因"><i class="fa fa-check"></i><b>5.1</b> 获取差异基因</a></li>
+<li class="chapter" data-level="5.2" data-path="富集分析.html"><a href="富集分析.html#go富集分析"><i class="fa fa-check"></i><b>5.2</b> GO富集分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="富集分析.html"><a href="富集分析.html#go富集分析-1"><i class="fa fa-check"></i><b>5.2.1</b> GO富集分析</a></li>
+<li class="chapter" data-level="5.2.2" data-path="富集分析.html"><a href="富集分析.html#go富集结果可视化"><i class="fa fa-check"></i><b>5.2.2</b> GO富集结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="富集分析.html"><a href="富集分析.html#kegg富集分析"><i class="fa fa-check"></i><b>5.3</b> KEGG富集分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="富集分析.html"><a href="富集分析.html#kegg富集分析代码"><i class="fa fa-check"></i><b>5.3.1</b> KEGG富集分析代码</a></li>
+<li class="chapter" data-level="5.3.2" data-path="富集分析.html"><a href="富集分析.html#kegg结果可视化"><i class="fa fa-check"></i><b>5.3.2</b> KEGG结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="富集分析.html"><a href="富集分析.html#gsea富集分析"><i class="fa fa-check"></i><b>5.4</b> GSEA富集分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="富集分析.html"><a href="富集分析.html#gsea结果可视化"><i class="fa fa-check"></i><b>5.4.1</b> GSEA结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="富集分析.html"><a href="富集分析.html#gsva富集分析"><i class="fa fa-check"></i><b>5.5</b> GSVA富集分析</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="富集分析.html"><a href="富集分析.html#gsva结果可视化"><i class="fa fa-check"></i><b>5.5.1</b> GSVA结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="富集分析.html"><a href="富集分析.html#sessioninfo-3"><i class="fa fa-check"></i><b>5.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
 </ul>
 
       </nav>
@@ -205,7 +228,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="pipeline" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Pipeline</h1>
 <p>本次课程主要以测试数据为例，实际展示和操作基于Seurat的单细胞测序数据的基本分析流程。
-REF: <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html" class="uri">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html</a></p>
+Based on <code>sc_basic.html</code></p>
+<p>REF: <a href="https://satijalab.org/seurat/articles/pbmc3k_tutorial.html" class="uri">https://satijalab.org/seurat/articles/pbmc3k_tutorial.html</a></p>
 <div id="数据准备" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> 数据准备</h2>
 <div id="下载测试数据" class="section level3" number="4.1.1">
@@ -627,20 +651,20 @@ Seurat默认的标准化方法为 LogNormalize ：
 <pre><code>## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 ## To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 ## This message will be shown once per session</code></pre>
-<pre><code>## 17:19:39 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 17:19:39 Read 2638 rows and found 10 numeric columns</code></pre>
-<pre><code>## 17:19:39 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 17:19:39 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 22:06:01 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 22:06:01 Read 2638 rows and found 10 numeric columns</code></pre>
+<pre><code>## 22:06:01 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 22:06:01 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 17:19:39 Writing NN index file to temp file /tmp/RtmpWMjbvY/filee33943ff39381
-## 17:19:39 Searching Annoy index using 1 thread, search_k = 3000
-## 17:19:40 Annoy recall = 100%
-## 17:19:40 Commencing smooth kNN distance calibration using 1 thread
-## 17:19:41 Initializing from normalized Laplacian + noise
-## 17:19:41 Commencing optimization for 500 epochs, with 105600 positive edges
-## 17:19:44 Optimization finished</code></pre>
+## 22:06:01 Writing NN index file to temp file /tmp/Rtmpb9t5aT/file158e9d73c31272
+## 22:06:01 Searching Annoy index using 1 thread, search_k = 3000
+## 22:06:02 Annoy recall = 100%
+## 22:06:02 Commencing smooth kNN distance calibration using 1 thread
+## 22:06:03 Initializing from normalized Laplacian + noise
+## 22:06:03 Commencing optimization for 500 epochs, with 105600 positive edges
+## 22:06:05 Optimization finished</code></pre>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="pipeline.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(PRO, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/UMAP-1.png" width="672" /></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="pipeline.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(  PRO<span class="sc">@</span>reductions<span class="sc">$</span>umap<span class="sc">@</span>cell.embeddings  )</span></code></pre></div>
@@ -732,10 +756,10 @@ Seurat默认的标准化方法为 LogNormalize ：
 ##  3 5.32e- 48       1.05 0.341 0.108 1.74e- 43 0       PRKCQ-AS1
 ##  4 5.68e- 46       1.04 0.331 0.107 1.86e- 41 0       LEF1     
 ##  5 1.94e- 28       1.08 0.243 0.086 6.36e- 24 0       LDLRAP1  
-##  6 0.              5.54 0.996 0.216 0.        1       S100A9   
-##  7 0.              5.44 0.971 0.123 0.        1       S100A8   
-##  8 0.              3.71 0.902 0.061 0.        1       LGALS2   
-##  9 0.              3.43 0.954 0.151 0.        1       FCN1     
+##  6 0               5.54 0.996 0.216 0         1       S100A9   
+##  7 0               5.44 0.971 0.123 0         1       S100A8   
+##  8 0               3.71 0.902 0.061 0         1       LGALS2   
+##  9 0               3.43 0.954 0.151 0         1       FCN1     
 ## 10 6.17e-266       4.51 1     0.517 2.02e-261 1       LYZ      
 ## # … with 35 more rows</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="pipeline.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seurat has several tests for differential expression which can be set with the test.use parameter</span></span>
@@ -790,12 +814,17 @@ marker基因收集：</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="pipeline.html#cb148-1" aria-hidden="true" tabindex="-1"></a>PRO <span class="ot">&lt;-</span> <span class="fu">RenameIdents</span>(PRO, cluster_cell)</span>
 <span id="cb148-2"><a href="pipeline.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(PRO, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">pt.size =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/DimPlot_cluster_cell-1.png" width="672" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="pipeline.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(PRO, <span class="st">&quot;./data/PRO_seurat.RDS&quot;</span>)</span>
+<span id="cb149-2"><a href="pipeline.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="co"># head(PRO@active.ident)</span></span>
+<span id="cb149-3"><a href="pipeline.html#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb149-4"><a href="pipeline.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pbmc &lt;- readRDS(&quot;./data/PRO_seurat.RDS&quot;)</span></span>
+<span id="cb149-5"><a href="pipeline.html#cb149-5" aria-hidden="true" tabindex="-1"></a><span class="co"># head(pbmc@active.ident)</span></span></code></pre></div>
 </div>
 <div id="细胞类型比例可视化" class="section level3" number="4.4.4">
 <h3><span class="header-section-number">4.4.4</span> 细胞类型比例可视化</h3>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="pipeline.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PRO@active.ident</span></span>
-<span id="cb149-2"><a href="pipeline.html#cb149-2" aria-hidden="true" tabindex="-1"></a>num_tab <span class="ot">&lt;-</span> <span class="fu">table</span>( <span class="fu">Idents</span>(PRO), PRO<span class="sc">$</span>orig.ident )</span>
-<span id="cb149-3"><a href="pipeline.html#cb149-3" aria-hidden="true" tabindex="-1"></a>num_tab</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="pipeline.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PRO@active.ident</span></span>
+<span id="cb150-2"><a href="pipeline.html#cb150-2" aria-hidden="true" tabindex="-1"></a>num_tab <span class="ot">&lt;-</span> <span class="fu">table</span>( <span class="fu">Idents</span>(PRO), PRO<span class="sc">$</span>orig.ident )</span>
+<span id="cb150-3"><a href="pipeline.html#cb150-3" aria-hidden="true" tabindex="-1"></a>num_tab</span></code></pre></div>
 <pre><code>##               
 ##                PBMC
 ##   Naive CD4 T   686
@@ -807,8 +836,8 @@ marker基因收集：</p>
 ##   NK            140
 ##   DC             35
 ##   Platelet       14</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="pipeline.html#cb151-1" aria-hidden="true" tabindex="-1"></a>freq_tab <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="at">x=</span> num_tab , <span class="at">margin=</span><span class="dv">2</span>)</span>
-<span id="cb151-2"><a href="pipeline.html#cb151-2" aria-hidden="true" tabindex="-1"></a>freq_tab</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="pipeline.html#cb152-1" aria-hidden="true" tabindex="-1"></a>freq_tab <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="at">x=</span> num_tab , <span class="at">margin=</span><span class="dv">2</span>)</span>
+<span id="cb152-2"><a href="pipeline.html#cb152-2" aria-hidden="true" tabindex="-1"></a>freq_tab</span></code></pre></div>
 <pre><code>##               
 ##                       PBMC
 ##   Naive CD4 T  0.260045489
@@ -820,28 +849,28 @@ marker基因收集：</p>
 ##   NK           0.053070508
 ##   DC           0.013267627
 ##   Platelet     0.005307051</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="pipeline.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height=</span>freq_tab, <span class="at">width=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">legend=</span> <span class="fu">rownames</span>(freq_tab), <span class="at">xlab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="pipeline.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height=</span>freq_tab, <span class="at">width=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">legend=</span> <span class="fu">rownames</span>(freq_tab), <span class="at">xlab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/barplot_freq_tab-1.png" width="672" /></p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="pipeline.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存分析结果为rds文件</span></span>
-<span id="cb154-2"><a href="pipeline.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(PRO, file=&#39;PBMC_3K.rds&#39;)</span></span>
-<span id="cb154-3"><a href="pipeline.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pro &lt;- readRDS(&#39;PBMC_3K.rds&#39;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="pipeline.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存分析结果为rds文件</span></span>
+<span id="cb155-2"><a href="pipeline.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(PRO, file=&#39;PBMC_3K.rds&#39;)</span></span>
+<span id="cb155-3"><a href="pipeline.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pro &lt;- readRDS(&#39;PBMC_3K.rds&#39;)</span></span></code></pre></div>
 </div>
 <div id="细胞类型marker基因展示" class="section level3" number="4.4.5">
 <h3><span class="header-section-number">4.4.5</span> 细胞类型marker基因展示</h3>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="pipeline.html#cb155-1" aria-hidden="true" tabindex="-1"></a>feature1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;CD79A&#39;</span>,<span class="st">&#39;MS4A1&#39;</span>,<span class="st">&#39;HLA-DQA1&#39;</span>,<span class="st">&#39;HLA-DQB1&#39;</span>,<span class="st">&#39;CD14&#39;</span>,<span class="st">&#39;VCAN&#39;</span>,<span class="st">&#39;CD3D&#39;</span>,<span class="st">&#39;IL7R&#39;</span>,<span class="st">&#39;CLEC10A&#39;</span>,<span class="st">&#39;GP9&#39;</span>)</span>
-<span id="cb155-2"><a href="pipeline.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 堆叠小提琴图</span></span>
-<span id="cb155-3"><a href="pipeline.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(PRO, <span class="at">features=</span> feature1, <span class="at">stack =</span> <span class="cn">TRUE</span>, <span class="at">flip =</span> T, <span class="at">fill.by=</span><span class="st">&#39;ident&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="pipeline.html#cb156-1" aria-hidden="true" tabindex="-1"></a>feature1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;CD79A&#39;</span>,<span class="st">&#39;MS4A1&#39;</span>,<span class="st">&#39;HLA-DQA1&#39;</span>,<span class="st">&#39;HLA-DQB1&#39;</span>,<span class="st">&#39;CD14&#39;</span>,<span class="st">&#39;VCAN&#39;</span>,<span class="st">&#39;CD3D&#39;</span>,<span class="st">&#39;IL7R&#39;</span>,<span class="st">&#39;CLEC10A&#39;</span>,<span class="st">&#39;GP9&#39;</span>)</span>
+<span id="cb156-2"><a href="pipeline.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 堆叠小提琴图</span></span>
+<span id="cb156-3"><a href="pipeline.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(PRO, <span class="at">features=</span> feature1, <span class="at">stack =</span> <span class="cn">TRUE</span>, <span class="at">flip =</span> T, <span class="at">fill.by=</span><span class="st">&#39;ident&#39;</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/VlnPlot_feature-1.png" width="672" /></p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="pipeline.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 气泡图</span></span>
-<span id="cb156-2"><a href="pipeline.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(<span class="at">object =</span> PRO, <span class="at">features=</span>feature1, <span class="at">cluster.idents=</span>T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="pipeline.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 气泡图</span></span>
+<span id="cb157-2"><a href="pipeline.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(<span class="at">object =</span> PRO, <span class="at">features=</span>feature1, <span class="at">cluster.idents=</span>T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/DotPlot_feature-1.png" width="672" /></p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="pipeline.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 分类型气泡图</span></span>
-<span id="cb157-2"><a href="pipeline.html#cb157-2" aria-hidden="true" tabindex="-1"></a>feature2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Bcell =</span> <span class="fu">c</span>(<span class="st">&quot;CD19&quot;</span>,<span class="st">&quot;CD79A&quot;</span>,<span class="st">&quot;CD79B&quot;</span>,<span class="st">&quot;MS4A1&quot;</span>),</span>
-<span id="cb157-3"><a href="pipeline.html#cb157-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Mono =</span> <span class="fu">c</span>(<span class="st">&quot;CD14&quot;</span>,<span class="st">&quot;VCAN&quot;</span>,<span class="st">&quot;FCN1&quot;</span>),</span>
-<span id="cb157-4"><a href="pipeline.html#cb157-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Tcell =</span> <span class="fu">c</span>(<span class="st">&quot;CD3D&quot;</span>,<span class="st">&quot;CD3E&quot;</span>,<span class="st">&quot;CD3G&quot;</span>,<span class="st">&quot;IL7R&quot;</span>,<span class="st">&quot;TRAC&quot;</span>,<span class="st">&quot;TRGC2&quot;</span>,<span class="st">&quot;TRDC&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, <span class="st">&quot;CD8B&quot;</span>, <span class="st">&quot;CD4&quot;</span>),</span>
-<span id="cb157-5"><a href="pipeline.html#cb157-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">DC =</span> <span class="fu">c</span>(<span class="st">&quot;HLA-DQA1&quot;</span>, <span class="st">&quot;HLA-DQB1&quot;</span>, <span class="st">&quot;HLA-DRB3&quot;</span>,<span class="st">&quot;CLEC10A&quot;</span>,<span class="st">&quot;CLEC9A&quot;</span>),</span>
-<span id="cb157-6"><a href="pipeline.html#cb157-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">platelet =</span> <span class="fu">c</span>(<span class="st">&quot;GP9&quot;</span>,<span class="st">&quot;PF4&quot;</span>) )</span>
-<span id="cb157-7"><a href="pipeline.html#cb157-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(<span class="at">object =</span> PRO, <span class="at">features=</span>feature2, <span class="at">cluster.idents=</span>T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="pipeline.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 分类型气泡图</span></span>
+<span id="cb158-2"><a href="pipeline.html#cb158-2" aria-hidden="true" tabindex="-1"></a>feature2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Bcell =</span> <span class="fu">c</span>(<span class="st">&quot;CD19&quot;</span>,<span class="st">&quot;CD79A&quot;</span>,<span class="st">&quot;CD79B&quot;</span>,<span class="st">&quot;MS4A1&quot;</span>),</span>
+<span id="cb158-3"><a href="pipeline.html#cb158-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Mono =</span> <span class="fu">c</span>(<span class="st">&quot;CD14&quot;</span>,<span class="st">&quot;VCAN&quot;</span>,<span class="st">&quot;FCN1&quot;</span>),</span>
+<span id="cb158-4"><a href="pipeline.html#cb158-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Tcell =</span> <span class="fu">c</span>(<span class="st">&quot;CD3D&quot;</span>,<span class="st">&quot;CD3E&quot;</span>,<span class="st">&quot;CD3G&quot;</span>,<span class="st">&quot;IL7R&quot;</span>,<span class="st">&quot;TRAC&quot;</span>,<span class="st">&quot;TRGC2&quot;</span>,<span class="st">&quot;TRDC&quot;</span>, <span class="st">&quot;CD8A&quot;</span>, <span class="st">&quot;CD8B&quot;</span>, <span class="st">&quot;CD4&quot;</span>),</span>
+<span id="cb158-5"><a href="pipeline.html#cb158-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">DC =</span> <span class="fu">c</span>(<span class="st">&quot;HLA-DQA1&quot;</span>, <span class="st">&quot;HLA-DQB1&quot;</span>, <span class="st">&quot;HLA-DRB3&quot;</span>,<span class="st">&quot;CLEC10A&quot;</span>,<span class="st">&quot;CLEC9A&quot;</span>),</span>
+<span id="cb158-6"><a href="pipeline.html#cb158-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">platelet =</span> <span class="fu">c</span>(<span class="st">&quot;GP9&quot;</span>,<span class="st">&quot;PF4&quot;</span>) )</span>
+<span id="cb158-7"><a href="pipeline.html#cb158-7" aria-hidden="true" tabindex="-1"></a><span class="fu">DotPlot</span>(<span class="at">object =</span> PRO, <span class="at">features=</span>feature2, <span class="at">cluster.idents=</span>T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">hjust=</span><span class="dv">1</span>) )</span></code></pre></div>
 <pre><code>## Warning in FetchData(object = object, vars = features, cells = cells): The
 ## following requested variables were not found: TRAC, TRGC2, TRDC, HLA-DRB3</code></pre>
 <p><img src="Single_cell_training_files/figure-html/DotPlot_cell_feature-1.png" width="672" /></p>
@@ -849,7 +878,7 @@ marker基因收集：</p>
 </div>
 <div id="sessioninfo-2" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> sessionInfo</h2>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="pipeline.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="pipeline.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.4 (2021-02-15)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.10
@@ -872,7 +901,7 @@ marker基因收集：</p>
 ## other attached packages:
 ##  [1] forcats_0.5.1           stringr_1.4.0           dplyr_1.0.5            
 ##  [4] purrr_0.3.4             readr_1.4.0             tidyr_1.1.3            
-##  [7] tibble_3.1.0            ggplot2_3.3.3           tidyverse_1.3.0        
+##  [7] tibble_3.1.1            ggplot2_3.3.3           tidyverse_1.3.1        
 ## [10] pbmc3k.SeuratData_3.1.4 SeuratData_0.2.1        SeuratObject_4.0.0     
 ## [13] Seurat_4.0.1           
 ## 
@@ -881,43 +910,43 @@ marker基因收集：</p>
 ##   [4] igraph_1.2.6          lazyeval_0.2.2        splines_4.0.4        
 ##   [7] listenv_0.8.0         scattermore_0.7       digest_0.6.27        
 ##  [10] htmltools_0.5.1.1     fansi_0.4.2           magrittr_2.0.1       
-##  [13] tensor_1.5            cluster_2.1.1         ROCR_1.0-11          
+##  [13] tensor_1.5            cluster_2.1.2         ROCR_1.0-11          
 ##  [16] limma_3.46.0          globals_0.14.0        modelr_0.1.8         
 ##  [19] matrixStats_0.58.0    spatstat.sparse_2.0-0 colorspace_2.0-0     
 ##  [22] rvest_1.0.0           rappdirs_0.3.3        ggrepel_0.9.1        
-##  [25] haven_2.3.1           xfun_0.22             crayon_1.4.1         
-##  [28] jsonlite_1.7.2        spatstat.data_2.0-0   survival_3.2-10      
+##  [25] haven_2.4.0           xfun_0.22             crayon_1.4.1         
+##  [28] jsonlite_1.7.2        spatstat.data_2.1-0   survival_3.2-10      
 ##  [31] zoo_1.8-9             glue_1.4.2            polyclip_1.10-0      
 ##  [34] gtable_0.3.0          leiden_0.3.7          future.apply_1.7.0   
 ##  [37] abind_1.4-5           scales_1.1.1          DBI_1.1.1            
-##  [40] miniUI_0.1.1.1        Rcpp_1.0.6            viridisLite_0.3.0    
-##  [43] xtable_1.8-4          reticulate_1.18       spatstat.core_1.65-5 
+##  [40] miniUI_0.1.1.1        Rcpp_1.0.6            viridisLite_0.4.0    
+##  [43] xtable_1.8-4          reticulate_1.18       spatstat.core_2.1-2  
 ##  [46] bit_4.0.4             htmlwidgets_1.5.3     httr_1.4.2           
 ##  [49] RColorBrewer_1.1-2    ellipsis_0.3.1        ica_1.0-2            
 ##  [52] pkgconfig_2.0.3       farver_2.1.0          sass_0.3.1           
-##  [55] uwot_0.1.10           dbplyr_2.1.0          deldir_0.2-10        
+##  [55] uwot_0.1.10           dbplyr_2.1.1          deldir_0.2-10        
 ##  [58] utf8_1.2.1            tidyselect_1.1.0      labeling_0.4.2       
 ##  [61] rlang_0.4.10          reshape2_1.4.4        later_1.1.0.1        
 ##  [64] munsell_0.5.0         cellranger_1.1.0      tools_4.0.4          
-##  [67] cli_2.3.1             generics_0.1.0        broom_0.7.5          
+##  [67] cli_2.4.0             generics_0.1.0        broom_0.7.6          
 ##  [70] ggridges_0.5.3        evaluate_0.14         fastmap_1.1.0        
 ##  [73] yaml_2.2.1            goftest_1.2-2         bit64_4.0.5          
-##  [76] knitr_1.31            fs_1.5.0              fitdistrplus_1.1-3   
+##  [76] knitr_1.32            fs_1.5.0              fitdistrplus_1.1-3   
 ##  [79] RANN_2.6.1            pbapply_1.4-3         future_1.21.0        
 ##  [82] nlme_3.1-152          mime_0.10             xml2_1.3.2           
 ##  [85] hdf5r_1.3.3           compiler_4.0.4        rstudioapi_0.13      
 ##  [88] plotly_4.9.3          png_0.1-7             spatstat.utils_2.1-0 
-##  [91] reprex_1.0.0          bslib_0.2.4           stringi_1.5.3        
-##  [94] highr_0.8             RSpectra_0.16-0       lattice_0.20-41      
-##  [97] Matrix_1.3-2          vctrs_0.3.6           pillar_1.5.1         
-## [100] lifecycle_1.0.0       spatstat.geom_1.65-5  lmtest_0.9-38        
+##  [91] reprex_2.0.0          bslib_0.2.4           stringi_1.5.3        
+##  [94] highr_0.9             RSpectra_0.16-0       lattice_0.20-41      
+##  [97] Matrix_1.3-2          vctrs_0.3.7           pillar_1.6.0         
+## [100] lifecycle_1.0.0       spatstat.geom_2.1-0   lmtest_0.9-38        
 ## [103] jquerylib_0.1.3       RcppAnnoy_0.0.18      data.table_1.14.0    
 ## [106] cowplot_1.1.1         irlba_2.3.3           httpuv_1.5.5         
 ## [109] patchwork_1.1.1       R6_2.5.0              bookdown_0.21        
-## [112] promises_1.2.0.1      KernSmooth_2.23-17    gridExtra_2.3        
-## [115] parallelly_1.24.0     codetools_0.2-17      MASS_7.3-53.1        
-## [118] assertthat_0.2.1      withr_2.4.1           sctransform_0.3.2    
-## [121] mgcv_1.8-33           parallel_4.0.4        hms_1.0.0            
+## [112] promises_1.2.0.1      KernSmooth_2.23-18    gridExtra_2.3        
+## [115] parallelly_1.24.0     codetools_0.2-18      MASS_7.3-53.1        
+## [118] assertthat_0.2.1      withr_2.4.2           sctransform_0.3.2    
+## [121] mgcv_1.8-35           parallel_4.0.4        hms_1.0.0            
 ## [124] grid_4.0.4            rpart_4.1-15          rmarkdown_2.7        
 ## [127] Rtsne_0.15            shiny_1.6.0           lubridate_1.7.10</code></pre>
 
@@ -929,7 +958,7 @@ marker基因收集：</p>
         </div>
       </div>
 <a href="a-introduction-to-single-cell-sequening.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="富集分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

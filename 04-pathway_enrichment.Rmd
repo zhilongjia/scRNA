@@ -1,0 +1,273 @@
+# 富集分析
+
+Enrichment Using clusterprofiler based on `enrich.html`
+
+![clusterProfiler-diagram](./figure/clusterProfiler-diagram.png)
+
+ref:  http://yulab-smu.top/clusterProfiler-book/index.html
+
+## 获取差异基因
+```{r DEG}
+library(Seurat)
+pbmc <- readRDS("./data/PRO_seurat.RDS")
+
+pbmc@meta.data$celltype <- pbmc@active.ident
+#获取细胞间的差异基因
+cells1 <- subset(pbmc@meta.data, celltype %in% c("CD14+ Mono"))  %>% rownames()
+cells2 <- subset(pbmc@meta.data, celltype %in%  c("FCGR3A+ Mono"))  %>% rownames()
+deg <- FindMarkers(pbmc, ident.1 = cells1, ident.2 = cells2)
+deg <- data.frame(gene = rownames(deg), deg)
+head(deg)
+
+deg1 <- deg
+logFC_t=0.5
+P.Value_t = 0.05
+k1 = (deg1$p_val_adj < P.Value_t)&(deg1$avg_log2FC < -logFC_t)
+k2 = (deg1$p_val_adj < P.Value_t)&(deg1$avg_log2FC > logFC_t)
+table(k1)
+table(k2)
+
+#分组 上调/下调
+change = ifelse(k1,"down",ifelse(k2,"up","stable"))
+deg1$change <- change
+head(deg1)
+
+#基因名称转换
+library("clusterProfiler")
+library("org.Hs.eg.db")
+s2e <- bitr(deg1$gene, 
+            fromType = "SYMBOL",
+            toType = "ENTREZID",
+            OrgDb = org.Hs.eg.db)#人类 转换成ENTREZID
+
+library(dplyr)
+deg1 <- inner_join(deg1,s2e,by=c("gene"="SYMBOL"))
+head(deg1)
+
+#GO富集分析差异基因列表[Symbol]
+gene_up = deg1[deg1$change == 'up','gene'] 
+gene_down = deg1[deg1$change == 'down','gene'] 
+gene_diff = c(gene_up,gene_down)
+
+#KEGG富集分析差异基因列表[ENTREZID]
+gene_all = deg1[,'ENTREZID']
+gene_up_KEGG = deg1[deg1$change == 'up','ENTREZID']
+gene_down_KEGG = deg1[deg1$change == 'down','ENTREZID']
+gene_diff_KEGG = c(gene_up_KEGG,gene_down_KEGG)
+```
+
+   
+## GO富集分析
+
+### GO富集分析
+```{r enrichGO}
+#细胞组分
+ego_CC <- enrichGO(gene          = gene_up,
+                  keyType       = 'SYMBOL', #基因ID的类型
+                OrgDb         = org.Hs.eg.db,  #包含人注释信息的数据库
+                ont           = "CC",
+                pAdjustMethod = "BH", #指定多重假设检验矫正的方法
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05)
+head(summary(ego_CC))
+
+#生物过程
+ego_BP <- enrichGO(gene          = gene_up,
+                OrgDb          = org.Hs.eg.db,
+                 keyType       = 'SYMBOL',
+                ont           = "BP",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05)
+
+
+
+
+
+#分子功能
+ego_MF <- enrichGO(gene          = gene_up,
+                OrgDb         = org.Hs.eg.db,
+                 keyType       = 'SYMBOL',
+                ont           = "MF",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05)
+# save(ego_CC,ego_BP,ego_MF,file = "GO.Rdata")
+
+#细胞组分、分子功能、生物学过程
+go <- enrichGO(gene = gene_up, OrgDb = "org.Hs.eg.db", keyType       = 'SYMBOL',ont="all")
+
+head(go)
+```
+
+### GO富集结果可视化
+```{r dotplot_GO}
+dotplot(ego_CC, showCategory=30)
+barplot(ego_CC)
+
+library(ggplot2)
+p <- dotplot(go, split="ONTOLOGY") +facet_grid(ONTOLOGY~., scale="free")
+p
+```
+### DAG有向无环图
+```{r cnetplot}
+library(topGO)
+plotGOgraph(ego_MF)  #矩形代表富集到的top10个GO terms, 颜色从黄色过滤到红色，对应p值从大到小。
+#igraph布局的DAG 
+# goplot(go)
+#GO terms关系网络图（通过差异基因关联） 
+# emapplot(go, showCategory = 30)
+#GO term与差异基因关系网络图 
+cnetplot(go, showCategory = 5)
+
+```
+
+## KEGG富集分析
+
+### KEGG富集分析代码
+```{r enrichKEGG}
+#上调基因富集
+kk.up <- enrichKEGG(gene         = gene_up_KEGG, #注意这里只能用 entrzeid
+                      organism     = 'hsa',
+                      universe     = gene_all, ##背景基因集，可省
+                      pvalueCutoff = 0.9, ##指定 p 值阈值，不显著的值将不显示在结果中
+                      qvalueCutoff = 0.9)
+
+#下调基因富集
+kk.down <- enrichKEGG(gene         =  gene_down_KEGG,
+                        organism     = 'hsa',
+                        universe     = gene_all,
+                        pvalueCutoff = 0.9,
+                        qvalueCutoff =0.9)
+kk.diff <- enrichKEGG(gene         = gene_diff_KEGG,
+                        organism     = 'hsa',
+                        pvalueCutoff = 0.9)
+# save(kk.diff,kk.down,kk.up,file = "GSE4107kegg.Rdata")
+
+#从富集结果中提取结果数据框
+ekegg <- setReadable(kk.up, OrgDb = org.Hs.eg.db, keyType="ENTREZID")
+kegg_diff_dt <- data.frame(ekegg)
+head(kegg_diff_dt)
+```
+
+
+
+### KEGG结果可视化
+```{r barplot_KEGG}
+p1 <- barplot(ekegg, showCategory=10)
+p2 <- dotplot(ekegg, showCategory=10)
+plotc = p1/p2
+plotc
+
+up_kegg <- kk.up@result %>%
+  filter(pvalue<0.01) %>%
+  mutate(group=1)
+
+down_kegg <- kk.down@result %>%
+  filter(pvalue<0.05) %>% #筛选行
+  mutate(group=-1) #新增列
+
+```
+
+## GSEA富集分析
+
+### GSEA富集
+```{r GSEA}
+library(dplyr)
+library(GSEABase)
+library(org.Hs.eg.db)
+library(ggplot2)
+library(stringr)
+
+library(enrichplot)
+options(stringsAsFactors = F)
+
+geneList = deg1$avg_log2FC 
+names(geneList) = deg1$gene
+geneList = sort(geneList,decreasing = T)
+geneList[1:10]
+
+geneset <- read.gmt("./data/h.all.v7.4.symbols.gmt")  
+geneset$term = str_remove(geneset$term,"HALLMARK_")
+head(geneset)
+
+egmt <- GSEA(geneList, TERM2GENE=geneset,verbose=F,pvalueCutoff = 0.5)
+
+#结果转化
+y=data.frame(egmt)
+head(y)
+
+
+```
+
+### GSEA结果可视化
+```{r gseaplot2}
+#气泡图，展示geneset被激活还是抑制
+dotplot(egmt,split=".sign")+facet_grid(~.sign)
+
+#经典gseaplot
+gseaplot2(egmt, geneSetID = 1, title = egmt$Description[1])
+```
+
+
+## GSVA富集分析
+GSVA(gene set variation analysis)，通过将基因在不同样品间的表达矩阵转化成基因集在样品间的表达矩阵，从而来评估不同的代谢通路在不同样品间是否富集 
+
+
+富集过程主要包含一下四步： 1）评估基因i在样品j中是高表达还是低表达：累积密度函数的核估计，得到每个样本的表达水平统计 2）对每个样本的表达水平统计进行排序和标准化 3）计算每个基因集的类KS随机游走统计量 4）将类KS随机游走统计量转化为ES：最大偏离量（双峰），最大正负偏离量之差（近似正态分布）
+
+### GSVA富集示例
+```{r GSVA}
+library(GSVA)
+expr <- as.data.frame(pbmc@assays$RNA@data)
+expr[1:10,1:10]
+
+expr=as.matrix(expr)
+kegg_list = split(geneset$gene, geneset$term)
+kegg_list[1:2]
+
+kegg1 <- gsva(expr, kegg_list, kcdf="Gaussian",method = "gsva",parallel.sz=12)
+
+kegg2 <- kegg1
+kegg2[1:10,1:10]
+
+```
+
+### GSVA结果可视化
+```{r GSVA_vis, fig.height=20}
+meta <- as.data.frame(pbmc@meta.data[,c('orig.ident',"celltype")])
+#细胞按照细胞类型排序
+meta <- meta %>% arrange(meta$celltype)
+kegg2 <- kegg2[,rownames(meta)]
+
+#取各细胞类型对应的通路score的均值
+identical(colnames(kegg2),rownames(meta))
+
+kegg3 <- cbind(meta, t(kegg2)) %>% tibble::rownames_to_column()
+kegg4 <- tidyr::pivot_longer(kegg3, cols=4:ncol(kegg3), "kegg", "value")
+
+
+kegg5 <- dplyr::group_by(kegg4, celltype, kegg) %>% dplyr::summarise(value2=mean(value) ) %>% dplyr::ungroup()
+
+
+kegg6 <- tidyr::pivot_wider(kegg5, names_from="kegg", values_from="value2") %>% 
+    tibble::column_to_rownames(var="celltype")
+
+
+library(pheatmap)
+G1 <- pheatmap(kegg6,
+                cluster_rows = F,
+                cluster_cols = F,
+                show_rownames = T,
+                show_colnames = T,
+                color =colorRampPalette(c("blue", "white","red"))(100),
+                cellwidth = 10, cellheight = 15,
+                fontsize = 10)
+
+```
+
+## sessionInfo
+```{r}
+sessionInfo()
+```
+
