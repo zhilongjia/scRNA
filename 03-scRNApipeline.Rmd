@@ -2,6 +2,8 @@
 
 # Pipeline
 本次课程主要以测试数据为例，实际展示和操作基于Seurat的单细胞测序数据的基本分析流程。
+Based on `sc_basic.html`
+
 REF: https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
 
 ## 数据准备
@@ -324,6 +326,7 @@ PRO <- RunTSNE(PRO,
 DimPlot(PRO, reduction = "tsne", label=TRUE)
 
 head(  Embeddings(object = PRO, reduction = "tsne")  )
+
 ```
 
 
@@ -429,6 +432,12 @@ cluster_cell
 ```{r DimPlot_cluster_cell}
 PRO <- RenameIdents(PRO, cluster_cell)
 DimPlot(PRO, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
+
+saveRDS(PRO, "./data/PRO_seurat.RDS")
+# head(PRO@active.ident)
+# 
+# pbmc <- readRDS("./data/PRO_seurat.RDS")
+# head(pbmc@active.ident)
 ```
 
 

@@ -1,5 +1,7 @@
 # A introduction to Single Cell Sequening
 
+Based on `singleron02.html`
+
 ## data format of Seurat
 * Bioconductor主导的SingleCellExperiment数据格式：例如scran、scater、monocle（尽管它的对象不直接使用SingleCellExperiment，但灵感来源于SingleCellExperiment，并且操作也是类似的）
 * Seurat：SeuratObject格式
@@ -27,7 +29,7 @@ A vector of standard deviations for a DimReduc stored within the Seurat object c
 
 ## Methods
 
-```{r}
+```{r Seurat}
 library(Seurat)
 utils::methods(class = 'Seurat')
 ```
@@ -36,7 +38,7 @@ utils::methods(class = 'Seurat')
 
 
 ## test read h5 file.
-```{r}
+```{r Read10X_h5}
 library("Seurat")
 
 
@@ -49,7 +51,7 @@ tmp <- Read10X_h5("../covid_balf/GSM4339769_C141_filtered_feature_bc_matrix.h5")
 
 paper "Single-cell landscape of bronchoalveolar immune cells in patients with COVID-19"
 
-```{r}
+```{r DimPlot}
 bm <- readRDS("../covid_balf/nCoV.rds")
 
 p1 <- DimPlot(bm, reduction="umap", label = TRUE, repel = TRUE, label.size = 2.5) + NoLegend()

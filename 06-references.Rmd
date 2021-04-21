@@ -23,9 +23,23 @@ Analysis of single cell RNA-seq data
 https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
 
 https://satijalab.org/seurat/   
+
 http://cole-trapnell-lab.github.io/monocle-release/docs/  
+
 https://satijalab.org/seurat/articles/integration_large_datasets.html  
+
 http://velocyto.org/velocyto.py/index.html  
+
 https://www.jianshu.com/p/d2991fa79a3e  
+
 https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/index.html  
 
+http://bioconductor.org/packages/3.12/data/annotation/
+
+https://www.jianshu.com/p/50e2b6ff10d8  
+
+https://www.jianshu.com/p/e9b59353cd3a 
+
+http://yulab-smu.top/clusterProfiler-book/ 
+
+https://www.bioconductor.org/packages/release/bioc/html/GSVA.html
