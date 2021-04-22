@@ -1,32 +1,36 @@
 # References
 
-https://github.com/singleron-RD/CeleScope
 
+## Python
 https://www.runoob.com/python/python-basic-syntax.html
 
-Analysis of single cell RNA-seq data  #  分析流程
+## Analysis of single cell RNA-seq data  分析流程
 https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
 
 Orchestrating Single-Cell Analysis with Bioconductor #  分析流程 
 http://bioconductor.org/books/release/OSCA/
 
-Assigning cell types with SingleR  # 细胞类型注释
-http://bioconductor.org/books/release/SingleRBook/
+https://github.com/singleron-RD/CeleScope
 
-Museum of Spatial Transcriptomics  # 空转简史
-https://bookdown.org/lambdamoses/museumst/
-
-Archr  # ATAC  分析 
-https://www.archrproject.com/bookdown/index.html#section   
-
-Analysis of single cell RNA-seq data
 https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
 
-https://satijalab.org/seurat/   
+https://satijalab.org/seurat/
 
+TO do
+https://github.com/bvieth/scRNA-seq-pipelines
+
+## Assigning cell types with SingleR  # 细胞类型注释
+http://bioconductor.org/books/release/SingleRBook/
+
+## Museum of Spatial Transcriptomics  # 空转简史
+https://bookdown.org/lambdamoses/museumst/
+
+## ATAC  分析 Archr 
+https://www.archrproject.com/bookdown/index.html#section   
+
+
+## monocl and velocyto
 http://cole-trapnell-lab.github.io/monocle-release/docs/  
-
-https://satijalab.org/seurat/articles/integration_large_datasets.html  
 
 http://velocyto.org/velocyto.py/index.html  
 
@@ -34,12 +38,25 @@ https://www.jianshu.com/p/d2991fa79a3e
 
 https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/index.html  
 
-http://bioconductor.org/packages/3.12/data/annotation/
+## integraton
 
-https://www.jianshu.com/p/50e2b6ff10d8  
+https://satijalab.org/seurat/articles/integration_large_datasets.html  
 
-https://www.jianshu.com/p/e9b59353cd3a 
 
+## Gene set enrichment
 http://yulab-smu.top/clusterProfiler-book/ 
 
 https://www.bioconductor.org/packages/release/bioc/html/GSVA.html
+
+http://bioconductor.org/packages/3.12/data/annotation/
+
+如何取子集
+https://www.jianshu.com/p/50e2b6ff10d8  
+
+提取Seurat数据做GSEA
+https://www.jianshu.com/p/e9b59353cd3a 
+
+http://www.bioconductor.org/packages/release/bioc/vignettes/fgsea/inst/doc/fgsea-tutorial.html
+
+## 转录因子
+http://bioinfo.life.hust.edu.cn/AnimalTFDB#!/download
