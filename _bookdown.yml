@@ -10,5 +10,6 @@ rmd_files: ["index.Rmd",
              "02-scRNAintro.Rmd",
              "03-scRNApipeline.Rmd",
              "04-pathway_enrichment.Rmd",
+             "07-ReproducibleResearch.Rmd",
              "06-references.Rmd"
              ]

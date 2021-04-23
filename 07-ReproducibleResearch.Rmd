@@ -1,0 +1,214 @@
+# Single-cell transcriptomic landscape of human blood cells
+
+Reproducible Research
+
+
+Download data from GEO
+
+* [Single-cell Transcriptomic Landscape of Human Blood Cells](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE149938)
+    * GSM4201332	BM1
+    * GSM4201333	BM2
+    * GSM4201334	BM3
+
+* [Single-cell transcriptome landscape of adult HSPC](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=HSPC_GSE137864)
+    * GSM4793029	B cell population
+    * GSM4793030	NK cell population
+    * GSM4793031	T cell population
+    * GSM4793032	Monocyte population
+    * GSM4793033	Neutrophil population
+    * GSM4793034	Erythrocyte population
+
+
+## Read scRNA data
+
+Data are located in `./ABC/data/GSE137864_HSPC/`.
+
+### read HSPC data
+```{r HSPC_raw}
+library(Seurat)
+library(ggplot2)
+library(Matrix)
+
+## HSPC
+dir_10x <- "./ABC/data/GSE137864_HSPC/"
+# change names as Read10X needed.
+dir(dir_10x)
+HSPC_raw <- Read10X(dir_10x)
+HSPC_meta <- GEOquery::getGEO("GSE137864", destdir="./ABC/data/GSE137864_HSPC/")
+HSPC_meta <- Biobase::pData(HSPC_meta$GSE137864_series_matrix.txt.gz)
+
+
+colnames(HSPC_raw) %>%  head
+```
+
+### read Blood Cells data
+```{r ABC_mat}
+
+## Blood Cells
+
+BC_raw <- read.csv("./ABC/data/HumanBloodCells/GSE149938_umi_matrix.csv", check.names=F)
+BC_mat <- Matrix( t(as.matrix(BC_raw)) )
+
+dim(BC_raw)
+
+colnames(BC_mat) %>%  head
+
+BC_meta <- GEOquery::getGEO("GSE149938", destdir="./ABC/data/HumanBloodCells/")
+BC_meta <- Biobase::pData(BC_meta$GSE149938_series_matrix.txt.gz)
+```
+
+### Merge two mats to CreateSeuratObject
+```{r CreateSeuratObject_ABC}
+# Merge two mats
+dim(HSPC_raw)
+dim(BC_mat)
+
+ABC_HSPC_mat <- cbind(HSPC_raw, BC_mat)
+dim(ABC_HSPC_mat)
+
+# distinguish protein-coding genes and lncRNAs
+# gtf: ftp://ftp.ensembl.org/pub/release-84/gtf/homo_sapiens/
+# add genesymols annotation
+gtf_fn <- "~/data/drug_seq/rawdata/genome/Homo_sapiens.GRCh38.102.gtf"
+gtf <- rtracklayer::import(gtf_fn)
+gtf_df <- dplyr::filter(as.data.frame(gtf), type=="gene") %>% 
+    dplyr::select(gene_id, gene_name, gene_biotype)
+
+ABC_HSPC_gene <- as.data.frame(rownames(ABC_HSPC_mat)) 
+colnames(ABC_HSPC_gene) <- "gene_name"
+
+gene_types <- dplyr::left_join(ABC_HSPC_gene, gtf_df)
+
+protein_coding_genes <- dplyr::filter(gene_types, gene_biotype=="protein_coding") %>% dplyr::select(gene_name) %>% unlist(use.names = FALSE) %>% unique()
+
+# should use NNONCODE website (http://www.noncode.org/datadownload/NONCODEv6_human_hg38_lncRNA.gtf.gz)
+lncRNAs <- dplyr::filter(gene_types, gene_biotype=="lncRNA") %>% dplyr::select(gene_name) %>% unlist(use.names = FALSE) 
+
+# 7551 single cells
+ABC <- CreateSeuratObject(count = ABC_HSPC_mat[protein_coding_genes,], project = 'ABC', min.cells = 5, min.features = 1000 )
+```
+
+#### add celltype info.
+```{r}
+# cell types
+cell_types <- readxl::read_xlsx("./ABC/data/blood_ceel_types.xlsx", sheet="Sheet1")
+ABC_meta <- dplyr::left_join(ABC@meta.data,  cell_types)
+ABC_meta$group <- factor(ABC_meta$group, levels=c("HSPC", "Bcells", "NK", 
+                                                     "Tcells", "Monocytes", "Neutrophils" , "Erythrocytes" ) )
+
+ranked_celltypes <- c("HSC", "BNK", "LMPP", "MLP", "MPP", "CMP", "MEP", "GMP", "memB", "preB", "proB", "immB", "regB", 
+                      "naiB", "plasma", "CLP", "NKP", "kineNK", "toxiNK", "CD4T", "CD8T", "claM", "cMOP", "hMDP", 
+                      "interM", "nonM", "preM", "metaN", "matureN", "proN", "myeN", "ery")
+
+ABC_meta$orig.ident <- factor(ABC_meta$orig.ident, levels=ranked_celltypes )
+
+rownames(ABC_meta) <- rownames(ABC@meta.data)
+
+ABC@meta.data <- ABC_meta
+# HSPC_types <- unique(gsub("_.*","",colnames(HSPC_raw)))
+# HSPC_types <- c("HSC", "BNK",  "LMPP", "MLP",  "MPP",  "CMP",  "MEP",  "GMP" )
+# 
+# ABC_meta[which(ABC@meta.data$orig.ident %in% HSPC_types ), "group"] <- "HSPC"
+# 
+# PB_types <- c("memB", "regB")
+# 
+# 
+# Neutrophils_types <- c("metaN", "myeN", "matureN", "proN", "myeN" )
+# 
+# NK_cells_types <- c("CLP", "NKP", "kineNK", "toxiNK")
+# 
+# Bcells_types <- c("preB", "proB", "immB", "regB", "naiB", "plasma")
+# Tcells_types <- c("CD4T", "CD8T")
+# 
+# Erythrocytes_types <- c("ery")
+
+# Monocytes_types <- c("claM", "cMOP", "hMDP", "interM", "nonM", "preM")
+
+```
+
+#### 线粒体
+```{r}
+ABC[["percent.mt"]] <- PercentageFeatureSet(ABC, pattern = "^MT-")
+head(ABC@meta.data)
+```
+
+## Figure 1B
+
+```{r VlnPlot_gene, fig.width=15}
+
+# VlnPlot(ABC, features=c('nFeature_RNA'), group.by = "group")
+VlnPlot(ABC, features=c('nFeature_RNA'), group.by = "orig.ident")
+
+```
+
+## Figure 1C
+```{r boxplot_gene}
+#boxplot all genes
+boxplot(ABC@meta.data$nFeature_RNA)
+```
+
+## Figure 1D
+### LogNormalize
+```{r}
+ABC <- NormalizeData(object=ABC, 
+                     normalization.method= 'LogNormalize', 
+                     scale.factor=10000 )
+```
+
+### 筛选高变基因
+```{r}
+ABC <- FindVariableFeatures(ABC,
+                            selection.method = "vst", 
+                            nfeatures = 2000)
+head(VariableFeatures(ABC))
+
+ABC <- ScaleData(ABC)
+```
+### 筛选高变基因 and PCA降维
+```{r}
+
+hvg <- VariableFeatures(object = ABC)
+ABC <- RunPCA(ABC, features = hvg )
+ElbowPlot(ABC)
+```
+### 聚类分簇
+```{r}
+ABC <- FindNeighbors(ABC, reduction = "pca", dims = 1:15)
+ABC <- FindClusters(ABC, resolution = 0.5)
+head(ABC@meta.data)
+levels(ABC)
+```
+
+### 单细胞聚类可视化
+```{r}
+ABC <- RunUMAP(ABC, 
+               reduction = "pca", 
+               dims = 1:15,
+               verbose=TRUE )
+DimPlot(ABC, reduction = "umap", label=TRUE)
+```
+
+## Figure 1E
+### 细胞簇差异基因分析
+```{r}
+all_markers <- FindAllMarkers(ABC, 
+                              only.pos = TRUE, 
+                              min.pct= 0.1, 
+                              logfc.threshold= 0.25)
+head(all_markers)
+
+library(dplyr)
+top_markers <- all_markers %>% group_by( cluster) %>% top_n( n = 5, wt= avg_log2FC )
+top_markers
+
+DoHeatmap(ABC, features = top_markers$gene) + NoLegend()
+```
+
+### marker基因展示
+```{r Marker_ABC}
+marker_genes = c("AVP", "CCR7", "CD79E", "GATA1", "GZMH", "SPI1")
+VlnPlot(ABC, features =marker_genes, pt.size= 0)
+FeaturePlot(ABC, features = marker_genes )
+```
+
+

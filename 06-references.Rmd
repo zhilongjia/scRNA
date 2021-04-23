@@ -60,3 +60,18 @@ http://www.bioconductor.org/packages/release/bioc/vignettes/fgsea/inst/doc/fgsea
 
 ## 转录因子
 http://bioinfo.life.hust.edu.cn/AnimalTFDB#!/download
+
+
+## Reproducible research
+
+Tambalo M, Mitter R, Wilkinson DG. A single cell transcriptome atlas of the developing zebrafish hindbrain. Development. 2020 Mar 16;147(6):dev184143. doi: 10.1242/dev.184143. PMID: 32094115; PMCID: PMC7097387.
+
+https://github.com/crickbabs/ZebrafishDevelopingHindbrainAtlas
+
+## 基因调控
+GENIE3 || 基因调控网络推断
+https://www.jianshu.com/p/893654f39a78
+
+
+RcisTarget || 从基因列表到调控网络
+https://www.jianshu.com/p/6e1d71db4220
