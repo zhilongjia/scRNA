@@ -24,7 +24,7 @@
 <meta name="author" content="Zhilong Jia" />
 
 
-<meta name="date" content="2021-04-24" />
+<meta name="date" content="2021-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -131,7 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Single Cell Sequencing Analysis</a></li>
+<li><a href="https://zhilongjia.github.io/scRNA">scRNA Note</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Content</a></li>
@@ -247,6 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.10" data-path="references.html"><a href="references.html#reproducible-research"><i class="fa fa-check"></i><b>7.10</b> Reproducible research</a></li>
 <li class="chapter" data-level="7.11" data-path="references.html"><a href="references.html#基因调控"><i class="fa fa-check"></i><b>7.11</b> 基因调控</a></li>
 <li class="chapter" data-level="7.12" data-path="references.html"><a href="references.html#cell-annotation"><i class="fa fa-check"></i><b>7.12</b> cell annotation</a></li>
+<li class="chapter" data-level="7.13" data-path="references.html"><a href="references.html#空间分析"><i class="fa fa-check"></i><b>7.13</b> 空间分析</a></li>
 </ul></li>
 </ul>
 
@@ -691,20 +692,20 @@ Seurat默认的标准化方法为 LogNormalize ：
 <pre><code>## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 ## To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 ## This message will be shown once per session</code></pre>
-<pre><code>## 16:23:04 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 16:23:04 Read 2638 rows and found 10 numeric columns</code></pre>
-<pre><code>## 16:23:04 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 16:23:04 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 08:36:33 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 08:36:33 Read 2638 rows and found 10 numeric columns</code></pre>
+<pre><code>## 08:36:33 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 08:36:33 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 16:23:04 Writing NN index file to temp file /tmp/Rtmp5ruRWh/file1b85cb70e1be75
-## 16:23:04 Searching Annoy index using 1 thread, search_k = 3000
-## 16:23:05 Annoy recall = 100%
-## 16:23:05 Commencing smooth kNN distance calibration using 1 thread
-## 16:23:06 Initializing from normalized Laplacian + noise
-## 16:23:06 Commencing optimization for 500 epochs, with 105600 positive edges
-## 16:23:09 Optimization finished</code></pre>
+## 08:36:33 Writing NN index file to temp file /tmp/Rtmp78yN8k/file1c288643cbf08b
+## 08:36:33 Searching Annoy index using 1 thread, search_k = 3000
+## 08:36:34 Annoy recall = 100%
+## 08:36:34 Commencing smooth kNN distance calibration using 1 thread
+## 08:36:35 Initializing from normalized Laplacian + noise
+## 08:36:35 Commencing optimization for 500 epochs, with 105600 positive edges
+## 08:36:38 Optimization finished</code></pre>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="pipeline.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(PRO, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/UMAP-1.png" width="672" /></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="pipeline.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(  PRO<span class="sc">@</span>reductions<span class="sc">$</span>umap<span class="sc">@</span>cell.embeddings  )</span></code></pre></div>

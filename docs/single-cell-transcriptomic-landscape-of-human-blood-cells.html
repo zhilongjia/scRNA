@@ -24,7 +24,7 @@
 <meta name="author" content="Zhilong Jia" />
 
 
-<meta name="date" content="2021-04-24" />
+<meta name="date" content="2021-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -131,7 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Single Cell Sequencing Analysis</a></li>
+<li><a href="https://zhilongjia.github.io/scRNA">scRNA Note</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Content</a></li>
@@ -247,6 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.10" data-path="references.html"><a href="references.html#reproducible-research"><i class="fa fa-check"></i><b>7.10</b> Reproducible research</a></li>
 <li class="chapter" data-level="7.11" data-path="references.html"><a href="references.html#基因调控"><i class="fa fa-check"></i><b>7.11</b> 基因调控</a></li>
 <li class="chapter" data-level="7.12" data-path="references.html"><a href="references.html#cell-annotation"><i class="fa fa-check"></i><b>7.12</b> cell annotation</a></li>
+<li class="chapter" data-level="7.13" data-path="references.html"><a href="references.html#空间分析"><i class="fa fa-check"></i><b>7.13</b> 空间分析</a></li>
 </ul></li>
 </ul>
 
@@ -571,20 +572,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb350-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>, </span>
 <span id="cb350-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
 <span id="cb350-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">verbose=</span><span class="cn">TRUE</span> )</span></code></pre></div>
-<pre><code>## 16:29:57 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 16:29:57 Read 9364 rows and found 15 numeric columns</code></pre>
-<pre><code>## 16:29:57 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 16:29:57 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 08:43:48 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 08:43:48 Read 9364 rows and found 15 numeric columns</code></pre>
+<pre><code>## 08:43:48 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 08:43:48 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 16:29:58 Writing NN index file to temp file /tmp/Rtmp5ruRWh/file1b85cb48464103
-## 16:29:58 Searching Annoy index using 1 thread, search_k = 3000
-## 16:30:00 Annoy recall = 100%
-## 16:30:02 Commencing smooth kNN distance calibration using 1 thread
-## 16:30:05 Initializing from normalized Laplacian + noise
-## 16:30:06 Commencing optimization for 500 epochs, with 367334 positive edges
-## 16:30:16 Optimization finished</code></pre>
+## 08:43:49 Writing NN index file to temp file /tmp/Rtmp78yN8k/file1c2886219149f1
+## 08:43:49 Searching Annoy index using 1 thread, search_k = 3000
+## 08:43:51 Annoy recall = 100%
+## 08:43:53 Commencing smooth kNN distance calibration using 1 thread
+## 08:43:55 Initializing from normalized Laplacian + noise
+## 08:43:56 Commencing optimization for 500 epochs, with 367334 positive edges
+## 08:44:06 Optimization finished</code></pre>
 <div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(ABC, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>

@@ -3,7 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Single Cell Sequencing Analysis</a></li>
+        <li><a href="https://zhilongjia.github.io/scRNA">scRNA Note</a></li>
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
