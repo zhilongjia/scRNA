@@ -1,6 +1,5 @@
 # References
 
-
 ## Python
 https://www.runoob.com/python/python-basic-syntax.html
 
@@ -75,3 +74,15 @@ https://www.jianshu.com/p/893654f39a78
 
 RcisTarget || 从基因列表到调控网络
 https://www.jianshu.com/p/6e1d71db4220
+
+
+## cell annotation
+
+http://biocc.hrbmu.edu.cn/CellMarker/
+
+https://panglaodb.se/
+
+https://www.jianshu.com/p/01a594013e8a #clusterProfiler也能做细胞类型鉴定
+
+## 空间分析
+https://www.jianshu.com/nb/48767585

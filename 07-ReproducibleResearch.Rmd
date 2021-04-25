@@ -1,6 +1,6 @@
 # Single-cell transcriptomic landscape of human blood cells
 
-Reproducible Research
+Reproducible Research of [Single-cell transcriptomic landscape of human blood cells](https://academic.oup.com/nsr/article/8/3/nwaa180/5896476)
 
 
 Download data from GEO
@@ -86,9 +86,20 @@ lncRNAs <- dplyr::filter(gene_types, gene_biotype=="lncRNA") %>% dplyr::select(g
 
 # 7551 single cells
 ABC <- CreateSeuratObject(count = ABC_HSPC_mat[protein_coding_genes,], project = 'ABC', min.cells = 5, min.features = 1000 )
+
+ABC
 ```
 
 #### add celltype info.
+![hematopoiesis](./figure/hematopoiesis.png)
+
+![celltype](./figure/celltype.png)
+
+![tcell](./figure/tcell.png)
+![bcell](./figure/bcell.png)
+
+Ref: `细胞类型鉴定及单细胞数据库-2021.04.24.pdf`
+
 ```{r}
 # cell types
 cell_types <- readxl::read_xlsx("./ABC/data/blood_ceel_types.xlsx", sheet="Sheet1")
@@ -190,7 +201,7 @@ DimPlot(ABC, reduction = "umap", label=TRUE)
 
 ## Figure 1E
 ### 细胞簇差异基因分析
-```{r}
+```{r all_markers_ABC, message=FALSE}
 all_markers <- FindAllMarkers(ABC, 
                               only.pos = TRUE, 
                               min.pct= 0.1, 
@@ -205,10 +216,46 @@ DoHeatmap(ABC, features = top_markers$gene) + NoLegend()
 ```
 
 ### marker基因展示
-```{r Marker_ABC}
-marker_genes = c("AVP", "CCR7", "CD79E", "GATA1", "GZMH", "SPI1")
+```{r Marker_ABC_cluster0, fig.width=20}
+# marker_genes = c("AVP", "CCR7", "CD79E", "GATA1", "GZMH", "SPI1")
+
+## cluster 0
+marker_genes <- top_markers$gene[1:4]
 VlnPlot(ABC, features =marker_genes, pt.size= 0)
 FeaturePlot(ABC, features = marker_genes )
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## sessionInfo
+```{r}
+sessionInfo()
+```
+
 
 

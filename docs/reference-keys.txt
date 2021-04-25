@@ -71,6 +71,10 @@ lognormalize
 筛选高变基因-1
 筛选高变基因-and-pca降维
 单细胞聚类可视化-1
+figure-1e
+细胞簇差异基因分析-1
+marker基因展示-1
+sessioninfo-4
 references
 python
 analysis-of-single-cell-rna-seq-data-分析流程
@@ -83,3 +87,4 @@ gene-set-enrichment
 转录因子
 reproducible-research
 基因调控
+cell-annotation

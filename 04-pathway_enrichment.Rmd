@@ -217,7 +217,7 @@ GSVA(gene set variation analysis)，通过将基因在不同样品间的表达�
 富集过程主要包含一下四步： 1）评估基因i在样品j中是高表达还是低表达：累积密度函数的核估计，得到每个样本的表达水平统计 2）对每个样本的表达水平统计进行排序和标准化 3）计算每个基因集的类KS随机游走统计量 4）将类KS随机游走统计量转化为ES：最大偏离量（双峰），最大正负偏离量之差（近似正态分布）
 
 ### GSVA富集示例
-```{r GSVA}
+```{r GSVA, message=FALSE, warning=FALSE}
 library(GSVA)
 expr <- as.data.frame(pbmc@assays$RNA@data)
 expr[1:10,1:10]

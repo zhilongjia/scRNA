@@ -24,7 +24,7 @@
 <meta name="author" content="Zhilong Jia" />
 
 
-<meta name="date" content="2021-04-23" />
+<meta name="date" content="2021-04-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -226,6 +226,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#筛选高变基因-and-pca降维"><i class="fa fa-check"></i><b>6.4.3</b> 筛选高变基因 and PCA降维</a></li>
 <li class="chapter" data-level="6.4.4" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#单细胞聚类可视化-1"><i class="fa fa-check"></i><b>6.4.4</b> 单细胞聚类可视化</a></li>
 </ul></li>
+<li class="chapter" data-level="6.5" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1e"><i class="fa fa-check"></i><b>6.5</b> Figure 1E</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#细胞簇差异基因分析-1"><i class="fa fa-check"></i><b>6.5.1</b> 细胞簇差异基因分析</a></li>
+<li class="chapter" data-level="6.5.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#marker基因展示-1"><i class="fa fa-check"></i><b>6.5.2</b> marker基因展示</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#sessioninfo-4"><i class="fa fa-check"></i><b>6.6</b> sessionInfo</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a>
 <ul>
@@ -240,6 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.9" data-path="references.html"><a href="references.html#转录因子"><i class="fa fa-check"></i><b>7.9</b> 转录因子</a></li>
 <li class="chapter" data-level="7.10" data-path="references.html"><a href="references.html#reproducible-research"><i class="fa fa-check"></i><b>7.10</b> Reproducible research</a></li>
 <li class="chapter" data-level="7.11" data-path="references.html"><a href="references.html#基因调控"><i class="fa fa-check"></i><b>7.11</b> 基因调控</a></li>
+<li class="chapter" data-level="7.12" data-path="references.html"><a href="references.html#cell-annotation"><i class="fa fa-check"></i><b>7.12</b> cell annotation</a></li>
 </ul></li>
 </ul>
 
@@ -260,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="single-cell-transcriptomic-landscape-of-human-blood-cells" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Single-cell transcriptomic landscape of human blood cells</h1>
-<p>Reproducible Research</p>
+<p>Reproducible Research of <a href="https://academic.oup.com/nsr/article/8/3/nwaa180/5896476">Single-cell transcriptomic landscape of human blood cells</a></p>
 <p>Download data from GEO</p>
 <ul>
 <li><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE149938">Single-cell Transcriptomic Landscape of Human Blood Cells</a>
@@ -284,9 +291,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data are located in <code>./ABC/data/GSE137864_HSPC/</code>.</p>
 <div id="read-hspc-data" class="section level3" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> read HSPC data</h3>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
-<span id="cb293-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb293-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb289-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb289-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb289-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb289-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;Matrix&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:S4Vectors&#39;:
@@ -295,15 +302,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
 ## 
 ##     expand, pack, unpack</code></pre>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="do">## HSPC</span></span>
-<span id="cb297-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb297-2" aria-hidden="true" tabindex="-1"></a>dir_10x <span class="ot">&lt;-</span> <span class="st">&quot;./ABC/data/GSE137864_HSPC/&quot;</span></span>
-<span id="cb297-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb297-3" aria-hidden="true" tabindex="-1"></a><span class="co"># change names as Read10X needed.</span></span>
-<span id="cb297-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb297-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dir_10x)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="do">## HSPC</span></span>
+<span id="cb293-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-2" aria-hidden="true" tabindex="-1"></a>dir_10x <span class="ot">&lt;-</span> <span class="st">&quot;./ABC/data/GSE137864_HSPC/&quot;</span></span>
+<span id="cb293-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-3" aria-hidden="true" tabindex="-1"></a><span class="co"># change names as Read10X needed.</span></span>
+<span id="cb293-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb293-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(dir_10x)</span></code></pre></div>
 <pre><code>## [1] &quot;barcodes.tsv.gz&quot;                &quot;features.tsv.gz&quot;               
 ## [3] &quot;GPL20301.soft&quot;                  &quot;GSE137864_series_matrix.txt.gz&quot;
 ## [5] &quot;matrix.mtx.gz&quot;</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb299-1" aria-hidden="true" tabindex="-1"></a>HSPC_raw <span class="ot">&lt;-</span> <span class="fu">Read10X</span>(dir_10x)</span>
-<span id="cb299-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb299-2" aria-hidden="true" tabindex="-1"></a>HSPC_meta <span class="ot">&lt;-</span> GEOquery<span class="sc">::</span><span class="fu">getGEO</span>(<span class="st">&quot;GSE137864&quot;</span>, <span class="at">destdir=</span><span class="st">&quot;./ABC/data/GSE137864_HSPC/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb295-1" aria-hidden="true" tabindex="-1"></a>HSPC_raw <span class="ot">&lt;-</span> <span class="fu">Read10X</span>(dir_10x)</span>
+<span id="cb295-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb295-2" aria-hidden="true" tabindex="-1"></a>HSPC_meta <span class="ot">&lt;-</span> GEOquery<span class="sc">::</span><span class="fu">getGEO</span>(<span class="st">&quot;GSE137864&quot;</span>, <span class="at">destdir=</span><span class="st">&quot;./ABC/data/GSE137864_HSPC/&quot;</span>)</span></code></pre></div>
 <pre><code>## Setting options(&#39;download.file.method.GEOquery&#39;=&#39;auto&#39;)</code></pre>
 <pre><code>## Setting options(&#39;GEOquery.inmemory.gpl&#39;=FALSE)</code></pre>
 <pre><code>## Found 1 file(s)</code></pre>
@@ -319,26 +326,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## )</code></pre>
 <pre><code>## Using locally cached version of GPL20301 found here:
 ## ./ABC/data/GSE137864_HSPC//GPL20301.soft</code></pre>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb307-1" aria-hidden="true" tabindex="-1"></a>HSPC_meta <span class="ot">&lt;-</span> Biobase<span class="sc">::</span><span class="fu">pData</span>(HSPC_meta<span class="sc">$</span>GSE137864_series_matrix.txt.gz)</span>
-<span id="cb307-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb307-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb307-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb307-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb307-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb307-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(HSPC_raw) <span class="sc">%&gt;%</span>  head</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb303-1" aria-hidden="true" tabindex="-1"></a>HSPC_meta <span class="ot">&lt;-</span> Biobase<span class="sc">::</span><span class="fu">pData</span>(HSPC_meta<span class="sc">$</span>GSE137864_series_matrix.txt.gz)</span>
+<span id="cb303-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb303-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb303-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb303-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb303-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb303-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(HSPC_raw) <span class="sc">%&gt;%</span>  head</span></code></pre></div>
 <pre><code>## [1] &quot;HSC_BM1_L1_bar1&quot; &quot;HSC_BM1_L1_bar2&quot; &quot;HSC_BM1_L1_bar3&quot; &quot;HSC_BM1_L1_bar5&quot;
 ## [5] &quot;HSC_BM1_L1_bar6&quot; &quot;HSC_BM1_L1_bar7&quot;</code></pre>
 </div>
 <div id="read-blood-cells-data" class="section level3" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> read Blood Cells data</h3>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Blood Cells</span></span>
-<span id="cb309-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb309-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-3" aria-hidden="true" tabindex="-1"></a>BC_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./ABC/data/HumanBloodCells/GSE149938_umi_matrix.csv&quot;</span>, <span class="at">check.names=</span>F)</span>
-<span id="cb309-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-4" aria-hidden="true" tabindex="-1"></a>BC_mat <span class="ot">&lt;-</span> <span class="fu">Matrix</span>( <span class="fu">t</span>(<span class="fu">as.matrix</span>(BC_raw)) )</span>
-<span id="cb309-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb309-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(BC_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Blood Cells</span></span>
+<span id="cb305-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb305-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb305-3" aria-hidden="true" tabindex="-1"></a>BC_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./ABC/data/HumanBloodCells/GSE149938_umi_matrix.csv&quot;</span>, <span class="at">check.names=</span>F)</span>
+<span id="cb305-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb305-4" aria-hidden="true" tabindex="-1"></a>BC_mat <span class="ot">&lt;-</span> <span class="fu">Matrix</span>( <span class="fu">t</span>(<span class="fu">as.matrix</span>(BC_raw)) )</span>
+<span id="cb305-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb305-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb305-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(BC_raw)</span></code></pre></div>
 <pre><code>## [1]  7643 19813</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(BC_mat) <span class="sc">%&gt;%</span>  head</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(BC_mat) <span class="sc">%&gt;%</span>  head</span></code></pre></div>
 <pre><code>## [1] &quot;BNK_spBM1_L1_bar25&quot; &quot;BNK_spBM1_L1_bar26&quot; &quot;BNK_spBM1_L1_bar27&quot;
 ## [4] &quot;BNK_spBM1_L1_bar28&quot; &quot;BNK_spBM1_L1_bar29&quot; &quot;BNK_spBM1_L1_bar30&quot;</code></pre>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb313-1" aria-hidden="true" tabindex="-1"></a>BC_meta <span class="ot">&lt;-</span> GEOquery<span class="sc">::</span><span class="fu">getGEO</span>(<span class="st">&quot;GSE149938&quot;</span>, <span class="at">destdir=</span><span class="st">&quot;./ABC/data/HumanBloodCells/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb309-1" aria-hidden="true" tabindex="-1"></a>BC_meta <span class="ot">&lt;-</span> GEOquery<span class="sc">::</span><span class="fu">getGEO</span>(<span class="st">&quot;GSE149938&quot;</span>, <span class="at">destdir=</span><span class="st">&quot;./ABC/data/HumanBloodCells/&quot;</span>)</span></code></pre></div>
 <pre><code>## Found 1 file(s)</code></pre>
 <pre><code>## GSE149938_series_matrix.txt.gz</code></pre>
 <pre><code>## Using locally cached version: ./ABC/data/HumanBloodCells//GSE149938_series_matrix.txt.gz</code></pre>
@@ -355,79 +362,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## )</code></pre>
 <pre><code>## Using locally cached version of GPL20301 found here:
 ## ./ABC/data/HumanBloodCells//GPL20301.soft</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb319-1" aria-hidden="true" tabindex="-1"></a>BC_meta <span class="ot">&lt;-</span> Biobase<span class="sc">::</span><span class="fu">pData</span>(BC_meta<span class="sc">$</span>GSE149938_series_matrix.txt.gz)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb315-1" aria-hidden="true" tabindex="-1"></a>BC_meta <span class="ot">&lt;-</span> Biobase<span class="sc">::</span><span class="fu">pData</span>(BC_meta<span class="sc">$</span>GSE149938_series_matrix.txt.gz)</span></code></pre></div>
 </div>
 <div id="merge-two-mats-to-createseuratobject" class="section level3" number="6.1.3">
 <h3><span class="header-section-number">6.1.3</span> Merge two mats to CreateSeuratObject</h3>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge two mats</span></span>
-<span id="cb320-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(HSPC_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge two mats</span></span>
+<span id="cb316-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb316-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(HSPC_raw)</span></code></pre></div>
 <pre><code>## [1] 19813  1813</code></pre>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(BC_mat)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(BC_mat)</span></code></pre></div>
 <pre><code>## [1] 19813  7643</code></pre>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-1" aria-hidden="true" tabindex="-1"></a>ABC_HSPC_mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(HSPC_raw, BC_mat)</span>
-<span id="cb324-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ABC_HSPC_mat)</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb320-1" aria-hidden="true" tabindex="-1"></a>ABC_HSPC_mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(HSPC_raw, BC_mat)</span>
+<span id="cb320-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ABC_HSPC_mat)</span></code></pre></div>
 <pre><code>## [1] 19813  9456</code></pre>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distinguish protein-coding genes and lncRNAs</span></span>
-<span id="cb326-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gtf: ftp://ftp.ensembl.org/pub/release-84/gtf/homo_sapiens/</span></span>
-<span id="cb326-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-3" aria-hidden="true" tabindex="-1"></a><span class="co"># add genesymols annotation</span></span>
-<span id="cb326-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-4" aria-hidden="true" tabindex="-1"></a>gtf_fn <span class="ot">&lt;-</span> <span class="st">&quot;~/data/drug_seq/rawdata/genome/Homo_sapiens.GRCh38.102.gtf&quot;</span></span>
-<span id="cb326-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-5" aria-hidden="true" tabindex="-1"></a>gtf <span class="ot">&lt;-</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(gtf_fn)</span>
-<span id="cb326-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-6" aria-hidden="true" tabindex="-1"></a>gtf_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">as.data.frame</span>(gtf), type<span class="sc">==</span><span class="st">&quot;gene&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb326-7"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id, gene_name, gene_biotype)</span>
-<span id="cb326-8"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb326-9"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-9" aria-hidden="true" tabindex="-1"></a>ABC_HSPC_gene <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rownames</span>(ABC_HSPC_mat)) </span>
-<span id="cb326-10"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ABC_HSPC_gene) <span class="ot">&lt;-</span> <span class="st">&quot;gene_name&quot;</span></span>
-<span id="cb326-11"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb326-12"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-12" aria-hidden="true" tabindex="-1"></a>gene_types <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(ABC_HSPC_gene, gtf_df)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distinguish protein-coding genes and lncRNAs</span></span>
+<span id="cb322-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gtf: ftp://ftp.ensembl.org/pub/release-84/gtf/homo_sapiens/</span></span>
+<span id="cb322-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-3" aria-hidden="true" tabindex="-1"></a><span class="co"># add genesymols annotation</span></span>
+<span id="cb322-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-4" aria-hidden="true" tabindex="-1"></a>gtf_fn <span class="ot">&lt;-</span> <span class="st">&quot;~/data/drug_seq/rawdata/genome/Homo_sapiens.GRCh38.102.gtf&quot;</span></span>
+<span id="cb322-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-5" aria-hidden="true" tabindex="-1"></a>gtf <span class="ot">&lt;-</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(gtf_fn)</span>
+<span id="cb322-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-6" aria-hidden="true" tabindex="-1"></a>gtf_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">as.data.frame</span>(gtf), type<span class="sc">==</span><span class="st">&quot;gene&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb322-7"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id, gene_name, gene_biotype)</span>
+<span id="cb322-8"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb322-9"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-9" aria-hidden="true" tabindex="-1"></a>ABC_HSPC_gene <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rownames</span>(ABC_HSPC_mat)) </span>
+<span id="cb322-10"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ABC_HSPC_gene) <span class="ot">&lt;-</span> <span class="st">&quot;gene_name&quot;</span></span>
+<span id="cb322-11"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb322-12"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb322-12" aria-hidden="true" tabindex="-1"></a>gene_types <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(ABC_HSPC_gene, gtf_df)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;gene_name&quot;</code></pre>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-1" aria-hidden="true" tabindex="-1"></a>protein_coding_genes <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(gene_types, gene_biotype<span class="sc">==</span><span class="st">&quot;protein_coding&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>(<span class="at">use.names =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb328-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb328-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-3" aria-hidden="true" tabindex="-1"></a><span class="co"># should use NNONCODE website (http://www.noncode.org/datadownload/NONCODEv6_human_hg38_lncRNA.gtf.gz)</span></span>
-<span id="cb328-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-4" aria-hidden="true" tabindex="-1"></a>lncRNAs <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(gene_types, gene_biotype<span class="sc">==</span><span class="st">&quot;lncRNA&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>(<span class="at">use.names =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb328-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb328-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 7551 single cells</span></span>
-<span id="cb328-7"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-7" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(<span class="at">count =</span> ABC_HSPC_mat[protein_coding_genes,], <span class="at">project =</span> <span class="st">&#39;ABC&#39;</span>, <span class="at">min.cells =</span> <span class="dv">5</span>, <span class="at">min.features =</span> <span class="dv">1000</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-1" aria-hidden="true" tabindex="-1"></a>protein_coding_genes <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(gene_types, gene_biotype<span class="sc">==</span><span class="st">&quot;protein_coding&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>(<span class="at">use.names =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb324-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-3" aria-hidden="true" tabindex="-1"></a><span class="co"># should use NNONCODE website (http://www.noncode.org/datadownload/NONCODEv6_human_hg38_lncRNA.gtf.gz)</span></span>
+<span id="cb324-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-4" aria-hidden="true" tabindex="-1"></a>lncRNAs <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(gene_types, gene_biotype<span class="sc">==</span><span class="st">&quot;lncRNA&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>(<span class="at">use.names =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb324-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 7551 single cells</span></span>
+<span id="cb324-7"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-7" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(<span class="at">count =</span> ABC_HSPC_mat[protein_coding_genes,], <span class="at">project =</span> <span class="st">&#39;ABC&#39;</span>, <span class="at">min.cells =</span> <span class="dv">5</span>, <span class="at">min.features =</span> <span class="dv">1000</span> )</span>
+<span id="cb324-8"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-9"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb324-9" aria-hidden="true" tabindex="-1"></a>ABC</span></code></pre></div>
+<pre><code>## An object of class Seurat 
+## 17057 features across 9364 samples within 1 assay 
+## Active assay: RNA (17057 features, 0 variable features)</code></pre>
 <div id="add-celltype-info." class="section level4" number="6.1.3.1">
 <h4><span class="header-section-number">6.1.3.1</span> add celltype info.</h4>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cell types</span></span>
-<span id="cb329-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb329-2" aria-hidden="true" tabindex="-1"></a>cell_types <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">&quot;./ABC/data/blood_ceel_types.xlsx&quot;</span>, <span class="at">sheet=</span><span class="st">&quot;Sheet1&quot;</span>)</span>
-<span id="cb329-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb329-3" aria-hidden="true" tabindex="-1"></a>ABC_meta <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(ABC<span class="sc">@</span>meta.data,  cell_types)</span></code></pre></div>
+<div class="figure">
+<img src="figure/hematopoiesis.png" alt="" />
+<p class="caption">hematopoiesis</p>
+</div>
+<div class="figure">
+<img src="figure/celltype.png" alt="" />
+<p class="caption">celltype</p>
+</div>
+<p><img src="figure/tcell.png" alt="tcell" />
+<img src="figure/bcell.png" alt="bcell" /></p>
+<p>Ref: <code>细胞类型鉴定及单细胞数据库-2021.04.24.pdf</code></p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cell types</span></span>
+<span id="cb326-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-2" aria-hidden="true" tabindex="-1"></a>cell_types <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">&quot;./ABC/data/blood_ceel_types.xlsx&quot;</span>, <span class="at">sheet=</span><span class="st">&quot;Sheet1&quot;</span>)</span>
+<span id="cb326-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb326-3" aria-hidden="true" tabindex="-1"></a>ABC_meta <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(ABC<span class="sc">@</span>meta.data,  cell_types)</span></code></pre></div>
 <pre><code>## Joining, by = &quot;orig.ident&quot;</code></pre>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-1" aria-hidden="true" tabindex="-1"></a>ABC_meta<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(ABC_meta<span class="sc">$</span>group, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;HSPC&quot;</span>, <span class="st">&quot;Bcells&quot;</span>, <span class="st">&quot;NK&quot;</span>, </span>
-<span id="cb331-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-2" aria-hidden="true" tabindex="-1"></a>                                                     <span class="st">&quot;Tcells&quot;</span>, <span class="st">&quot;Monocytes&quot;</span>, <span class="st">&quot;Neutrophils&quot;</span> , <span class="st">&quot;Erythrocytes&quot;</span> ) )</span>
-<span id="cb331-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb331-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-4" aria-hidden="true" tabindex="-1"></a>ranked_celltypes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;HSC&quot;</span>, <span class="st">&quot;BNK&quot;</span>, <span class="st">&quot;LMPP&quot;</span>, <span class="st">&quot;MLP&quot;</span>, <span class="st">&quot;MPP&quot;</span>, <span class="st">&quot;CMP&quot;</span>, <span class="st">&quot;MEP&quot;</span>, <span class="st">&quot;GMP&quot;</span>, <span class="st">&quot;memB&quot;</span>, <span class="st">&quot;preB&quot;</span>, <span class="st">&quot;proB&quot;</span>, <span class="st">&quot;immB&quot;</span>, <span class="st">&quot;regB&quot;</span>, </span>
-<span id="cb331-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-5" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;naiB&quot;</span>, <span class="st">&quot;plasma&quot;</span>, <span class="st">&quot;CLP&quot;</span>, <span class="st">&quot;NKP&quot;</span>, <span class="st">&quot;kineNK&quot;</span>, <span class="st">&quot;toxiNK&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;claM&quot;</span>, <span class="st">&quot;cMOP&quot;</span>, <span class="st">&quot;hMDP&quot;</span>, </span>
-<span id="cb331-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-6" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;interM&quot;</span>, <span class="st">&quot;nonM&quot;</span>, <span class="st">&quot;preM&quot;</span>, <span class="st">&quot;metaN&quot;</span>, <span class="st">&quot;matureN&quot;</span>, <span class="st">&quot;proN&quot;</span>, <span class="st">&quot;myeN&quot;</span>, <span class="st">&quot;ery&quot;</span>)</span>
-<span id="cb331-7"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb331-8"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-8" aria-hidden="true" tabindex="-1"></a>ABC_meta<span class="sc">$</span>orig.ident <span class="ot">&lt;-</span> <span class="fu">factor</span>(ABC_meta<span class="sc">$</span>orig.ident, <span class="at">levels=</span>ranked_celltypes )</span>
-<span id="cb331-9"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb331-10"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(ABC_meta) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(ABC<span class="sc">@</span>meta.data)</span>
-<span id="cb331-11"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb331-12"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-12" aria-hidden="true" tabindex="-1"></a>ABC<span class="sc">@</span>meta.data <span class="ot">&lt;-</span> ABC_meta</span>
-<span id="cb331-13"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-13" aria-hidden="true" tabindex="-1"></a><span class="co"># HSPC_types &lt;- unique(gsub(&quot;_.*&quot;,&quot;&quot;,colnames(HSPC_raw)))</span></span>
-<span id="cb331-14"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-14" aria-hidden="true" tabindex="-1"></a><span class="co"># HSPC_types &lt;- c(&quot;HSC&quot;, &quot;BNK&quot;,  &quot;LMPP&quot;, &quot;MLP&quot;,  &quot;MPP&quot;,  &quot;CMP&quot;,  &quot;MEP&quot;,  &quot;GMP&quot; )</span></span>
-<span id="cb331-15"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-16"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ABC_meta[which(ABC@meta.data$orig.ident %in% HSPC_types ), &quot;group&quot;] &lt;- &quot;HSPC&quot;</span></span>
-<span id="cb331-17"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-18"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-18" aria-hidden="true" tabindex="-1"></a><span class="co"># PB_types &lt;- c(&quot;memB&quot;, &quot;regB&quot;)</span></span>
-<span id="cb331-19"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-20"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-21"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Neutrophils_types &lt;- c(&quot;metaN&quot;, &quot;myeN&quot;, &quot;matureN&quot;, &quot;proN&quot;, &quot;myeN&quot; )</span></span>
-<span id="cb331-22"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-23"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-23" aria-hidden="true" tabindex="-1"></a><span class="co"># NK_cells_types &lt;- c(&quot;CLP&quot;, &quot;NKP&quot;, &quot;kineNK&quot;, &quot;toxiNK&quot;)</span></span>
-<span id="cb331-24"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-25"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Bcells_types &lt;- c(&quot;preB&quot;, &quot;proB&quot;, &quot;immB&quot;, &quot;regB&quot;, &quot;naiB&quot;, &quot;plasma&quot;)</span></span>
-<span id="cb331-26"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Tcells_types &lt;- c(&quot;CD4T&quot;, &quot;CD8T&quot;)</span></span>
-<span id="cb331-27"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-27" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb331-28"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Erythrocytes_types &lt;- c(&quot;ery&quot;)</span></span>
-<span id="cb331-29"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb331-30"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Monocytes_types &lt;- c(&quot;claM&quot;, &quot;cMOP&quot;, &quot;hMDP&quot;, &quot;interM&quot;, &quot;nonM&quot;, &quot;preM&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-1" aria-hidden="true" tabindex="-1"></a>ABC_meta<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(ABC_meta<span class="sc">$</span>group, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;HSPC&quot;</span>, <span class="st">&quot;Bcells&quot;</span>, <span class="st">&quot;NK&quot;</span>, </span>
+<span id="cb328-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-2" aria-hidden="true" tabindex="-1"></a>                                                     <span class="st">&quot;Tcells&quot;</span>, <span class="st">&quot;Monocytes&quot;</span>, <span class="st">&quot;Neutrophils&quot;</span> , <span class="st">&quot;Erythrocytes&quot;</span> ) )</span>
+<span id="cb328-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-4" aria-hidden="true" tabindex="-1"></a>ranked_celltypes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;HSC&quot;</span>, <span class="st">&quot;BNK&quot;</span>, <span class="st">&quot;LMPP&quot;</span>, <span class="st">&quot;MLP&quot;</span>, <span class="st">&quot;MPP&quot;</span>, <span class="st">&quot;CMP&quot;</span>, <span class="st">&quot;MEP&quot;</span>, <span class="st">&quot;GMP&quot;</span>, <span class="st">&quot;memB&quot;</span>, <span class="st">&quot;preB&quot;</span>, <span class="st">&quot;proB&quot;</span>, <span class="st">&quot;immB&quot;</span>, <span class="st">&quot;regB&quot;</span>, </span>
+<span id="cb328-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-5" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;naiB&quot;</span>, <span class="st">&quot;plasma&quot;</span>, <span class="st">&quot;CLP&quot;</span>, <span class="st">&quot;NKP&quot;</span>, <span class="st">&quot;kineNK&quot;</span>, <span class="st">&quot;toxiNK&quot;</span>, <span class="st">&quot;CD4T&quot;</span>, <span class="st">&quot;CD8T&quot;</span>, <span class="st">&quot;claM&quot;</span>, <span class="st">&quot;cMOP&quot;</span>, <span class="st">&quot;hMDP&quot;</span>, </span>
+<span id="cb328-6"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-6" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;interM&quot;</span>, <span class="st">&quot;nonM&quot;</span>, <span class="st">&quot;preM&quot;</span>, <span class="st">&quot;metaN&quot;</span>, <span class="st">&quot;matureN&quot;</span>, <span class="st">&quot;proN&quot;</span>, <span class="st">&quot;myeN&quot;</span>, <span class="st">&quot;ery&quot;</span>)</span>
+<span id="cb328-7"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-8"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-8" aria-hidden="true" tabindex="-1"></a>ABC_meta<span class="sc">$</span>orig.ident <span class="ot">&lt;-</span> <span class="fu">factor</span>(ABC_meta<span class="sc">$</span>orig.ident, <span class="at">levels=</span>ranked_celltypes )</span>
+<span id="cb328-9"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-10"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(ABC_meta) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(ABC<span class="sc">@</span>meta.data)</span>
+<span id="cb328-11"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-12"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-12" aria-hidden="true" tabindex="-1"></a>ABC<span class="sc">@</span>meta.data <span class="ot">&lt;-</span> ABC_meta</span>
+<span id="cb328-13"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-13" aria-hidden="true" tabindex="-1"></a><span class="co"># HSPC_types &lt;- unique(gsub(&quot;_.*&quot;,&quot;&quot;,colnames(HSPC_raw)))</span></span>
+<span id="cb328-14"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-14" aria-hidden="true" tabindex="-1"></a><span class="co"># HSPC_types &lt;- c(&quot;HSC&quot;, &quot;BNK&quot;,  &quot;LMPP&quot;, &quot;MLP&quot;,  &quot;MPP&quot;,  &quot;CMP&quot;,  &quot;MEP&quot;,  &quot;GMP&quot; )</span></span>
+<span id="cb328-15"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-16"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ABC_meta[which(ABC@meta.data$orig.ident %in% HSPC_types ), &quot;group&quot;] &lt;- &quot;HSPC&quot;</span></span>
+<span id="cb328-17"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-18"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-18" aria-hidden="true" tabindex="-1"></a><span class="co"># PB_types &lt;- c(&quot;memB&quot;, &quot;regB&quot;)</span></span>
+<span id="cb328-19"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-20"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-21"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Neutrophils_types &lt;- c(&quot;metaN&quot;, &quot;myeN&quot;, &quot;matureN&quot;, &quot;proN&quot;, &quot;myeN&quot; )</span></span>
+<span id="cb328-22"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-23"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-23" aria-hidden="true" tabindex="-1"></a><span class="co"># NK_cells_types &lt;- c(&quot;CLP&quot;, &quot;NKP&quot;, &quot;kineNK&quot;, &quot;toxiNK&quot;)</span></span>
+<span id="cb328-24"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-25"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Bcells_types &lt;- c(&quot;preB&quot;, &quot;proB&quot;, &quot;immB&quot;, &quot;regB&quot;, &quot;naiB&quot;, &quot;plasma&quot;)</span></span>
+<span id="cb328-26"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Tcells_types &lt;- c(&quot;CD4T&quot;, &quot;CD8T&quot;)</span></span>
+<span id="cb328-27"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-27" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb328-28"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Erythrocytes_types &lt;- c(&quot;ery&quot;)</span></span>
+<span id="cb328-29"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-30"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb328-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Monocytes_types &lt;- c(&quot;claM&quot;, &quot;cMOP&quot;, &quot;hMDP&quot;, &quot;interM&quot;, &quot;nonM&quot;, &quot;preM&quot;)</span></span></code></pre></div>
 </div>
 <div id="线粒体" class="section level4" number="6.1.3.2">
 <h4><span class="header-section-number">6.1.3.2</span> 线粒体</h4>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb332-1" aria-hidden="true" tabindex="-1"></a>ABC[[<span class="st">&quot;percent.mt&quot;</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(ABC, <span class="at">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</span>
-<span id="cb332-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb332-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ABC<span class="sc">@</span>meta.data)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb329-1" aria-hidden="true" tabindex="-1"></a>ABC[[<span class="st">&quot;percent.mt&quot;</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(ABC, <span class="at">pattern =</span> <span class="st">&quot;^MT-&quot;</span>)</span>
+<span id="cb329-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb329-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ABC<span class="sc">@</span>meta.data)</span></code></pre></div>
 <pre><code>##                 orig.ident nCount_RNA nFeature_RNA group cellname percent.mt
 ## HSC_BM1_L1_bar1        HSC     153232         4697  HSPC      HSC          0
 ## HSC_BM1_L1_bar2        HSC      61300         3807  HSPC      HSC          0
@@ -440,38 +463,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="figure-1b" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Figure 1B</h2>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="co"># VlnPlot(ABC, features=c(&#39;nFeature_RNA&#39;), group.by = &quot;group&quot;)</span></span>
-<span id="cb334-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb334-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(ABC, <span class="at">features=</span><span class="fu">c</span>(<span class="st">&#39;nFeature_RNA&#39;</span>), <span class="at">group.by =</span> <span class="st">&quot;orig.ident&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="co"># VlnPlot(ABC, features=c(&#39;nFeature_RNA&#39;), group.by = &quot;group&quot;)</span></span>
+<span id="cb331-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb331-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(ABC, <span class="at">features=</span><span class="fu">c</span>(<span class="st">&#39;nFeature_RNA&#39;</span>), <span class="at">group.by =</span> <span class="st">&quot;orig.ident&quot;</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/VlnPlot_gene-1.png" width="1440" /></p>
 </div>
 <div id="figure-1c" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Figure 1C</h2>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="co">#boxplot all genes</span></span>
-<span id="cb335-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb335-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ABC<span class="sc">@</span>meta.data<span class="sc">$</span>nFeature_RNA)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="co">#boxplot all genes</span></span>
+<span id="cb332-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb332-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ABC<span class="sc">@</span>meta.data<span class="sc">$</span>nFeature_RNA)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/boxplot_gene-1.png" width="672" /></p>
 </div>
 <div id="figure-1d" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Figure 1D</h2>
 <div id="lognormalize" class="section level3" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> LogNormalize</h3>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb336-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(<span class="at">object=</span>ABC, </span>
-<span id="cb336-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb336-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">normalization.method=</span> <span class="st">&#39;LogNormalize&#39;</span>, </span>
-<span id="cb336-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb336-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">scale.factor=</span><span class="dv">10000</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb333-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(<span class="at">object=</span>ABC, </span>
+<span id="cb333-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb333-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">normalization.method=</span> <span class="st">&#39;LogNormalize&#39;</span>, </span>
+<span id="cb333-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb333-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">scale.factor=</span><span class="dv">10000</span> )</span></code></pre></div>
 </div>
 <div id="筛选高变基因-1" class="section level3" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> 筛选高变基因</h3>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb337-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">FindVariableFeatures</span>(ABC,</span>
-<span id="cb337-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb337-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">selection.method =</span> <span class="st">&quot;vst&quot;</span>, </span>
-<span id="cb337-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb337-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nfeatures =</span> <span class="dv">2000</span>)</span>
-<span id="cb337-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb337-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">VariableFeatures</span>(ABC))</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb334-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">FindVariableFeatures</span>(ABC,</span>
+<span id="cb334-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb334-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">selection.method =</span> <span class="st">&quot;vst&quot;</span>, </span>
+<span id="cb334-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb334-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">nfeatures =</span> <span class="dv">2000</span>)</span>
+<span id="cb334-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb334-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">VariableFeatures</span>(ABC))</span></code></pre></div>
 <pre><code>## [1] &quot;GNLY&quot;   &quot;CLC&quot;    &quot;HBG1&quot;   &quot;HBG2&quot;   &quot;JCHAIN&quot; &quot;DEFA3&quot;</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb339-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(ABC)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb336-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(ABC)</span></code></pre></div>
 <pre><code>## Centering and scaling data matrix</code></pre>
 </div>
 <div id="筛选高变基因-and-pca降维" class="section level3" number="6.4.3">
 <h3><span class="header-section-number">6.4.3</span> 筛选高变基因 and PCA降维</h3>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb341-1" aria-hidden="true" tabindex="-1"></a>hvg <span class="ot">&lt;-</span> <span class="fu">VariableFeatures</span>(<span class="at">object =</span> ABC)</span>
-<span id="cb341-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb341-2" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(ABC, <span class="at">features =</span> hvg )</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb338-1" aria-hidden="true" tabindex="-1"></a>hvg <span class="ot">&lt;-</span> <span class="fu">VariableFeatures</span>(<span class="at">object =</span> ABC)</span>
+<span id="cb338-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb338-2" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">RunPCA</span>(ABC, <span class="at">features =</span> hvg )</span></code></pre></div>
 <pre><code>## PC_ 1 
 ## Positive:  PRDX2, BLVRB, HBD, AHSP, CA1, CA2, HMBS, GYPA, UROD, KLF1 
 ##     RHAG, HBB, GYPB, HBA1, ALAS2, SMIM1, TMEM14C, HBM, GATA1, HBA2 
@@ -507,13 +530,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Negative:  MPEG1, KLF4, SAMHD1, IRF8, FOSB, ANXA2, TGFBI, CD83, CFD, EGR1 
 ##     JUN, MS4A7, MAFB, LGALS1, VCAN, MS4A6A, HERPUD1, JUND, TMEM176B, PLD4 
 ##     FGL2, KCTD12, S100A10, SCIMP, ADAP2, KLF2, IFI30, CCL3, CPVL, RNASE6</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(ABC)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(ABC)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 ### 聚类分簇</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb344-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(ABC, <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb341-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(ABC, <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>, <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>)</span></code></pre></div>
 <pre><code>## Computing nearest neighbor graph</code></pre>
 <pre><code>## Computing SNN</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb347-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(ABC, <span class="at">resolution =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb344-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(ABC, <span class="at">resolution =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
 ## 
 ## Number of nodes: 9364
@@ -523,7 +546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Maximum modularity in 10 random starts: 0.9466
 ## Number of communities: 22
 ## Elapsed time: 0 seconds</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ABC<span class="sc">@</span>meta.data)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ABC<span class="sc">@</span>meta.data)</span></code></pre></div>
 <pre><code>##                 orig.ident nCount_RNA nFeature_RNA group cellname percent.mt
 ## HSC_BM1_L1_bar1        HSC     153232         4697  HSPC      HSC          0
 ## HSC_BM1_L1_bar2        HSC      61300         3807  HSPC      HSC          0
@@ -538,34 +561,208 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## HSC_BM1_L1_bar5              16              16
 ## HSC_BM1_L1_bar6               5               5
 ## HSC_BM1_L1_bar7              16              16</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ABC)</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ABC)</span></code></pre></div>
 <pre><code>##  [1] &quot;0&quot;  &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
 ## [16] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot;</code></pre>
 </div>
 <div id="单细胞聚类可视化-1" class="section level3" number="6.4.4">
 <h3><span class="header-section-number">6.4.4</span> 单细胞聚类可视化</h3>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb353-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(ABC, </span>
-<span id="cb353-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb353-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>, </span>
-<span id="cb353-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb353-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
-<span id="cb353-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb353-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">verbose=</span><span class="cn">TRUE</span> )</span></code></pre></div>
-<pre><code>## 00:03:42 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 00:03:42 Read 9364 rows and found 15 numeric columns</code></pre>
-<pre><code>## 00:03:42 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 00:03:42 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-1" aria-hidden="true" tabindex="-1"></a>ABC <span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(ABC, </span>
+<span id="cb350-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">reduction =</span> <span class="st">&quot;pca&quot;</span>, </span>
+<span id="cb350-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
+<span id="cb350-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb350-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">verbose=</span><span class="cn">TRUE</span> )</span></code></pre></div>
+<pre><code>## 16:29:57 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 16:29:57 Read 9364 rows and found 15 numeric columns</code></pre>
+<pre><code>## 16:29:57 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 16:29:57 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 00:03:43 Writing NN index file to temp file /tmp/RtmpuMxQXX/file19df0c14e1911c
-## 00:03:43 Searching Annoy index using 1 thread, search_k = 3000
-## 00:03:46 Annoy recall = 100%
-## 00:03:47 Commencing smooth kNN distance calibration using 1 thread
-## 00:03:50 Initializing from normalized Laplacian + noise
-## 00:03:51 Commencing optimization for 500 epochs, with 367334 positive edges
-## 00:04:01 Optimization finished</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(ABC, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+## 16:29:58 Writing NN index file to temp file /tmp/Rtmp5ruRWh/file1b85cb48464103
+## 16:29:58 Searching Annoy index using 1 thread, search_k = 3000
+## 16:30:00 Annoy recall = 100%
+## 16:30:02 Commencing smooth kNN distance calibration using 1 thread
+## 16:30:05 Initializing from normalized Laplacian + noise
+## 16:30:06 Commencing optimization for 500 epochs, with 367334 positive edges
+## 16:30:16 Optimization finished</code></pre>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(ABC, <span class="at">reduction =</span> <span class="st">&quot;umap&quot;</span>, <span class="at">label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="Single_cell_training_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-
 </div>
+</div>
+<div id="figure-1e" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Figure 1E</h2>
+<div id="细胞簇差异基因分析-1" class="section level3" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> 细胞簇差异基因分析</h3>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb359-1" aria-hidden="true" tabindex="-1"></a>all_markers <span class="ot">&lt;-</span> <span class="fu">FindAllMarkers</span>(ABC, </span>
+<span id="cb359-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb359-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">only.pos =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb359-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb359-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">min.pct=</span> <span class="fl">0.1</span>, </span>
+<span id="cb359-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb359-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">logfc.threshold=</span> <span class="fl">0.25</span>)</span>
+<span id="cb359-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb359-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(all_markers)</span></code></pre></div>
+<pre><code>##        p_val avg_log2FC pct.1 pct.2 p_val_adj cluster   gene
+## SPINK2     0   3.206160 0.998 0.388         0       0 SPINK2
+## HOPX       0   2.377097 0.914 0.244         0       0   HOPX
+## CYTL1      0   1.678931 0.916 0.326         0       0  CYTL1
+## GSTP1      0   1.515518 0.999 0.757         0       0  GSTP1
+## AIF1       0   1.454197 1.000 0.666         0       0   AIF1
+## SMIM24     0   1.419550 0.965 0.464         0       0 SMIM24</code></pre>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb361-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb361-2" aria-hidden="true" tabindex="-1"></a>top_markers <span class="ot">&lt;-</span> all_markers <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( cluster) <span class="sc">%&gt;%</span> <span class="fu">top_n</span>( <span class="at">n =</span> <span class="dv">5</span>, <span class="at">wt=</span> avg_log2FC )</span>
+<span id="cb361-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb361-3" aria-hidden="true" tabindex="-1"></a>top_markers</span></code></pre></div>
+<pre><code>## # A tibble: 110 x 7
+## # Groups:   cluster [22]
+##        p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene   
+##        &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;chr&gt;  
+##  1 0               3.21 0.998 0.388 0         0       SPINK2 
+##  2 0               2.38 0.914 0.244 0         0       HOPX   
+##  3 0               1.68 0.916 0.326 0         0       CYTL1  
+##  4 3.18e-307       1.74 0.94  0.438 5.42e-303 0       TSC22D1
+##  5 5.76e-305       2.26 0.487 0.084 9.82e-301 0       PRSS2  
+##  6 0               4.60 1     0.404 0         1       CA1    
+##  7 0               4.21 1     0.333 0         1       AHSP   
+##  8 0               3.78 0.962 0.19  0         1       HBM    
+##  9 0               3.64 0.987 0.154 0         1       GYPA   
+## 10 0               3.61 0.991 0.306 0         1       CA2    
+## # … with 100 more rows</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DoHeatmap</span>(ABC, <span class="at">features =</span> top_markers<span class="sc">$</span>gene) <span class="sc">+</span> <span class="fu">NoLegend</span>()</span></code></pre></div>
+<pre><code>## Warning in DoHeatmap(ABC, features = top_markers$gene): The following features
+## were omitted as they were not found in the scale.data slot for the RNA assay:
+## RPS6KA5, ADA, ZCCHC7, PRKACB, RNF130, ACTG1, CD99, BAALC, BCL7A, CD8B, CD3D,
+## PSAP</code></pre>
+<p><img src="Single_cell_training_files/figure-html/all_markers_ABC-1.png" width="672" /></p>
+</div>
+<div id="marker基因展示-1" class="section level3" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> marker基因展示</h3>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># marker_genes = c(&quot;AVP&quot;, &quot;CCR7&quot;, &quot;CD79E&quot;, &quot;GATA1&quot;, &quot;GZMH&quot;, &quot;SPI1&quot;)</span></span>
+<span id="cb365-2"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb365-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-3"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb365-3" aria-hidden="true" tabindex="-1"></a><span class="do">## cluster 0</span></span>
+<span id="cb365-4"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb365-4" aria-hidden="true" tabindex="-1"></a>marker_genes <span class="ot">&lt;-</span> top_markers<span class="sc">$</span>gene[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb365-5"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb365-5" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(ABC, <span class="at">features =</span>marker_genes, <span class="at">pt.size=</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/Marker_ABC_cluster0-1.png" width="1920" /></p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FeaturePlot</span>(ABC, <span class="at">features =</span> marker_genes )</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/Marker_ABC_cluster0-2.png" width="1920" /></p>
+</div>
+</div>
+<div id="sessioninfo-4" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> sessionInfo</h2>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.4 (2021-02-15)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.10
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+##  [1] grid      parallel  stats4    stats     graphics  grDevices utils    
+##  [8] datasets  methods   base     
+## 
+## other attached packages:
+##  [1] Matrix_1.3-2            pheatmap_1.0.12         GSVA_1.38.2            
+##  [4] enrichplot_1.10.2       GSEABase_1.52.1         annotate_1.68.0        
+##  [7] XML_3.99-0.6            Rgraphviz_2.34.0        topGO_2.42.0           
+## [10] SparseM_1.81            GO.db_3.12.1            graph_1.68.0           
+## [13] org.Hs.eg.db_3.12.0     AnnotationDbi_1.52.0    IRanges_2.24.1         
+## [16] S4Vectors_0.28.1        Biobase_2.50.0          BiocGenerics_0.36.1    
+## [19] clusterProfiler_3.18.1  forcats_0.5.1           stringr_1.4.0          
+## [22] dplyr_1.0.5             purrr_0.3.4             readr_1.4.0            
+## [25] tidyr_1.1.3             tibble_3.1.1            ggplot2_3.3.3          
+## [28] tidyverse_1.3.1         pbmc3k.SeuratData_3.1.4 SeuratData_0.2.1       
+## [31] SeuratObject_4.0.0      Seurat_4.0.1           
+## 
+## loaded via a namespace (and not attached):
+##   [1] utf8_1.2.1                  reticulate_1.18            
+##   [3] tidyselect_1.1.0            RSQLite_2.2.5              
+##   [5] htmlwidgets_1.5.3           BiocParallel_1.24.1        
+##   [7] Rtsne_0.15                  scatterpie_0.1.5           
+##   [9] munsell_0.5.0               codetools_0.2-18           
+##  [11] ica_1.0-2                   future_1.21.0              
+##  [13] miniUI_0.1.1.1              withr_2.4.2                
+##  [15] colorspace_2.0-0            GOSemSim_2.16.1            
+##  [17] highr_0.9                   knitr_1.32                 
+##  [19] rstudioapi_0.13             ROCR_1.0-11                
+##  [21] tensor_1.5                  DOSE_3.16.0                
+##  [23] listenv_0.8.0               MatrixGenerics_1.2.1       
+##  [25] labeling_0.4.2              GenomeInfoDbData_1.2.4     
+##  [27] polyclip_1.10-0             bit64_4.0.5                
+##  [29] farver_2.1.0                downloader_0.4             
+##  [31] parallelly_1.24.0           vctrs_0.3.7                
+##  [33] generics_0.1.0              xfun_0.22                  
+##  [35] GenomeInfoDb_1.26.7         R6_2.5.0                   
+##  [37] graphlayouts_0.7.1          hdf5r_1.3.3                
+##  [39] DelayedArray_0.16.3         bitops_1.0-6               
+##  [41] spatstat.utils_2.1-0        cachem_1.0.4               
+##  [43] fgsea_1.16.0                assertthat_0.2.1           
+##  [45] promises_1.2.0.1            scales_1.1.1               
+##  [47] ggraph_2.0.5                gtable_0.3.0               
+##  [49] globals_0.14.0              goftest_1.2-2              
+##  [51] tidygraph_1.2.0             rlang_0.4.10               
+##  [53] splines_4.0.4               rtracklayer_1.50.0         
+##  [55] lazyeval_0.2.2              GEOquery_2.58.0            
+##  [57] spatstat.geom_2.1-0         broom_0.7.6                
+##  [59] BiocManager_1.30.12         yaml_2.2.1                 
+##  [61] reshape2_1.4.4              abind_1.4-5                
+##  [63] modelr_0.1.8                backports_1.2.1            
+##  [65] httpuv_1.5.5                qvalue_2.22.0              
+##  [67] tools_4.0.4                 bookdown_0.21              
+##  [69] ellipsis_0.3.1              spatstat.core_2.1-2        
+##  [71] jquerylib_0.1.3             RColorBrewer_1.1-2         
+##  [73] ggridges_0.5.3              Rcpp_1.0.6                 
+##  [75] plyr_1.8.6                  zlibbioc_1.36.0            
+##  [77] RCurl_1.98-1.3              rpart_4.1-15               
+##  [79] deldir_0.2-10               pbapply_1.4-3              
+##  [81] viridis_0.6.0               cowplot_1.1.1              
+##  [83] zoo_1.8-9                   SummarizedExperiment_1.20.0
+##  [85] haven_2.4.0                 ggrepel_0.9.1              
+##  [87] cluster_2.1.2               fs_1.5.0                   
+##  [89] magrittr_2.0.1              data.table_1.14.0          
+##  [91] RSpectra_0.16-0             scattermore_0.7            
+##  [93] DO.db_2.9                   lmtest_0.9-38              
+##  [95] reprex_2.0.0                RANN_2.6.1                 
+##  [97] ggnewscale_0.4.5            fitdistrplus_1.1-3         
+##  [99] matrixStats_0.58.0          hms_1.0.0                  
+## [101] patchwork_1.1.1             mime_0.10                  
+## [103] evaluate_0.14               xtable_1.8-4               
+## [105] readxl_1.3.1                gridExtra_2.3              
+## [107] compiler_4.0.4              shadowtext_0.0.7           
+## [109] KernSmooth_2.23-18          crayon_1.4.1               
+## [111] htmltools_0.5.1.1           mgcv_1.8-35                
+## [113] later_1.1.0.1               lubridate_1.7.10           
+## [115] DBI_1.1.1                   tweenr_1.0.2               
+## [117] dbplyr_2.1.1                MASS_7.3-53.1              
+## [119] rappdirs_0.3.3              cli_2.4.0                  
+## [121] igraph_1.2.6                GenomicRanges_1.42.0       
+## [123] pkgconfig_2.0.3             GenomicAlignments_1.26.0   
+## [125] rvcheck_0.1.8               plotly_4.9.3               
+## [127] spatstat.sparse_2.0-0       xml2_1.3.2                 
+## [129] bslib_0.2.4                 XVector_0.30.0             
+## [131] rvest_1.0.0                 digest_0.6.27              
+## [133] sctransform_0.3.2           RcppAnnoy_0.0.18           
+## [135] Biostrings_2.58.0           spatstat.data_2.1-0        
+## [137] rmarkdown_2.7               cellranger_1.1.0           
+## [139] leiden_0.3.7                fastmatch_1.1-0            
+## [141] uwot_0.1.10                 curl_4.3                   
+## [143] Rsamtools_2.6.0             shiny_1.6.0                
+## [145] lifecycle_1.0.0             nlme_3.1-152               
+## [147] jsonlite_1.7.2              viridisLite_0.4.0          
+## [149] limma_3.46.0                fansi_0.4.2                
+## [151] pillar_1.6.0                lattice_0.20-41            
+## [153] fastmap_1.1.0               httr_1.4.2                 
+## [155] survival_3.2-10             glue_1.4.2                 
+## [157] png_0.1-7                   bit_4.0.4                  
+## [159] ggforce_0.3.3               stringi_1.5.3              
+## [161] sass_0.3.1                  blob_1.2.1                 
+## [163] memoise_2.0.0               irlba_2.3.3                
+## [165] future.apply_1.7.0</code></pre>
+
 </div>
 </div>
             </section>
