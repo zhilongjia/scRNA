@@ -125,23 +125,27 @@ cnetplot(go, showCategory = 5)
 ## KEGG富集分析
 
 ### KEGG富集分析代码
-```{r enrichKEGG}
+```{r enrichKEGG, cache=TRUE}
 #上调基因富集
+# use use_internal_data to fast
 kk.up <- enrichKEGG(gene         = gene_up_KEGG, #注意这里只能用 entrzeid
                       organism     = 'hsa',
                       universe     = gene_all, ##背景基因集，可省
                       pvalueCutoff = 0.9, ##指定 p 值阈值，不显著的值将不显示在结果中
-                      qvalueCutoff = 0.9)
+                      qvalueCutoff = 0.9,
+                      use_internal_data=TRUE)
 
 #下调基因富集
 kk.down <- enrichKEGG(gene         =  gene_down_KEGG,
                         organism     = 'hsa',
                         universe     = gene_all,
                         pvalueCutoff = 0.9,
-                        qvalueCutoff =0.9)
+                        qvalueCutoff =0.9,
+                        use_internal_data=TRUE)
 kk.diff <- enrichKEGG(gene         = gene_diff_KEGG,
                         organism     = 'hsa',
-                        pvalueCutoff = 0.9)
+                        pvalueCutoff = 0.9,
+                        use_internal_data=TRUE)
 # save(kk.diff,kk.down,kk.up,file = "GSE4107kegg.Rdata")
 
 #从富集结果中提取结果数据框
