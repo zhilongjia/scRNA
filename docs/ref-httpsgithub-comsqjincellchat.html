@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 ref: https://github.com/sqjin/CellChat | Single Cell Sequencing Analysis</title>
+  <meta name="description" content="Training Class of Single Cell Sequencing Analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 ref: https://github.com/sqjin/CellChat | Single Cell Sequencing Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 ref: https://github.com/sqjin/CellChat | Single Cell Sequencing Analysis" />
+  
+  <meta name="twitter:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+<meta name="author" content="Zhilong Jia" />
+
+
+<meta name="date" content="2021-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cellchat.html"/>
+<link rel="next" href="single-cell-transcriptomic-landscape-of-human-blood-cells.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://zhilongjia.github.io/scRNA">scRNA Note</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Content</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#read-data-library-packages"><i class="fa fa-check"></i><b>2.1</b> Read data Library packages</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#dimplot-cell-or-cluster"><i class="fa fa-check"></i><b>2.2</b> DimPlot : cell or cluster</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#单细胞可视化"><i class="fa fa-check"></i><b>2.3</b> 单细胞可视化</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#dimplot1"><i class="fa fa-check"></i><b>2.4</b> dimplot1</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#比例"><i class="fa fa-check"></i><b>2.5</b> 比例</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#数据转化"><i class="fa fa-check"></i><b>2.6</b> 数据转化</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#sessioninfo"><i class="fa fa-check"></i><b>2.7</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html"><i class="fa fa-check"></i><b>3</b> A introduction to Single Cell Sequening</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-format-of-seurat"><i class="fa fa-check"></i><b>3.1</b> data format of Seurat</a></li>
+<li class="chapter" data-level="3.2" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-access"><i class="fa fa-check"></i><b>3.2</b> Data Access</a></li>
+<li class="chapter" data-level="3.3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#methods"><i class="fa fa-check"></i><b>3.3</b> Methods</a></li>
+<li class="chapter" data-level="3.4" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#test-read-h5-file."><i class="fa fa-check"></i><b>3.4</b> test read h5 file.</a></li>
+<li class="chapter" data-level="3.5" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#reproduce-umap-fig-1a"><i class="fa fa-check"></i><b>3.5</b> reproduce UMAP fig 1a</a></li>
+<li class="chapter" data-level="3.6" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#sessioninfo-1"><i class="fa fa-check"></i><b>3.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pipeline.html"><a href="pipeline.html"><i class="fa fa-check"></i><b>4</b> Pipeline</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pipeline.html"><a href="pipeline.html#数据准备"><i class="fa fa-check"></i><b>4.1</b> 数据准备</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="pipeline.html"><a href="pipeline.html#下载测试数据"><i class="fa fa-check"></i><b>4.1.1</b> 下载测试数据</a></li>
+<li class="chapter" data-level="4.1.2" data-path="pipeline.html"><a href="pipeline.html#载入表达矩阵"><i class="fa fa-check"></i><b>4.1.2</b> 载入表达矩阵</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="pipeline.html"><a href="pipeline.html#数据预处理"><i class="fa fa-check"></i><b>4.2</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pipeline.html"><a href="pipeline.html#构建seurat数据对象"><i class="fa fa-check"></i><b>4.2.1</b> 构建Seurat数据对象</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pipeline.html"><a href="pipeline.html#多个单细胞矩阵合并"><i class="fa fa-check"></i><b>4.2.2</b> 多个单细胞矩阵合并</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pipeline.html"><a href="pipeline.html#单细胞表达矩阵质控"><i class="fa fa-check"></i><b>4.2.3</b> 单细胞表达矩阵质控</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pipeline.html"><a href="pipeline.html#单细胞数据标准化和均一化"><i class="fa fa-check"></i><b>4.2.4</b> 单细胞数据标准化和均一化</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pipeline.html"><a href="pipeline.html#数据降维"><i class="fa fa-check"></i><b>4.2.5</b> 数据降维</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类"><i class="fa fa-check"></i><b>4.3</b> 单细胞聚类</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pipeline.html"><a href="pipeline.html#聚类分簇"><i class="fa fa-check"></i><b>4.3.1</b> 聚类分簇</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类可视化"><i class="fa fa-check"></i><b>4.3.2</b> 单细胞聚类可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类簇类型鉴定differential-expression-analysis"><i class="fa fa-check"></i><b>4.4</b> 单细胞聚类簇类型鉴定(Differential expression analysis)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="pipeline.html"><a href="pipeline.html#细胞簇差异基因分析"><i class="fa fa-check"></i><b>4.4.1</b> 细胞簇差异基因分析</a></li>
+<li class="chapter" data-level="4.4.2" data-path="pipeline.html"><a href="pipeline.html#marker基因展示"><i class="fa fa-check"></i><b>4.4.2</b> marker基因展示</a></li>
+<li class="chapter" data-level="4.4.3" data-path="pipeline.html"><a href="pipeline.html#细胞类型标签注释"><i class="fa fa-check"></i><b>4.4.3</b> 细胞类型标签注释</a></li>
+<li class="chapter" data-level="4.4.4" data-path="pipeline.html"><a href="pipeline.html#细胞类型比例可视化"><i class="fa fa-check"></i><b>4.4.4</b> 细胞类型比例可视化</a></li>
+<li class="chapter" data-level="4.4.5" data-path="pipeline.html"><a href="pipeline.html#细胞类型marker基因展示"><i class="fa fa-check"></i><b>4.4.5</b> 细胞类型marker基因展示</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="pipeline.html"><a href="pipeline.html#sessioninfo-2"><i class="fa fa-check"></i><b>4.5</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="富集分析.html"><a href="富集分析.html"><i class="fa fa-check"></i><b>5</b> 富集分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="富集分析.html"><a href="富集分析.html#获取差异基因"><i class="fa fa-check"></i><b>5.1</b> 获取差异基因</a></li>
+<li class="chapter" data-level="5.2" data-path="富集分析.html"><a href="富集分析.html#go富集分析"><i class="fa fa-check"></i><b>5.2</b> GO富集分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="富集分析.html"><a href="富集分析.html#go富集分析-1"><i class="fa fa-check"></i><b>5.2.1</b> GO富集分析</a></li>
+<li class="chapter" data-level="5.2.2" data-path="富集分析.html"><a href="富集分析.html#go富集结果可视化"><i class="fa fa-check"></i><b>5.2.2</b> GO富集结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="富集分析.html"><a href="富集分析.html#kegg富集分析"><i class="fa fa-check"></i><b>5.3</b> KEGG富集分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="富集分析.html"><a href="富集分析.html#kegg富集分析代码"><i class="fa fa-check"></i><b>5.3.1</b> KEGG富集分析代码</a></li>
+<li class="chapter" data-level="5.3.2" data-path="富集分析.html"><a href="富集分析.html#kegg结果可视化"><i class="fa fa-check"></i><b>5.3.2</b> KEGG结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="富集分析.html"><a href="富集分析.html#gsea富集分析"><i class="fa fa-check"></i><b>5.4</b> GSEA富集分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="富集分析.html"><a href="富集分析.html#gsea富集"><i class="fa fa-check"></i><b>5.4.1</b> GSEA富集</a></li>
+<li class="chapter" data-level="5.4.2" data-path="富集分析.html"><a href="富集分析.html#gsea结果可视化"><i class="fa fa-check"></i><b>5.4.2</b> GSEA结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="富集分析.html"><a href="富集分析.html#gsva富集分析"><i class="fa fa-check"></i><b>5.5</b> GSVA富集分析</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="富集分析.html"><a href="富集分析.html#gsva富集示例"><i class="fa fa-check"></i><b>5.5.1</b> GSVA富集示例</a></li>
+<li class="chapter" data-level="5.5.2" data-path="富集分析.html"><a href="富集分析.html#gsva结果可视化"><i class="fa fa-check"></i><b>5.5.2</b> GSVA结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="富集分析.html"><a href="富集分析.html#sessioninfo-3"><i class="fa fa-check"></i><b>5.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cellchat.html"><a href="cellchat.html"><i class="fa fa-check"></i><b>6</b> CellChat</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cellchat.html"><a href="cellchat.html#简介"><i class="fa fa-check"></i><b>6.1</b> 简介</a></li>
+<li class="chapter" data-level="6.2" data-path="cellchat.html"><a href="cellchat.html#数据加载与预处理"><i class="fa fa-check"></i><b>6.2</b> 数据加载与预处理</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="cellchat.html"><a href="cellchat.html#加载分析包数据"><i class="fa fa-check"></i><b>6.2.1</b> 加载分析包,数据</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cellchat.html"><a href="cellchat.html#构建cellchat对象"><i class="fa fa-check"></i><b>6.2.2</b> 构建CellChat对象</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cellchat.html"><a href="cellchat.html#设置受配体互作数据库"><i class="fa fa-check"></i><b>6.2.3</b> 设置受配体互作数据库</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cellchat.html"><a href="cellchat.html#预处理表达数据"><i class="fa fa-check"></i><b>6.2.4</b> 预处理表达数据</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="cellchat.html"><a href="cellchat.html#计算和推断细胞间通讯网络"><i class="fa fa-check"></i><b>6.3</b> 计算和推断细胞间通讯网络</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="cellchat.html"><a href="cellchat.html#细胞通讯互作可能性的计算"><i class="fa fa-check"></i><b>6.3.1</b> 细胞通讯互作可能性的计算</a></li>
+<li class="chapter" data-level="6.3.2" data-path="cellchat.html"><a href="cellchat.html#推断通路水平的互作网络"><i class="fa fa-check"></i><b>6.3.2</b> 推断通路水平的互作网络</a></li>
+<li class="chapter" data-level="6.3.3" data-path="cellchat.html"><a href="cellchat.html#汇总及展示细胞通讯网络整体结果"><i class="fa fa-check"></i><b>6.3.3</b> 汇总及展示细胞通讯网络整体结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="cellchat.html"><a href="cellchat.html#多种形式的互作通讯网络可视化"><i class="fa fa-check"></i><b>6.4</b> 多种形式的互作通讯网络可视化</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="cellchat.html"><a href="cellchat.html#信号通路可视化"><i class="fa fa-check"></i><b>6.4.1</b> 信号通路可视化</a></li>
+<li class="chapter" data-level="6.4.2" data-path="cellchat.html"><a href="cellchat.html#信号通路水平展示"><i class="fa fa-check"></i><b>6.4.2</b> 信号通路水平展示</a></li>
+<li class="chapter" data-level="6.4.3" data-path="cellchat.html"><a href="cellchat.html#快速探索推演的网络"><i class="fa fa-check"></i><b>6.4.3</b> 快速探索推演的网络</a></li>
+<li class="chapter" data-level="6.4.4" data-path="cellchat.html"><a href="cellchat.html#通讯互作配受体对水平展示"><i class="fa fa-check"></i><b>6.4.4</b> 通讯互作配受体对水平展示</a></li>
+<li class="chapter" data-level="6.4.5" data-path="cellchat.html"><a href="cellchat.html#多个信号通路或互作对的可视化"><i class="fa fa-check"></i><b>6.4.5</b> 多个信号通路或互作对的可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="cellchat.html"><a href="cellchat.html#系统性分析细胞通讯网络"><i class="fa fa-check"></i><b>6.5</b> 系统性分析细胞通讯网络</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="cellchat.html"><a href="cellchat.html#识别信号角色和主要贡献信号"><i class="fa fa-check"></i><b>6.5.1</b> 识别信号角色和主要贡献信号</a></li>
+<li class="chapter" data-level="6.5.2" data-path="cellchat.html"><a href="cellchat.html#通路信号角色识别及可视化"><i class="fa fa-check"></i><b>6.5.2</b> 通路信号角色识别及可视化</a></li>
+<li class="chapter" data-level="6.5.3" data-path="cellchat.html"><a href="cellchat.html#特定细胞类型中输入输出信号贡献程度"><i class="fa fa-check"></i><b>6.5.3</b> 特定细胞类型中输入输出信号贡献程度</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="cellchat.html"><a href="cellchat.html#全局信号模式识别"><i class="fa fa-check"></i><b>6.6</b> 全局信号模式识别</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="cellchat.html"><a href="cellchat.html#确定信号模式数量"><i class="fa fa-check"></i><b>6.6.1</b> 确定信号模式数量</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cellchat.html"><a href="cellchat.html#识别信号模式"><i class="fa fa-check"></i><b>6.6.2</b> 识别信号模式</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="cellchat.html"><a href="cellchat.html#manifold-and-classification-learning-analysis-of-signaling-networks"><i class="fa fa-check"></i><b>6.7</b> Manifold and classification learning analysis of signaling networks</a></li>
+<li class="chapter" data-level="6.8" data-path="cellchat.html"><a href="cellchat.html#sessioninfo-4"><i class="fa fa-check"></i><b>6.8</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ref-httpsgithub-comsqjincellchat.html"><a href="ref-httpsgithub-comsqjincellchat.html"><i class="fa fa-check"></i><b>7</b> ref: <span>https://github.com/sqjin/CellChat</span></a></li>
+<li class="chapter" data-level="8" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><i class="fa fa-check"></i><b>8</b> Single-cell transcriptomic landscape of human blood cells</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#read-scrna-data"><i class="fa fa-check"></i><b>8.1</b> Read scRNA data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#read-hspc-data"><i class="fa fa-check"></i><b>8.1.1</b> read HSPC data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#read-blood-cells-data"><i class="fa fa-check"></i><b>8.1.2</b> read Blood Cells data</a></li>
+<li class="chapter" data-level="8.1.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#merge-two-mats-to-createseuratobject"><i class="fa fa-check"></i><b>8.1.3</b> Merge two mats to CreateSeuratObject</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1b"><i class="fa fa-check"></i><b>8.2</b> Figure 1B</a></li>
+<li class="chapter" data-level="8.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1c"><i class="fa fa-check"></i><b>8.3</b> Figure 1C</a></li>
+<li class="chapter" data-level="8.4" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1d"><i class="fa fa-check"></i><b>8.4</b> Figure 1D</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#lognormalize"><i class="fa fa-check"></i><b>8.4.1</b> LogNormalize</a></li>
+<li class="chapter" data-level="8.4.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#筛选高变基因-1"><i class="fa fa-check"></i><b>8.4.2</b> 筛选高变基因</a></li>
+<li class="chapter" data-level="8.4.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#筛选高变基因-and-pca降维"><i class="fa fa-check"></i><b>8.4.3</b> 筛选高变基因 and PCA降维</a></li>
+<li class="chapter" data-level="8.4.4" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#聚类分簇-1"><i class="fa fa-check"></i><b>8.4.4</b> 聚类分簇</a></li>
+<li class="chapter" data-level="8.4.5" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#单细胞聚类可视化-1"><i class="fa fa-check"></i><b>8.4.5</b> 单细胞聚类可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1e"><i class="fa fa-check"></i><b>8.5</b> Figure 1E</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#细胞簇差异基因分析-1"><i class="fa fa-check"></i><b>8.5.1</b> 细胞簇差异基因分析</a></li>
+<li class="chapter" data-level="8.5.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#marker基因展示-1"><i class="fa fa-check"></i><b>8.5.2</b> marker基因展示</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#sessioninfo-5"><i class="fa fa-check"></i><b>8.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>9</b> References</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="references.html"><a href="references.html#python"><i class="fa fa-check"></i><b>9.1</b> Python</a></li>
+<li class="chapter" data-level="9.2" data-path="references.html"><a href="references.html#analysis-of-single-cell-rna-seq-data-分析流程"><i class="fa fa-check"></i><b>9.2</b> Analysis of single cell RNA-seq data 分析流程</a></li>
+<li class="chapter" data-level="9.3" data-path="references.html"><a href="references.html#assigning-cell-types-with-singler-细胞类型注释"><i class="fa fa-check"></i><b>9.3</b> Assigning cell types with SingleR # 细胞类型注释</a></li>
+<li class="chapter" data-level="9.4" data-path="references.html"><a href="references.html#museum-of-spatial-transcriptomics-空转简史"><i class="fa fa-check"></i><b>9.4</b> Museum of Spatial Transcriptomics # 空转简史</a></li>
+<li class="chapter" data-level="9.5" data-path="references.html"><a href="references.html#atac-分析-archr"><i class="fa fa-check"></i><b>9.5</b> ATAC 分析 Archr</a></li>
+<li class="chapter" data-level="9.6" data-path="references.html"><a href="references.html#monocl-and-velocyto"><i class="fa fa-check"></i><b>9.6</b> monocl and velocyto</a></li>
+<li class="chapter" data-level="9.7" data-path="references.html"><a href="references.html#integraton"><i class="fa fa-check"></i><b>9.7</b> integraton</a></li>
+<li class="chapter" data-level="9.8" data-path="references.html"><a href="references.html#gene-set-enrichment"><i class="fa fa-check"></i><b>9.8</b> Gene set enrichment</a></li>
+<li class="chapter" data-level="9.9" data-path="references.html"><a href="references.html#转录因子"><i class="fa fa-check"></i><b>9.9</b> 转录因子</a></li>
+<li class="chapter" data-level="9.10" data-path="references.html"><a href="references.html#reproducible-research"><i class="fa fa-check"></i><b>9.10</b> Reproducible research</a></li>
+<li class="chapter" data-level="9.11" data-path="references.html"><a href="references.html#基因调控"><i class="fa fa-check"></i><b>9.11</b> 基因调控</a></li>
+<li class="chapter" data-level="9.12" data-path="references.html"><a href="references.html#cell-annotation"><i class="fa fa-check"></i><b>9.12</b> cell annotation</a></li>
+<li class="chapter" data-level="9.13" data-path="references.html"><a href="references.html#空间分析"><i class="fa fa-check"></i><b>9.13</b> 空间分析</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single Cell Sequencing Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ref-httpsgithub.comsqjincellchat" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> ref: <a href="https://github.com/sqjin/CellChat" class="uri">https://github.com/sqjin/CellChat</a></h1>
+<ul>
+<li>Install <code>NMF</code> (&gt;= 0.23.0) using <code>install.packages('NMF')</code>. Please check here for other solutions if you encounter any issue. You might can set Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS=TRUE) if it throws R version error.</li>
+<li>Install <code>circlize</code> (&gt;= 0.4.12) using <code>devtools::install_github("jokergoo/circlize")</code> if you encounter any issue.</li>
+<li>Install <code>ComplexHeatmap</code> using <code>devtools::install_github("jokergoo/ComplexHeatmap")</code> if you encounter any issue.</li>
+<li>Install <code>UMAP</code> python pacakge for dimension reduction: <code>pip install umap-learn</code>. Please check here if you encounter any issue.</li>
+</ul>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="ref-httpsgithub-comsqjincellchat.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.4 (2021-02-15)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.10
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+##  [1] grid      parallel  stats4    stats     graphics  grDevices utils    
+##  [8] datasets  methods   base     
+## 
+## other attached packages:
+##  [1] doParallel_1.0.16       iterators_1.0.13        foreach_1.5.1          
+##  [4] ggalluvial_0.12.3       NMF_0.23.0              cluster_2.1.2          
+##  [7] rngtools_1.5            pkgmaker_0.32.2         registry_0.5-1         
+## [10] CellChat_1.0.0          igraph_1.2.6            pheatmap_1.0.12        
+## [13] GSVA_1.38.2             enrichplot_1.10.2       GSEABase_1.52.1        
+## [16] annotate_1.68.0         XML_3.99-0.6            Rgraphviz_2.34.0       
+## [19] topGO_2.42.0            SparseM_1.81            GO.db_3.12.1           
+## [22] graph_1.68.0            org.Hs.eg.db_3.12.0     AnnotationDbi_1.52.0   
+## [25] IRanges_2.24.1          S4Vectors_0.28.1        Biobase_2.50.0         
+## [28] BiocGenerics_0.36.1     clusterProfiler_3.18.1  forcats_0.5.1          
+## [31] stringr_1.4.0           dplyr_1.0.5             purrr_0.3.4            
+## [34] readr_1.4.0             tidyr_1.1.3             tibble_3.1.1           
+## [37] ggplot2_3.3.3           tidyverse_1.3.1         pbmc3k.SeuratData_3.1.4
+## [40] SeuratData_0.2.1        SeuratObject_4.0.0      Seurat_4.0.1           
+## 
+## loaded via a namespace (and not attached):
+##   [1] rappdirs_0.3.3              scattermore_0.7            
+##   [3] KEGG.db_3.2.4               coda_0.19-4                
+##   [5] bit64_4.0.5                 knitr_1.32                 
+##   [7] irlba_2.3.3                 DelayedArray_0.16.3        
+##   [9] data.table_1.14.0           rpart_4.1-15               
+##  [11] RCurl_1.98-1.3              generics_0.1.0             
+##  [13] cowplot_1.1.1               RSQLite_2.2.5              
+##  [15] shadowtext_0.0.7            RANN_2.6.1                 
+##  [17] future_1.21.0               bit_4.0.4                  
+##  [19] spatstat.data_2.1-0         xml2_1.3.2                 
+##  [21] lubridate_1.7.10            httpuv_1.5.5               
+##  [23] SummarizedExperiment_1.20.0 assertthat_0.2.1           
+##  [25] viridis_0.6.0               xfun_0.22                  
+##  [27] hms_1.0.0                   jquerylib_0.1.3            
+##  [29] evaluate_0.14               promises_1.2.0.1           
+##  [31] fansi_0.4.2                 dbplyr_2.1.1               
+##  [33] readxl_1.3.1                DBI_1.1.1                  
+##  [35] htmlwidgets_1.5.3           spatstat.geom_2.1-0        
+##  [37] ellipsis_0.3.1              RSpectra_0.16-0            
+##  [39] ggnewscale_0.4.5            backports_1.2.1            
+##  [41] bookdown_0.21               gridBase_0.4-7             
+##  [43] deldir_0.2-10               MatrixGenerics_1.2.1       
+##  [45] vctrs_0.3.7                 Cairo_1.5-12.2             
+##  [47] ROCR_1.0-11                 abind_1.4-5                
+##  [49] cachem_1.0.4                withr_2.4.2                
+##  [51] ggforce_0.3.3               sctransform_0.3.2          
+##  [53] sna_2.6                     goftest_1.2-2              
+##  [55] svglite_2.0.0               DOSE_3.16.0                
+##  [57] lazyeval_0.2.2              crayon_1.4.1               
+##  [59] hdf5r_1.3.3                 pkgconfig_2.0.3            
+##  [61] labeling_0.4.2              tweenr_1.0.2               
+##  [63] GenomeInfoDb_1.26.7         nlme_3.1-152               
+##  [65] rlang_0.4.10                globals_0.14.0             
+##  [67] lifecycle_1.0.0             miniUI_0.1.1.1             
+##  [69] downloader_0.4              modelr_0.1.8               
+##  [71] cellranger_1.1.0            polyclip_1.10-0            
+##  [73] matrixStats_0.58.0          lmtest_0.9-38              
+##  [75] Matrix_1.3-2                zoo_1.8-9                  
+##  [77] reprex_2.0.0                GlobalOptions_0.1.2        
+##  [79] ggridges_0.5.3              rjson_0.2.20               
+##  [81] png_0.1-7                   viridisLite_0.4.0          
+##  [83] bitops_1.0-6                KernSmooth_2.23-18         
+##  [85] blob_1.2.1                  shape_1.4.5                
+##  [87] qvalue_2.22.0               parallelly_1.24.0          
+##  [89] scales_1.1.1                memoise_2.0.0              
+##  [91] magrittr_2.0.1              plyr_1.8.6                 
+##  [93] ica_1.0-2                   zlibbioc_1.36.0            
+##  [95] compiler_4.0.4              scatterpie_0.1.5           
+##  [97] RColorBrewer_1.1-2          clue_0.3-59                
+##  [99] fitdistrplus_1.1-3          cli_2.4.0                  
+## [101] XVector_0.30.0              listenv_0.8.0              
+## [103] patchwork_1.1.1             pbapply_1.4-3              
+## [105] MASS_7.3-53.1               mgcv_1.8-35                
+## [107] tidyselect_1.1.0            stringi_1.5.3              
+## [109] gg.gap_1.3                  highr_0.9                  
+## [111] yaml_2.2.1                  GOSemSim_2.16.1            
+## [113] ggrepel_0.9.1               sass_0.3.1                 
+## [115] fastmatch_1.1-0             tools_4.0.4                
+## [117] future.apply_1.7.0          circlize_0.4.12            
+## [119] rstudioapi_0.13             gridExtra_2.3              
+## [121] farver_2.1.0                Rtsne_0.15                 
+## [123] ggraph_2.0.5                digest_0.6.27              
+## [125] rvcheck_0.1.8               BiocManager_1.30.12        
+## [127] FNN_1.1.3                   shiny_1.6.0                
+## [129] Rcpp_1.0.6                  GenomicRanges_1.42.0       
+## [131] broom_0.7.6                 later_1.1.0.1              
+## [133] RcppAnnoy_0.0.18            httr_1.4.2                 
+## [135] ComplexHeatmap_2.6.2        colorspace_2.0-0           
+## [137] rvest_1.0.0                 fs_1.5.0                   
+## [139] tensor_1.5                  reticulate_1.18            
+## [141] splines_4.0.4               uwot_0.1.10                
+## [143] spatstat.utils_2.1-0        graphlayouts_0.7.1         
+## [145] systemfonts_1.0.1           plotly_4.9.3               
+## [147] xtable_1.8-4                jsonlite_1.7.2             
+## [149] rle_0.9.2                   tidygraph_1.2.0            
+## [151] R6_2.5.0                    pillar_1.6.0               
+## [153] htmltools_0.5.1.1           mime_0.10                  
+## [155] glue_1.4.2                  fastmap_1.1.0              
+## [157] BiocParallel_1.24.1         codetools_0.2-18           
+## [159] fgsea_1.16.0                utf8_1.2.1                 
+## [161] lattice_0.20-41             bslib_0.2.4                
+## [163] spatstat.sparse_2.0-0       network_1.16.1             
+## [165] leiden_0.3.7                survival_3.2-10            
+## [167] limma_3.46.0                statnet.common_4.4.1       
+## [169] rmarkdown_2.7               munsell_0.5.0              
+## [171] GetoptLong_1.0.5            DO.db_2.9                  
+## [173] GenomeInfoDbData_1.2.4      haven_2.4.0                
+## [175] reshape2_1.4.4              gtable_0.3.0               
+## [177] spatstat.core_2.1-2</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cellchat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Single_cell_training.pdf", "Single_cell_training.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

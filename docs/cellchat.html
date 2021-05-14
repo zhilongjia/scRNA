@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 CellChat | Single Cell Sequencing Analysis</title>
+  <meta name="description" content="Training Class of Single Cell Sequencing Analysis." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 CellChat | Single Cell Sequencing Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 CellChat | Single Cell Sequencing Analysis" />
+  
+  <meta name="twitter:description" content="Training Class of Single Cell Sequencing Analysis." />
+  
+
+<meta name="author" content="Zhilong Jia" />
+
+
+<meta name="date" content="2021-05-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="富集分析.html"/>
+<link rel="next" href="ref-httpsgithub-comsqjincellchat.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://zhilongjia.github.io/scRNA">scRNA Note</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Content</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#read-data-library-packages"><i class="fa fa-check"></i><b>2.1</b> Read data Library packages</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#dimplot-cell-or-cluster"><i class="fa fa-check"></i><b>2.2</b> DimPlot : cell or cluster</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#单细胞可视化"><i class="fa fa-check"></i><b>2.3</b> 单细胞可视化</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#dimplot1"><i class="fa fa-check"></i><b>2.4</b> dimplot1</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#比例"><i class="fa fa-check"></i><b>2.5</b> 比例</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#数据转化"><i class="fa fa-check"></i><b>2.6</b> 数据转化</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#sessioninfo"><i class="fa fa-check"></i><b>2.7</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html"><i class="fa fa-check"></i><b>3</b> A introduction to Single Cell Sequening</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-format-of-seurat"><i class="fa fa-check"></i><b>3.1</b> data format of Seurat</a></li>
+<li class="chapter" data-level="3.2" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#data-access"><i class="fa fa-check"></i><b>3.2</b> Data Access</a></li>
+<li class="chapter" data-level="3.3" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#methods"><i class="fa fa-check"></i><b>3.3</b> Methods</a></li>
+<li class="chapter" data-level="3.4" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#test-read-h5-file."><i class="fa fa-check"></i><b>3.4</b> test read h5 file.</a></li>
+<li class="chapter" data-level="3.5" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#reproduce-umap-fig-1a"><i class="fa fa-check"></i><b>3.5</b> reproduce UMAP fig 1a</a></li>
+<li class="chapter" data-level="3.6" data-path="a-introduction-to-single-cell-sequening.html"><a href="a-introduction-to-single-cell-sequening.html#sessioninfo-1"><i class="fa fa-check"></i><b>3.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pipeline.html"><a href="pipeline.html"><i class="fa fa-check"></i><b>4</b> Pipeline</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pipeline.html"><a href="pipeline.html#数据准备"><i class="fa fa-check"></i><b>4.1</b> 数据准备</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="pipeline.html"><a href="pipeline.html#下载测试数据"><i class="fa fa-check"></i><b>4.1.1</b> 下载测试数据</a></li>
+<li class="chapter" data-level="4.1.2" data-path="pipeline.html"><a href="pipeline.html#载入表达矩阵"><i class="fa fa-check"></i><b>4.1.2</b> 载入表达矩阵</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="pipeline.html"><a href="pipeline.html#数据预处理"><i class="fa fa-check"></i><b>4.2</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pipeline.html"><a href="pipeline.html#构建seurat数据对象"><i class="fa fa-check"></i><b>4.2.1</b> 构建Seurat数据对象</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pipeline.html"><a href="pipeline.html#多个单细胞矩阵合并"><i class="fa fa-check"></i><b>4.2.2</b> 多个单细胞矩阵合并</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pipeline.html"><a href="pipeline.html#单细胞表达矩阵质控"><i class="fa fa-check"></i><b>4.2.3</b> 单细胞表达矩阵质控</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pipeline.html"><a href="pipeline.html#单细胞数据标准化和均一化"><i class="fa fa-check"></i><b>4.2.4</b> 单细胞数据标准化和均一化</a></li>
+<li class="chapter" data-level="4.2.5" data-path="pipeline.html"><a href="pipeline.html#数据降维"><i class="fa fa-check"></i><b>4.2.5</b> 数据降维</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类"><i class="fa fa-check"></i><b>4.3</b> 单细胞聚类</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pipeline.html"><a href="pipeline.html#聚类分簇"><i class="fa fa-check"></i><b>4.3.1</b> 聚类分簇</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类可视化"><i class="fa fa-check"></i><b>4.3.2</b> 单细胞聚类可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pipeline.html"><a href="pipeline.html#单细胞聚类簇类型鉴定differential-expression-analysis"><i class="fa fa-check"></i><b>4.4</b> 单细胞聚类簇类型鉴定(Differential expression analysis)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="pipeline.html"><a href="pipeline.html#细胞簇差异基因分析"><i class="fa fa-check"></i><b>4.4.1</b> 细胞簇差异基因分析</a></li>
+<li class="chapter" data-level="4.4.2" data-path="pipeline.html"><a href="pipeline.html#marker基因展示"><i class="fa fa-check"></i><b>4.4.2</b> marker基因展示</a></li>
+<li class="chapter" data-level="4.4.3" data-path="pipeline.html"><a href="pipeline.html#细胞类型标签注释"><i class="fa fa-check"></i><b>4.4.3</b> 细胞类型标签注释</a></li>
+<li class="chapter" data-level="4.4.4" data-path="pipeline.html"><a href="pipeline.html#细胞类型比例可视化"><i class="fa fa-check"></i><b>4.4.4</b> 细胞类型比例可视化</a></li>
+<li class="chapter" data-level="4.4.5" data-path="pipeline.html"><a href="pipeline.html#细胞类型marker基因展示"><i class="fa fa-check"></i><b>4.4.5</b> 细胞类型marker基因展示</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="pipeline.html"><a href="pipeline.html#sessioninfo-2"><i class="fa fa-check"></i><b>4.5</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="富集分析.html"><a href="富集分析.html"><i class="fa fa-check"></i><b>5</b> 富集分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="富集分析.html"><a href="富集分析.html#获取差异基因"><i class="fa fa-check"></i><b>5.1</b> 获取差异基因</a></li>
+<li class="chapter" data-level="5.2" data-path="富集分析.html"><a href="富集分析.html#go富集分析"><i class="fa fa-check"></i><b>5.2</b> GO富集分析</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="富集分析.html"><a href="富集分析.html#go富集分析-1"><i class="fa fa-check"></i><b>5.2.1</b> GO富集分析</a></li>
+<li class="chapter" data-level="5.2.2" data-path="富集分析.html"><a href="富集分析.html#go富集结果可视化"><i class="fa fa-check"></i><b>5.2.2</b> GO富集结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="富集分析.html"><a href="富集分析.html#kegg富集分析"><i class="fa fa-check"></i><b>5.3</b> KEGG富集分析</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="富集分析.html"><a href="富集分析.html#kegg富集分析代码"><i class="fa fa-check"></i><b>5.3.1</b> KEGG富集分析代码</a></li>
+<li class="chapter" data-level="5.3.2" data-path="富集分析.html"><a href="富集分析.html#kegg结果可视化"><i class="fa fa-check"></i><b>5.3.2</b> KEGG结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="富集分析.html"><a href="富集分析.html#gsea富集分析"><i class="fa fa-check"></i><b>5.4</b> GSEA富集分析</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="富集分析.html"><a href="富集分析.html#gsea富集"><i class="fa fa-check"></i><b>5.4.1</b> GSEA富集</a></li>
+<li class="chapter" data-level="5.4.2" data-path="富集分析.html"><a href="富集分析.html#gsea结果可视化"><i class="fa fa-check"></i><b>5.4.2</b> GSEA结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="富集分析.html"><a href="富集分析.html#gsva富集分析"><i class="fa fa-check"></i><b>5.5</b> GSVA富集分析</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="富集分析.html"><a href="富集分析.html#gsva富集示例"><i class="fa fa-check"></i><b>5.5.1</b> GSVA富集示例</a></li>
+<li class="chapter" data-level="5.5.2" data-path="富集分析.html"><a href="富集分析.html#gsva结果可视化"><i class="fa fa-check"></i><b>5.5.2</b> GSVA结果可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="富集分析.html"><a href="富集分析.html#sessioninfo-3"><i class="fa fa-check"></i><b>5.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cellchat.html"><a href="cellchat.html"><i class="fa fa-check"></i><b>6</b> CellChat</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cellchat.html"><a href="cellchat.html#简介"><i class="fa fa-check"></i><b>6.1</b> 简介</a></li>
+<li class="chapter" data-level="6.2" data-path="cellchat.html"><a href="cellchat.html#数据加载与预处理"><i class="fa fa-check"></i><b>6.2</b> 数据加载与预处理</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="cellchat.html"><a href="cellchat.html#加载分析包数据"><i class="fa fa-check"></i><b>6.2.1</b> 加载分析包,数据</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cellchat.html"><a href="cellchat.html#构建cellchat对象"><i class="fa fa-check"></i><b>6.2.2</b> 构建CellChat对象</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cellchat.html"><a href="cellchat.html#设置受配体互作数据库"><i class="fa fa-check"></i><b>6.2.3</b> 设置受配体互作数据库</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cellchat.html"><a href="cellchat.html#预处理表达数据"><i class="fa fa-check"></i><b>6.2.4</b> 预处理表达数据</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="cellchat.html"><a href="cellchat.html#计算和推断细胞间通讯网络"><i class="fa fa-check"></i><b>6.3</b> 计算和推断细胞间通讯网络</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="cellchat.html"><a href="cellchat.html#细胞通讯互作可能性的计算"><i class="fa fa-check"></i><b>6.3.1</b> 细胞通讯互作可能性的计算</a></li>
+<li class="chapter" data-level="6.3.2" data-path="cellchat.html"><a href="cellchat.html#推断通路水平的互作网络"><i class="fa fa-check"></i><b>6.3.2</b> 推断通路水平的互作网络</a></li>
+<li class="chapter" data-level="6.3.3" data-path="cellchat.html"><a href="cellchat.html#汇总及展示细胞通讯网络整体结果"><i class="fa fa-check"></i><b>6.3.3</b> 汇总及展示细胞通讯网络整体结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="cellchat.html"><a href="cellchat.html#多种形式的互作通讯网络可视化"><i class="fa fa-check"></i><b>6.4</b> 多种形式的互作通讯网络可视化</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="cellchat.html"><a href="cellchat.html#信号通路可视化"><i class="fa fa-check"></i><b>6.4.1</b> 信号通路可视化</a></li>
+<li class="chapter" data-level="6.4.2" data-path="cellchat.html"><a href="cellchat.html#信号通路水平展示"><i class="fa fa-check"></i><b>6.4.2</b> 信号通路水平展示</a></li>
+<li class="chapter" data-level="6.4.3" data-path="cellchat.html"><a href="cellchat.html#快速探索推演的网络"><i class="fa fa-check"></i><b>6.4.3</b> 快速探索推演的网络</a></li>
+<li class="chapter" data-level="6.4.4" data-path="cellchat.html"><a href="cellchat.html#通讯互作配受体对水平展示"><i class="fa fa-check"></i><b>6.4.4</b> 通讯互作配受体对水平展示</a></li>
+<li class="chapter" data-level="6.4.5" data-path="cellchat.html"><a href="cellchat.html#多个信号通路或互作对的可视化"><i class="fa fa-check"></i><b>6.4.5</b> 多个信号通路或互作对的可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="cellchat.html"><a href="cellchat.html#系统性分析细胞通讯网络"><i class="fa fa-check"></i><b>6.5</b> 系统性分析细胞通讯网络</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="cellchat.html"><a href="cellchat.html#识别信号角色和主要贡献信号"><i class="fa fa-check"></i><b>6.5.1</b> 识别信号角色和主要贡献信号</a></li>
+<li class="chapter" data-level="6.5.2" data-path="cellchat.html"><a href="cellchat.html#通路信号角色识别及可视化"><i class="fa fa-check"></i><b>6.5.2</b> 通路信号角色识别及可视化</a></li>
+<li class="chapter" data-level="6.5.3" data-path="cellchat.html"><a href="cellchat.html#特定细胞类型中输入输出信号贡献程度"><i class="fa fa-check"></i><b>6.5.3</b> 特定细胞类型中输入输出信号贡献程度</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="cellchat.html"><a href="cellchat.html#全局信号模式识别"><i class="fa fa-check"></i><b>6.6</b> 全局信号模式识别</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="cellchat.html"><a href="cellchat.html#确定信号模式数量"><i class="fa fa-check"></i><b>6.6.1</b> 确定信号模式数量</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cellchat.html"><a href="cellchat.html#识别信号模式"><i class="fa fa-check"></i><b>6.6.2</b> 识别信号模式</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="cellchat.html"><a href="cellchat.html#manifold-and-classification-learning-analysis-of-signaling-networks"><i class="fa fa-check"></i><b>6.7</b> Manifold and classification learning analysis of signaling networks</a></li>
+<li class="chapter" data-level="6.8" data-path="cellchat.html"><a href="cellchat.html#sessioninfo-4"><i class="fa fa-check"></i><b>6.8</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ref-httpsgithub-comsqjincellchat.html"><a href="ref-httpsgithub-comsqjincellchat.html"><i class="fa fa-check"></i><b>7</b> ref: <span>https://github.com/sqjin/CellChat</span></a></li>
+<li class="chapter" data-level="8" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><i class="fa fa-check"></i><b>8</b> Single-cell transcriptomic landscape of human blood cells</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#read-scrna-data"><i class="fa fa-check"></i><b>8.1</b> Read scRNA data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#read-hspc-data"><i class="fa fa-check"></i><b>8.1.1</b> read HSPC data</a></li>
+<li class="chapter" data-level="8.1.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#read-blood-cells-data"><i class="fa fa-check"></i><b>8.1.2</b> read Blood Cells data</a></li>
+<li class="chapter" data-level="8.1.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#merge-two-mats-to-createseuratobject"><i class="fa fa-check"></i><b>8.1.3</b> Merge two mats to CreateSeuratObject</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1b"><i class="fa fa-check"></i><b>8.2</b> Figure 1B</a></li>
+<li class="chapter" data-level="8.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1c"><i class="fa fa-check"></i><b>8.3</b> Figure 1C</a></li>
+<li class="chapter" data-level="8.4" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1d"><i class="fa fa-check"></i><b>8.4</b> Figure 1D</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#lognormalize"><i class="fa fa-check"></i><b>8.4.1</b> LogNormalize</a></li>
+<li class="chapter" data-level="8.4.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#筛选高变基因-1"><i class="fa fa-check"></i><b>8.4.2</b> 筛选高变基因</a></li>
+<li class="chapter" data-level="8.4.3" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#筛选高变基因-and-pca降维"><i class="fa fa-check"></i><b>8.4.3</b> 筛选高变基因 and PCA降维</a></li>
+<li class="chapter" data-level="8.4.4" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#聚类分簇-1"><i class="fa fa-check"></i><b>8.4.4</b> 聚类分簇</a></li>
+<li class="chapter" data-level="8.4.5" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#单细胞聚类可视化-1"><i class="fa fa-check"></i><b>8.4.5</b> 单细胞聚类可视化</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#figure-1e"><i class="fa fa-check"></i><b>8.5</b> Figure 1E</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#细胞簇差异基因分析-1"><i class="fa fa-check"></i><b>8.5.1</b> 细胞簇差异基因分析</a></li>
+<li class="chapter" data-level="8.5.2" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#marker基因展示-1"><i class="fa fa-check"></i><b>8.5.2</b> marker基因展示</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="single-cell-transcriptomic-landscape-of-human-blood-cells.html"><a href="single-cell-transcriptomic-landscape-of-human-blood-cells.html#sessioninfo-5"><i class="fa fa-check"></i><b>8.6</b> sessionInfo</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>9</b> References</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="references.html"><a href="references.html#python"><i class="fa fa-check"></i><b>9.1</b> Python</a></li>
+<li class="chapter" data-level="9.2" data-path="references.html"><a href="references.html#analysis-of-single-cell-rna-seq-data-分析流程"><i class="fa fa-check"></i><b>9.2</b> Analysis of single cell RNA-seq data 分析流程</a></li>
+<li class="chapter" data-level="9.3" data-path="references.html"><a href="references.html#assigning-cell-types-with-singler-细胞类型注释"><i class="fa fa-check"></i><b>9.3</b> Assigning cell types with SingleR # 细胞类型注释</a></li>
+<li class="chapter" data-level="9.4" data-path="references.html"><a href="references.html#museum-of-spatial-transcriptomics-空转简史"><i class="fa fa-check"></i><b>9.4</b> Museum of Spatial Transcriptomics # 空转简史</a></li>
+<li class="chapter" data-level="9.5" data-path="references.html"><a href="references.html#atac-分析-archr"><i class="fa fa-check"></i><b>9.5</b> ATAC 分析 Archr</a></li>
+<li class="chapter" data-level="9.6" data-path="references.html"><a href="references.html#monocl-and-velocyto"><i class="fa fa-check"></i><b>9.6</b> monocl and velocyto</a></li>
+<li class="chapter" data-level="9.7" data-path="references.html"><a href="references.html#integraton"><i class="fa fa-check"></i><b>9.7</b> integraton</a></li>
+<li class="chapter" data-level="9.8" data-path="references.html"><a href="references.html#gene-set-enrichment"><i class="fa fa-check"></i><b>9.8</b> Gene set enrichment</a></li>
+<li class="chapter" data-level="9.9" data-path="references.html"><a href="references.html#转录因子"><i class="fa fa-check"></i><b>9.9</b> 转录因子</a></li>
+<li class="chapter" data-level="9.10" data-path="references.html"><a href="references.html#reproducible-research"><i class="fa fa-check"></i><b>9.10</b> Reproducible research</a></li>
+<li class="chapter" data-level="9.11" data-path="references.html"><a href="references.html#基因调控"><i class="fa fa-check"></i><b>9.11</b> 基因调控</a></li>
+<li class="chapter" data-level="9.12" data-path="references.html"><a href="references.html#cell-annotation"><i class="fa fa-check"></i><b>9.12</b> cell annotation</a></li>
+<li class="chapter" data-level="9.13" data-path="references.html"><a href="references.html#空间分析"><i class="fa fa-check"></i><b>9.13</b> 空间分析</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Single Cell Sequencing Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cellchat" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> CellChat</h1>
+<div id="简介" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> 简介</h2>
+<p>细胞通讯分析能够帮助我们识别和推断组织微环境中的细胞间相互作用及信号传递</p>
+<p>目前已经开发出了多种可用于单细胞数据的细胞通讯分析工具：<code>celltalker</code>，<code>cellphoneDB</code>，<code>iTALK</code>，<code>NicheNet</code> …
+这些工具基本原理都是基于构建的受配体数据库和单细胞数据中相关基因的表达水平来推测细胞互作关系</p>
+<p>本次课程主要介绍 <a href="http://www.cellchat.org/">CellChat</a> 通讯分析工具使用及结果解读，CellChat相比于其他通讯分析工具，主要区别在于：</p>
+<ul>
+<li>构建了信号分子相互作用的数据库，充分考虑了配体-受体相互作用的已知结构组成；</li>
+<li>通讯分析在考虑配受体互作的同时考虑了信号通路的关系；</li>
+<li>通过网络分析工具，模式识别方法和多种学习方法对细胞间通讯进行定量表征和比较；</li>
+</ul>
+<p>REF:</p>
+<ul>
+<li><a href="https://htmlpreview.github.io/?https://github.com/sqjin/CellChat/blob/master/tutorial/CellChat-vignette.html">CellChat-Vignette</a></li>
+<li><a href="https://htmlpreview.github.io/?https://github.com/sqjin/CellChat/blob/master/tutorial/Update-CellChatDB.html">cellchatDB</a></li>
+</ul>
+</div>
+<div id="数据加载与预处理" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> 数据加载与预处理</h2>
+<p>本次课程使用的数据为10X单细胞的PBMC_3K数据(see <code>Chapter 5 富集分析</code>)，基于上一次基本分析课程中生成的最后的rds文件.</p>
+<div id="加载分析包数据" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> 加载分析包,数据</h3>
+<p>Cellchat需要两个输入文件：</p>
+<ul>
+<li>单个细胞的表达数据</li>
+<li>细胞对应细胞类型信息</li>
+</ul>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="cellchat.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CellChat)</span>
+<span id="cb289-2"><a href="cellchat.html#cb289-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb289-3"><a href="cellchat.html#cb289-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NMF)</span>
+<span id="cb289-4"><a href="cellchat.html#cb289-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalluvial)</span>
+<span id="cb289-5"><a href="cellchat.html#cb289-5" aria-hidden="true" tabindex="-1"></a>pbmc <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;./data/PRO_seurat.RDS&quot;</span>)</span>
+<span id="cb289-6"><a href="cellchat.html#cb289-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(pbmc)</span></code></pre></div>
+<pre><code>## [1] &quot;Naive CD4 T&quot;  &quot;Memory CD4 T&quot; &quot;CD14+ Mono&quot;   &quot;B&quot;            &quot;CD8 T&quot;       
+## [6] &quot;FCGR3A+ Mono&quot; &quot;NK&quot;           &quot;DC&quot;           &quot;Platelet&quot;</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="cellchat.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="co"># meta = GetAssayData(pbmc, slot=&#39;counts&#39;, assay=&#39;RNA&#39;)</span></span>
+<span id="cb291-2"><a href="cellchat.html#cb291-2" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> pbmc<span class="sc">@</span>assays<span class="sc">$</span>RNA<span class="sc">@</span>counts</span>
+<span id="cb291-3"><a href="cellchat.html#cb291-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb291-4"><a href="cellchat.html#cb291-4" aria-hidden="true" tabindex="-1"></a>meta[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## 3 x 3 sparse Matrix of class &quot;dgCMatrix&quot;
+##            PBMC_AAACATACAACCAC-1 PBMC_AAACATTGAGCTAC-1 PBMC_AAACATTGATCAGC-1
+## MIR1302-10                     .                     .                     .
+## FAM138A                        .                     .                     .
+## OR4F5                          .                     .                     .</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="cellchat.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 细胞类型信息</span></span>
+<span id="cb293-2"><a href="cellchat.html#cb293-2" aria-hidden="true" tabindex="-1"></a>idents <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">row.names=</span><span class="fu">rownames</span>(pbmc<span class="sc">@</span>meta.data), <span class="at">celltype=</span><span class="fu">Idents</span>(pbmc))</span>
+<span id="cb293-3"><a href="cellchat.html#cb293-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(idents)</span></code></pre></div>
+<pre><code>##                           celltype
+## PBMC_AAACATACAACCAC-1  Naive CD4 T
+## PBMC_AAACATTGAGCTAC-1            B
+## PBMC_AAACATTGATCAGC-1   CD14+ Mono
+## PBMC_AAACCGTGCTTCCG-1 FCGR3A+ Mono
+## PBMC_AAACCGTGTATGCG-1           NK
+## PBMC_AAACGCACTGGTAC-1   CD14+ Mono</code></pre>
+</div>
+<div id="构建cellchat对象" class="section level3" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> 构建CellChat对象</h3>
+<p>Cellchat可以基于Seurat数据对象和矩阵构建数据对象</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="cellchat.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cellchat &lt;- createCellChat( meta , meta=idents , group.by=&#39;celltype&#39; )</span></span>
+<span id="cb295-2"><a href="cellchat.html#cb295-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">createCellChat</span>( pbmc , <span class="at">group.by=</span><span class="st">&#39;ident&#39;</span>)</span></code></pre></div>
+<pre><code>## Create a CellChat object from a Seurat object</code></pre>
+<pre><code>## The `data` slot in the `RNA` assay is used 
+## The `meta.data` slot in the Seurat object is used as cell meta information</code></pre>
+<pre><code>## Set cell identities for the new CellChat object</code></pre>
+<pre><code>## The cell groups used for CellChat analysis are  Naive CD4 T Memory CD4 T CD14+ Mono B CD8 T FCGR3A+ Mono NK DC Platelet</code></pre>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="cellchat.html#cb300-1" aria-hidden="true" tabindex="-1"></a>cellchat</span></code></pre></div>
+<pre><code>## An object of class CellChat created from a single dataset 
+##  32738 genes.
+##  2638 cells.</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="cellchat.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>( cellchat<span class="sc">@</span>idents )</span></code></pre></div>
+<pre><code>## [1] &quot;Naive CD4 T&quot;  &quot;Memory CD4 T&quot; &quot;CD14+ Mono&quot;   &quot;B&quot;            &quot;CD8 T&quot;       
+## [6] &quot;FCGR3A+ Mono&quot; &quot;NK&quot;           &quot;DC&quot;           &quot;Platelet&quot;</code></pre>
+</div>
+<div id="设置受配体互作数据库" class="section level3" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> 设置受配体互作数据库</h3>
+<p>CellChat内置了手动整理的文献支持的受配体互作关系，包括人和鼠两个物种</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="cellchat.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="do">## A list includes the ligand-receptor interactions</span></span>
+<span id="cb304-2"><a href="cellchat.html#cb304-2" aria-hidden="true" tabindex="-1"></a>CellChatDB <span class="ot">&lt;-</span> CellChatDB.human <span class="co"># use CellChatDB.mouse if running on mouse data</span></span>
+<span id="cb304-3"><a href="cellchat.html#cb304-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showDatabaseCategory</span>(CellChatDB)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/CellChatDB.human-1.png" width="672" /></p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="cellchat.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interaction_input &lt;- CellChatDB$interaction</span></span>
+<span id="cb305-2"><a href="cellchat.html#cb305-2" aria-hidden="true" tabindex="-1"></a><span class="co"># complex_input &lt;- CellChatDB$complex</span></span>
+<span id="cb305-3"><a href="cellchat.html#cb305-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cofactor_input &lt;- CellChatDB$cofactor</span></span>
+<span id="cb305-4"><a href="cellchat.html#cb305-4" aria-hidden="true" tabindex="-1"></a><span class="co"># geneInfo &lt;- CellChatDB$geneInfo</span></span>
+<span id="cb305-5"><a href="cellchat.html#cb305-5" aria-hidden="true" tabindex="-1"></a><span class="co"># CellChatDB &lt;- list()</span></span>
+<span id="cb305-6"><a href="cellchat.html#cb305-6" aria-hidden="true" tabindex="-1"></a><span class="co"># CellChatDB$interaction &lt;- interaction_input</span></span>
+<span id="cb305-7"><a href="cellchat.html#cb305-7" aria-hidden="true" tabindex="-1"></a><span class="co"># CellChatDB$complex &lt;- complex_input</span></span>
+<span id="cb305-8"><a href="cellchat.html#cb305-8" aria-hidden="true" tabindex="-1"></a><span class="co"># CellChatDB$cofactor &lt;- cofactor_input</span></span>
+<span id="cb305-9"><a href="cellchat.html#cb305-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CellChatDB$geneInfo &lt;- geneInfo</span></span>
+<span id="cb305-10"><a href="cellchat.html#cb305-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-11"><a href="cellchat.html#cb305-11" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(CellChatDB<span class="sc">$</span>interaction)</span></code></pre></div>
+<pre><code>## Rows: 1,939
+## Columns: 11
+## $ interaction_name   &lt;chr&gt; &quot;TGFB1_TGFBR1_TGFBR2&quot;, &quot;TGFB2_TGFBR1_TGFBR2&quot;, &quot;TGFB…
+## $ pathway_name       &lt;chr&gt; &quot;TGFb&quot;, &quot;TGFb&quot;, &quot;TGFb&quot;, &quot;TGFb&quot;, &quot;TGFb&quot;, &quot;TGFb&quot;, &quot;TG…
+## $ ligand             &lt;chr&gt; &quot;TGFB1&quot;, &quot;TGFB2&quot;, &quot;TGFB3&quot;, &quot;TGFB1&quot;, &quot;TGFB1&quot;, &quot;TGFB2…
+## $ receptor           &lt;chr&gt; &quot;TGFbR1_R2&quot;, &quot;TGFbR1_R2&quot;, &quot;TGFbR1_R2&quot;, &quot;ACVR1B_TGFb…
+## $ agonist            &lt;chr&gt; &quot;TGFb agonist&quot;, &quot;TGFb agonist&quot;, &quot;TGFb agonist&quot;, &quot;TG…
+## $ antagonist         &lt;chr&gt; &quot;TGFb antagonist&quot;, &quot;TGFb antagonist&quot;, &quot;TGFb antagon…
+## $ co_A_receptor      &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,…
+## $ co_I_receptor      &lt;chr&gt; &quot;TGFb inhibition receptor&quot;, &quot;TGFb inhibition recept…
+## $ evidence           &lt;chr&gt; &quot;KEGG: hsa04350&quot;, &quot;KEGG: hsa04350&quot;, &quot;KEGG: hsa04350…
+## $ annotation         &lt;chr&gt; &quot;Secreted Signaling&quot;, &quot;Secreted Signaling&quot;, &quot;Secret…
+## $ interaction_name_2 &lt;chr&gt; &quot;TGFB1 - (TGFBR1+TGFBR2)&quot;, &quot;TGFB2 - (TGFBR1+TGFBR2)…</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="cellchat.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pathway names</span></span>
+<span id="cb307-2"><a href="cellchat.html#cb307-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(CellChatDB<span class="sc">$</span>interaction<span class="sc">$</span>pathway_name)</span></code></pre></div>
+<pre><code>##   [1] &quot;TGFb&quot;         &quot;BMP&quot;          &quot;BMP10&quot;        &quot;GDF&quot;          &quot;MSTN&quot;        
+##   [6] &quot;AMH&quot;          &quot;GDNF&quot;         &quot;NODAL&quot;        &quot;ACTIVIN&quot;      &quot;WNT&quot;         
+##  [11] &quot;ncWNT&quot;        &quot;EGF&quot;          &quot;NRG&quot;          &quot;FGF&quot;          &quot;PDGF&quot;        
+##  [16] &quot;VEGF&quot;         &quot;IGF&quot;          &quot;INSULIN&quot;      &quot;APELIN&quot;       &quot;HH&quot;          
+##  [21] &quot;CCL&quot;          &quot;CXCL&quot;         &quot;MIF&quot;          &quot;CX3C&quot;         &quot;XCR&quot;         
+##  [26] &quot;IL2&quot;          &quot;IL4&quot;          &quot;IL6&quot;          &quot;IL12&quot;         &quot;LIFR&quot;        
+##  [31] &quot;OSM&quot;          &quot;IL10&quot;         &quot;IL1&quot;          &quot;IL17&quot;         &quot;CSF&quot;         
+##  [36] &quot;IL16&quot;         &quot;EPO&quot;          &quot;GH&quot;           &quot;PRL&quot;          &quot;THPO&quot;        
+##  [41] &quot;CSF3&quot;         &quot;IFN-I&quot;        &quot;IFN-II&quot;       &quot;TNF&quot;          &quot;LT&quot;          
+##  [46] &quot;LIGHT&quot;        &quot;FASLG&quot;        &quot;VEGI&quot;         &quot;TRAIL&quot;        &quot;EDA&quot;         
+##  [51] &quot;NGF&quot;          &quot;RANKL&quot;        &quot;TWEAK&quot;        &quot;CD70&quot;         &quot;CD30&quot;        
+##  [56] &quot;CD137&quot;        &quot;OX40&quot;         &quot;GITRL&quot;        &quot;APRIL&quot;        &quot;BAFF&quot;        
+##  [61] &quot;CD40&quot;         &quot;SPP1&quot;         &quot;ADIPONECTIN&quot;  &quot;RESISTIN&quot;     &quot;VISFATIN&quot;    
+##  [66] &quot;ANGPTL&quot;       &quot;ANGPT&quot;        &quot;MK&quot;           &quot;PTN&quot;          &quot;PERIOSTIN&quot;   
+##  [71] &quot;AGT&quot;          &quot;GPR&quot;          &quot;BRADYKININ&quot;   &quot;COMPLEMENT&quot;   &quot;CCK&quot;         
+##  [76] &quot;EDN&quot;          &quot;GALANIN&quot;      &quot;GHRELIN&quot;      &quot;KISS1&quot;        &quot;MELANOCORTIN&quot;
+##  [81] &quot;NMU&quot;          &quot;NPFF&quot;         &quot;NPY&quot;          &quot;NPW-B&quot;        &quot;NTS&quot;         
+##  [86] &quot;OPIOID&quot;       &quot;HCRT&quot;         &quot;OXT&quot;          &quot;SEMATOSTATIN&quot; &quot;TAC&quot;         
+##  [91] &quot;UTS2&quot;         &quot;AVP&quot;          &quot;PRLH&quot;         &quot;PARs&quot;         &quot;PMCH&quot;        
+##  [96] &quot;PROK&quot;         &quot;PACAP&quot;        &quot;VIP&quot;          &quot;NPR1&quot;         &quot;NPR2&quot;        
+## [101] &quot;KIT&quot;          &quot;GIPR&quot;         &quot;FSH&quot;          &quot;LHB&quot;          &quot;TSH&quot;         
+## [106] &quot;NT&quot;           &quot;FLT3&quot;         &quot;HGF&quot;          &quot;SEMA3&quot;        &quot;CALCR&quot;       
+## [111] &quot;ANNEXIN&quot;      &quot;APJ&quot;          &quot;CRH&quot;          &quot;ENHO&quot;         &quot;GAS&quot;         
+## [116] &quot;GCG&quot;          &quot;GHRH&quot;         &quot;GNRH&quot;         &quot;GRN&quot;          &quot;GUCA&quot;        
+## [121] &quot;RLN&quot;          &quot;LEP&quot;          &quot;GALECTIN&quot;     &quot;NPS&quot;          &quot;NPVF&quot;        
+## [126] &quot;OSTN&quot;         &quot;PROS&quot;         &quot;PSAP&quot;         &quot;PTH&quot;          &quot;QRFP&quot;        
+## [131] &quot;CHEMERIN&quot;     &quot;SAA&quot;          &quot;UGRP1&quot;        &quot;SCT&quot;          &quot;SLURP&quot;       
+## [136] &quot;BTLA&quot;         &quot;TRH&quot;          &quot;UCN&quot;          &quot;UROTENSIN&quot;    &quot;BAG&quot;         
+## [141] &quot;COLLAGEN&quot;     &quot;FN1&quot;          &quot;LAMININ&quot;      &quot;CHAD&quot;         &quot;RELN&quot;        
+## [146] &quot;THBS&quot;         &quot;VTN&quot;          &quot;TENASCIN&quot;     &quot;NPNT&quot;         &quot;DSPP&quot;        
+## [151] &quot;VWF&quot;          &quot;BSP&quot;          &quot;DMP1&quot;         &quot;AGRN&quot;         &quot;HSPG&quot;        
+## [156] &quot;ADGRE5&quot;       &quot;ALCAM&quot;        &quot;ANXA1&quot;        &quot;APP&quot;          &quot;CADM&quot;        
+## [161] &quot;CD22&quot;         &quot;CD226&quot;        &quot;CD23&quot;         &quot;CD34&quot;         &quot;CD39&quot;        
+## [166] &quot;CD45&quot;         &quot;CD46&quot;         &quot;CD48&quot;         &quot;CD6&quot;          &quot;CD80&quot;        
+## [171] &quot;CD86&quot;         &quot;CD96&quot;         &quot;CD99&quot;         &quot;CDH&quot;          &quot;CDH1&quot;        
+## [176] &quot;CDH5&quot;         &quot;CEACAM&quot;       &quot;CLDN&quot;         &quot;CLEC&quot;         &quot;CNTN&quot;        
+## [181] &quot;CSPG4&quot;        &quot;DESMOSOME&quot;    &quot;EPGN&quot;         &quot;EPHA&quot;         &quot;EPHB&quot;        
+## [186] &quot;ESAM&quot;         &quot;GP1BA&quot;        &quot;ICAM&quot;         &quot;ICOS&quot;         &quot;ITGB2&quot;       
+## [191] &quot;JAM&quot;          &quot;L1CAM&quot;        &quot;LCK&quot;          &quot;MADCAM&quot;       &quot;MAG&quot;         
+## [196] &quot;MHC-I&quot;        &quot;MHC-II&quot;       &quot;MPZ&quot;          &quot;NCAM&quot;         &quot;NECTIN&quot;      
+## [201] &quot;NEGR&quot;         &quot;NGL&quot;          &quot;NKG2D&quot;        &quot;NOTCH&quot;        &quot;NRXN&quot;        
+## [206] &quot;OCLN&quot;         &quot;PD-L1&quot;        &quot;PDL2&quot;         &quot;PECAM1&quot;       &quot;PTPRM&quot;       
+## [211] &quot;PVR&quot;          &quot;SELE&quot;         &quot;SELL&quot;         &quot;SELPLG&quot;       &quot;SEMA4&quot;       
+## [216] &quot;SEMA5&quot;        &quot;SEMA6&quot;        &quot;SEMA7&quot;        &quot;SN&quot;           &quot;THY1&quot;        
+## [221] &quot;TIGIT&quot;        &quot;VCAM&quot;         &quot;VISTA&quot;</code></pre>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="cellchat.html#cb309-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CellChatDB.use &lt;- CellChatDB</span></span>
+<span id="cb309-2"><a href="cellchat.html#cb309-2" aria-hidden="true" tabindex="-1"></a><span class="do">## key : the name of the variable in CellChatDB interaction_input</span></span>
+<span id="cb309-3"><a href="cellchat.html#cb309-3" aria-hidden="true" tabindex="-1"></a>CellChatDB.ss <span class="ot">&lt;-</span> <span class="fu">subsetDB</span>(CellChatDB, <span class="at">search =</span> <span class="st">&quot;Secreted Signaling&quot;</span>, <span class="at">key=</span><span class="st">&#39;annotation&#39;</span>)</span>
+<span id="cb309-4"><a href="cellchat.html#cb309-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb309-5"><a href="cellchat.html#cb309-5" aria-hidden="true" tabindex="-1"></a><span class="co"># set the used database in the object</span></span>
+<span id="cb309-6"><a href="cellchat.html#cb309-6" aria-hidden="true" tabindex="-1"></a>cellchat<span class="sc">@</span>DB <span class="ot">&lt;-</span> CellChatDB.ss</span></code></pre></div>
+</div>
+<div id="预处理表达数据" class="section level3" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> 预处理表达数据</h3>
+<p>数据处理过程包括：
+- 鉴定一个细胞类型中的过表达的配体或受体
+- 鉴定过表达的配受体互作
+- 基于PPI网络平滑基因表达（可选：适用于处理低深度单细胞测序处理的dropout）</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="cellchat.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset表达数据，提取仅在互作数据库中的基因，减少下游分析数据量</span></span>
+<span id="cb310-2"><a href="cellchat.html#cb310-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">subsetData</span>(cellchat) <span class="co"># This step is necessary even if using the whole database</span></span>
+<span id="cb310-3"><a href="cellchat.html#cb310-3" aria-hidden="true" tabindex="-1"></a><span class="co"># future::plan(&quot;multiprocess&quot;, workers = 4)</span></span>
+<span id="cb310-4"><a href="cellchat.html#cb310-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 识别在单个细胞类型中过表达配/受体</span></span>
+<span id="cb310-5"><a href="cellchat.html#cb310-5" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">identifyOverExpressedGenes</span>(cellchat)</span>
+<span id="cb310-6"><a href="cellchat.html#cb310-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb310-7"><a href="cellchat.html#cb310-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 识别过表达互作对</span></span>
+<span id="cb310-8"><a href="cellchat.html#cb310-8" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">identifyOverExpressedInteractions</span>(cellchat)</span>
+<span id="cb310-9"><a href="cellchat.html#cb310-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb310-10"><a href="cellchat.html#cb310-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 平滑表达值（目的是消除dropout影响，可选不用）</span></span>
+<span id="cb310-11"><a href="cellchat.html#cb310-11" aria-hidden="true" tabindex="-1"></a><span class="co"># We also provide a function to project gene expression data onto protein-protein interaction (PPI) network. Specifically, a diffusion process is used to smooth genes’ expression values based on their neighbors’ defined in a high-confidence experimentally validated protein-protein network. This function is useful when analyzing single-cell data with shallow sequencing depth because the projection reduces the dropout effects of signaling genes, in particular for possible zero expression of subunits of ligands/receptors. </span></span>
+<span id="cb310-12"><a href="cellchat.html#cb310-12" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">projectData</span>(cellchat, PPI.human)</span></code></pre></div>
+<p>数据预处理工作完成，接下来开始细胞通讯的分析</p>
+</div>
+</div>
+<div id="计算和推断细胞间通讯网络" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> 计算和推断细胞间通讯网络</h2>
+<p>CellChat通过为每个通讯互作对分配一个发生概率和置换检验，推断有生物学意义的细胞间通讯.</p>
+<p>CellChat models the probability of cell-cell communication by integrating gene expression with prior known knowledge of the interactions between signaling ligands, receptors and their cofactors using the law of mass action.</p>
+<p>The number of inferred ligand-receptor pairs clearly depends on the method for calculating the average gene expression per cell group. By default, CellChat uses a statistically robust mean method called <code>trimean</code>, which produces fewer interactions than other methods.</p>
+<p>we provide an option for using other methods, such as 5% and 10% truncated mean, to calculating the average gene expression. Of note, ‘trimean’ approximates 25% truncated mean, implying that the average gene expression is zero if the percent of expressed cells in one group is less than 25%. To use 10% truncated mean, USER can set <code>type = "truncatedMean"</code> and <code>trim = 0.1</code>. If very well-known signaling pathways in the studied biological process are not predicted, USER can try truncatedMean with different trim values.</p>
+<p>check the average expression of signaling genes of interest:
+<code>computeAveExpr(cellchat, features = c("CXCL12","CXCR4"), type =  "truncatedMean", trim = 0.1)</code></p>
+<div id="细胞通讯互作可能性的计算" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> 细胞通讯互作可能性的计算</h3>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="cellchat.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 互作可能性计算</span></span>
+<span id="cb311-2"><a href="cellchat.html#cb311-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">computeCommunProb</span>(cellchat, <span class="at">raw.use =</span> <span class="cn">TRUE</span>)    </span>
+<span id="cb311-3"><a href="cellchat.html#cb311-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-4"><a href="cellchat.html#cb311-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 过滤表达细胞比例低的互作对</span></span>
+<span id="cb311-5"><a href="cellchat.html#cb311-5" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">filterCommunication</span>(cellchat, <span class="at">min.cells =</span> <span class="dv">10</span>)</span>
+<span id="cb311-6"><a href="cellchat.html#cb311-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-7"><a href="cellchat.html#cb311-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取关注得细胞间通讯关系</span></span>
+<span id="cb311-8"><a href="cellchat.html#cb311-8" aria-hidden="true" tabindex="-1"></a>df.net <span class="ot">&lt;-</span> <span class="fu">subsetCommunication</span>(cellchat)</span>
+<span id="cb311-9"><a href="cellchat.html#cb311-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df.net)</span></code></pre></div>
+<pre><code>##         source     target ligand   receptor       prob pval interaction_name
+## 1   CD14+ Mono CD14+ Mono    MIF CD74_CXCR4 0.06302724 0.00   MIF_CD74_CXCR4
+## 2           NK CD14+ Mono    MIF CD74_CXCR4 0.02707739 0.04   MIF_CD74_CXCR4
+## 3           DC CD14+ Mono    MIF CD74_CXCR4 0.06314493 0.03   MIF_CD74_CXCR4
+## 4  Naive CD4 T          B    MIF CD74_CXCR4 0.05922030 0.00   MIF_CD74_CXCR4
+## 5 Memory CD4 T          B    MIF CD74_CXCR4 0.04867580 0.00   MIF_CD74_CXCR4
+## 6   CD14+ Mono          B    MIF CD74_CXCR4 0.13948229 0.00   MIF_CD74_CXCR4
+##   interaction_name_2 pathway_name         annotation
+## 1 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 2 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 3 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 4 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 5 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 6 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+##                         evidence
+## 1 PMID: 29637711; PMID: 24760155
+## 2 PMID: 29637711; PMID: 24760155
+## 3 PMID: 29637711; PMID: 24760155
+## 4 PMID: 29637711; PMID: 24760155
+## 5 PMID: 29637711; PMID: 24760155
+## 6 PMID: 29637711; PMID: 24760155</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="cellchat.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取特定细胞类型间通讯关系</span></span>
+<span id="cb313-2"><a href="cellchat.html#cb313-2" aria-hidden="true" tabindex="-1"></a>df.net2 <span class="ot">&lt;-</span> <span class="fu">subsetCommunication</span>(cellchat, <span class="at">sources.use=</span><span class="fu">c</span>(<span class="st">&#39;Naive CD4 T&#39;</span>,<span class="st">&#39;Memory CD4 T&#39;</span>,<span class="st">&#39;CD8 T&#39;</span>) , <span class="at">targets.use=</span> <span class="fu">c</span>(<span class="st">&#39;CD14+ Mono&#39;</span>,<span class="st">&#39;B&#39;</span>))</span>
+<span id="cb313-3"><a href="cellchat.html#cb313-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df.net2)</span></code></pre></div>
+<pre><code>##         source     target ligand   receptor       prob pval interaction_name
+## 1  Naive CD4 T          B    MIF CD74_CXCR4 0.05922030    0   MIF_CD74_CXCR4
+## 2 Memory CD4 T          B    MIF CD74_CXCR4 0.04867580    0   MIF_CD74_CXCR4
+## 3        CD8 T          B    MIF CD74_CXCR4 0.05953380    0   MIF_CD74_CXCR4
+## 4  Naive CD4 T          B    MIF  CD74_CD44 0.01194597    0    MIF_CD74_CD44
+## 5        CD8 T          B    MIF  CD74_CD44 0.01201241    0    MIF_CD74_CD44
+## 6 Memory CD4 T CD14+ Mono LGALS9      PTPRC 0.01482312    0      LGALS9_CD45
+##   interaction_name_2 pathway_name         annotation
+## 1 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 2 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 3 MIF - (CD74+CXCR4)          MIF Secreted Signaling
+## 4  MIF - (CD74+CD44)          MIF Secreted Signaling
+## 5  MIF - (CD74+CD44)          MIF Secreted Signaling
+## 6      LGALS9 - CD45     GALECTIN Secreted Signaling
+##                         evidence
+## 1 PMID: 29637711; PMID: 24760155
+## 2 PMID: 29637711; PMID: 24760155
+## 3 PMID: 29637711; PMID: 24760155
+## 4 PMID: 29637711; PMID: 26175090
+## 5 PMID: 29637711; PMID: 26175090
+## 6                 PMID: 30120235</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="cellchat.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取特定信号通路中的通讯关系</span></span>
+<span id="cb315-2"><a href="cellchat.html#cb315-2" aria-hidden="true" tabindex="-1"></a>df.net3 <span class="ot">&lt;-</span> <span class="fu">subsetCommunication</span>(cellchat, <span class="at">signaling =</span> <span class="fu">c</span>(<span class="st">&quot;IL16&quot;</span>, <span class="st">&quot;ANNEXIN&quot;</span>))</span>
+<span id="cb315-3"><a href="cellchat.html#cb315-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df.net3)</span></code></pre></div>
+<pre><code>##         source       target ligand receptor        prob pval interaction_name
+## 1           DC FCGR3A+ Mono   IL16      CD4 0.002438534    0         IL16_CD4
+## 2           DC           DC   IL16      CD4 0.002442359    0         IL16_CD4
+## 3  Naive CD4 T Memory CD4 T  ANXA1     FPR1 0.008976133    0       ANXA1_FPR1
+## 4 Memory CD4 T Memory CD4 T  ANXA1     FPR1 0.026202872    0       ANXA1_FPR1
+## 5   CD14+ Mono Memory CD4 T  ANXA1     FPR1 0.036361292    0       ANXA1_FPR1
+## 6        CD8 T Memory CD4 T  ANXA1     FPR1 0.028045102    0       ANXA1_FPR1
+##   interaction_name_2 pathway_name         annotation       evidence
+## 1         IL16 - CD4         IL16 Secreted Signaling KEGG: hsa04060
+## 2         IL16 - CD4         IL16 Secreted Signaling KEGG: hsa04060
+## 3       ANXA1 - FPR1      ANNEXIN Secreted Signaling PMID: 23230437
+## 4       ANXA1 - FPR1      ANNEXIN Secreted Signaling PMID: 23230437
+## 5       ANXA1 - FPR1      ANNEXIN Secreted Signaling PMID: 23230437
+## 6       ANXA1 - FPR1      ANNEXIN Secreted Signaling PMID: 23230437</code></pre>
+</div>
+<div id="推断通路水平的互作网络" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> 推断通路水平的互作网络</h3>
+<p>通过汇总与整个通路关联的配受体互作可能性，计算得到通路水平的互作可能性</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="cellchat.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB: The inferred intercellular communication network of each ligand-receptor pair and each signaling pathway is stored in the slot ‘net’ and ‘netP’, respectively.</span></span>
+<span id="cb317-2"><a href="cellchat.html#cb317-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">computeCommunProbPathway</span>(cellchat)</span>
+<span id="cb317-3"><a href="cellchat.html#cb317-3" aria-hidden="true" tabindex="-1"></a>cellchat<span class="sc">@</span>netP</span></code></pre></div>
+<pre><code>## $pathways
+## [1] &quot;MIF&quot;      &quot;IL16&quot;     &quot;CD40&quot;     &quot;ANNEXIN&quot;  &quot;GALECTIN&quot;
+## 
+## $prob
+## , , MIF
+## 
+##              Naive CD4 T Memory CD4 T CD14+ Mono          B      CD8 T
+## Naive CD4 T   0.00000000   0.01127254 0.00000000 0.07116628 0.02710081
+## Memory CD4 T  0.00000000   0.00000000 0.00000000 0.04867580 0.00000000
+## CD14+ Mono    0.01989238   0.02852038 0.08497827 0.16967506 0.09020500
+## B             0.00000000   0.01116769 0.00000000 0.07053089 0.02685274
+## CD8 T         0.00000000   0.01133527 0.00000000 0.07154621 0.02724920
+## FCGR3A+ Mono  0.00000000   0.00000000 0.00000000 0.04743704 0.00000000
+## NK            0.00000000   0.01200067 0.02707739 0.07556574 0.02882155
+## DC            0.00000000   0.02857560 0.06314493 0.16997259 0.06705222
+## Platelet      0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+##              FCGR3A+ Mono NK         DC Platelet
+## Naive CD4 T    0.03154709  0 0.04514987        0
+## Memory CD4 T   0.02579485  0 0.03701212        0
+## CD14+ Mono     0.07738846  0 0.13543673        0
+## B              0.03125962  0 0.04474418        0
+## CD8 T          0.03171903  0 0.04539248        0
+## FCGR3A+ Mono   0.02512302  0 0.03605895        0
+## NK             0.03354040  0 0.04796012        0
+## DC             0.07753076  0 0.13568172        0
+## Platelet       0.00000000  0 0.00000000        0
+## 
+## , , IL16
+## 
+##              Naive CD4 T Memory CD4 T CD14+ Mono B CD8 T FCGR3A+ Mono NK
+## Naive CD4 T            0            0          0 0     0  0.000000000  0
+## Memory CD4 T           0            0          0 0     0  0.000000000  0
+## CD14+ Mono             0            0          0 0     0  0.000000000  0
+## B                      0            0          0 0     0  0.000000000  0
+## CD8 T                  0            0          0 0     0  0.000000000  0
+## FCGR3A+ Mono           0            0          0 0     0  0.000000000  0
+## NK                     0            0          0 0     0  0.000000000  0
+## DC                     0            0          0 0     0  0.002438534  0
+## Platelet               0            0          0 0     0  0.000000000  0
+##                       DC Platelet
+## Naive CD4 T  0.000000000        0
+## Memory CD4 T 0.000000000        0
+## CD14+ Mono   0.000000000        0
+## B            0.000000000        0
+## CD8 T        0.000000000        0
+## FCGR3A+ Mono 0.000000000        0
+## NK           0.000000000        0
+## DC           0.002442359        0
+## Platelet     0.000000000        0
+## 
+## , , CD40
+## 
+##              Naive CD4 T Memory CD4 T CD14+ Mono B CD8 T FCGR3A+ Mono NK DC
+## Naive CD4 T            0            0          0 0     0            0  0  0
+## Memory CD4 T           0            0          0 0     0            0  0  0
+## CD14+ Mono             0            0          0 0     0            0  0  0
+## B                      0            0          0 0     0            0  0  0
+## CD8 T                  0            0          0 0     0            0  0  0
+## FCGR3A+ Mono           0            0          0 0     0            0  0  0
+## NK                     0            0          0 0     0            0  0  0
+## DC                     0            0          0 0     0            0  0  0
+## Platelet               0            0          0 0     0            0  0  0
+##                 Platelet
+## Naive CD4 T  0.000000000
+## Memory CD4 T 0.000000000
+## CD14+ Mono   0.006728257
+## B            0.000000000
+## CD8 T        0.000000000
+## FCGR3A+ Mono 0.000000000
+## NK           0.000000000
+## DC           0.000000000
+## Platelet     0.000000000
+## 
+## , , ANNEXIN
+## 
+##              Naive CD4 T Memory CD4 T CD14+ Mono B CD8 T FCGR3A+ Mono NK DC
+## Naive CD4 T            0  0.008976133          0 0     0  0.006014284  0  0
+## Memory CD4 T           0  0.026202872          0 0     0  0.017658008  0  0
+## CD14+ Mono             0  0.036361292          0 0     0  0.024587369  0  0
+## B                      0  0.000000000          0 0     0  0.000000000  0  0
+## CD8 T                  0  0.028045102          0 0     0  0.018911147  0  0
+## FCGR3A+ Mono           0  0.023350119          0 0     0  0.015720532  0  0
+## NK                     0  0.038433882          0 0     0  0.026006959  0  0
+## DC                     0  0.037222001          0 0     0  0.025176658  0  0
+## Platelet               0  0.002513510          0 0     0  0.001680512  0  0
+##              Platelet
+## Naive CD4 T         0
+## Memory CD4 T        0
+## CD14+ Mono          0
+## B                   0
+## CD8 T               0
+## FCGR3A+ Mono        0
+## NK                  0
+## DC                  0
+## Platelet            0
+## 
+## , , GALECTIN
+## 
+##              Naive CD4 T Memory CD4 T CD14+ Mono          B      CD8 T
+## Naive CD4 T   0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+## Memory CD4 T  0.01393544   0.01291004 0.03297463 0.01330445 0.02768069
+## CD14+ Mono    0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+## B             0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+## CD8 T         0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+## FCGR3A+ Mono  0.03384769   0.03137580 0.07899137 0.03232709 0.06628783
+## NK            0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+## DC            0.03227231   0.02991405 0.07539678 0.03082158 0.06327267
+## Platelet      0.00000000   0.00000000 0.00000000 0.00000000 0.00000000
+##              FCGR3A+ Mono         NK         DC Platelet
+## Naive CD4 T    0.00000000 0.00000000 0.00000000        0
+## Memory CD4 T   0.03689730 0.01493936 0.02135914        0
+## CD14+ Mono     0.00000000 0.00000000 0.00000000        0
+## B              0.00000000 0.00000000 0.00000000        0
+## CD8 T          0.00000000 0.00000000 0.00000000        0
+## FCGR3A+ Mono   0.08815769 0.03625913 0.05167941        0
+## NK             0.00000000 0.00000000 0.00000000        0
+## DC             0.08416315 0.03457354 0.04928895        0
+## Platelet       0.00000000 0.00000000 0.00000000        0</code></pre>
+</div>
+<div id="汇总及展示细胞通讯网络整体结果" class="section level3" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> 汇总及展示细胞通讯网络整体结果</h3>
+<p>对计算结果汇总整合，展示整体细胞通讯状态</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="cellchat.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 整合通讯网络结果</span></span>
+<span id="cb319-2"><a href="cellchat.html#cb319-2" aria-hidden="true" tabindex="-1"></a><span class="co"># USER can also calculate the aggregated network among a subset of cell groups by setting sources.use and targets.use.</span></span>
+<span id="cb319-3"><a href="cellchat.html#cb319-3" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">aggregateNet</span>(cellchat)</span>
+<span id="cb319-4"><a href="cellchat.html#cb319-4" aria-hidden="true" tabindex="-1"></a>groupSize <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">table</span>(cellchat<span class="sc">@</span>idents))</span>
+<span id="cb319-5"><a href="cellchat.html#cb319-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb319-6"><a href="cellchat.html#cb319-6" aria-hidden="true" tabindex="-1"></a><span class="co"># showing the number of interactions or the total interaction strength (weights) between any two cell groups using circle plot.</span></span>
+<span id="cb319-7"><a href="cellchat.html#cb319-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">xpd=</span><span class="cn">TRUE</span>)</span>
+<span id="cb319-8"><a href="cellchat.html#cb319-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 整合的互作对数量展示</span></span>
+<span id="cb319-9"><a href="cellchat.html#cb319-9" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_circle</span>(cellchat<span class="sc">@</span>net<span class="sc">$</span>count, <span class="at">vertex.weight =</span> groupSize, <span class="at">weight.scale =</span> T, <span class="at">label.edge=</span> F, <span class="at">title.name =</span> <span class="st">&quot;Number of interactions&quot;</span>)</span>
+<span id="cb319-10"><a href="cellchat.html#cb319-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 整合的互作强度数量展示</span></span>
+<span id="cb319-11"><a href="cellchat.html#cb319-11" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_circle</span>(cellchat<span class="sc">@</span>net<span class="sc">$</span>weight, <span class="at">vertex.weight =</span> groupSize, <span class="at">weight.scale =</span> T, <span class="at">label.edge=</span> F, <span class="at">title.name =</span> <span class="st">&quot;Interaction strength&quot;</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/aggregateNet-1.png" width="672" /></p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="cellchat.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 分细胞类型展示</span></span>
+<span id="cb320-2"><a href="cellchat.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="co"># control the parameter edge.weight.max so that we can compare edge weights between differet networks.</span></span>
+<span id="cb320-3"><a href="cellchat.html#cb320-3" aria-hidden="true" tabindex="-1"></a>weight_mat <span class="ot">&lt;-</span> cellchat<span class="sc">@</span>net<span class="sc">$</span>weight</span>
+<span id="cb320-4"><a href="cellchat.html#cb320-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>),<span class="at">mgp=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">xpd=</span><span class="cn">TRUE</span>)</span>
+<span id="cb320-5"><a href="cellchat.html#cb320-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (cel <span class="cf">in</span> <span class="fu">unique</span>(cellchat<span class="sc">@</span>idents)){</span>
+<span id="cb320-6"><a href="cellchat.html#cb320-6" aria-hidden="true" tabindex="-1"></a>  cir_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(weight_mat), <span class="at">ncol =</span> <span class="fu">ncol</span>(weight_mat), <span class="at">dimnames =</span> <span class="fu">dimnames</span>(weight_mat))</span>
+<span id="cb320-7"><a href="cellchat.html#cb320-7" aria-hidden="true" tabindex="-1"></a>  cir_mat[cel, ] <span class="ot">&lt;-</span> weight_mat[cel, ]</span>
+<span id="cb320-8"><a href="cellchat.html#cb320-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">netVisual_circle</span>( cir_mat, <span class="at">vertex.weight=</span> groupSize, <span class="at">weight.scale=</span> T,<span class="at">edge.weight.max =</span> <span class="fu">max</span>(weight_mat), <span class="at">vertex.label.cex=</span><span class="fl">0.4</span>,<span class="at">title.name=</span>cel)</span>
+<span id="cb320-9"><a href="cellchat.html#cb320-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/aggregateNet-2.png" width="672" /></p>
+</div>
+</div>
+<div id="多种形式的互作通讯网络可视化" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> 多种形式的互作通讯网络可视化</h2>
+<p>在推断出细胞间通信网络之后，CellChat提供了进一步数据探索、分析和可视化的各种功能</p>
+<ul>
+<li>It provides several ways for visualizing cell-cell communication network, including hierarchical plot, circle plot, Chord diagram, and bubble plot.</li>
+<li>It provides an easy-to-use tool for extracting and visualizing high-order information of the inferred networks. For example, it allows ready prediction of major signaling inputs and outputs for cell populations and how these populations and signals coordinate together for functions.</li>
+<li>It can quantitatively characterize and compare the inferred cell-cell communication networks using an integrated approach by combining social network analysis, pattern recognition, and manifold learning approaches.</li>
+</ul>
+<div id="信号通路可视化" class="section level3" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> 信号通路可视化</h3>
+<p>提供了多种可视化方式：</p>
+<ul>
+<li>层次图</li>
+<li>圈图</li>
+<li>弦图</li>
+<li>热图</li>
+<li>柱状图</li>
+</ul>
+</div>
+<div id="信号通路水平展示" class="section level3" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> 信号通路水平展示</h3>
+<p>通过整合特定通路的所有受配体对展示推断的信号网络
+主要功能函数：<code>netVisual_aggregate</code></p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="cellchat.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xpd=</span><span class="cn">TRUE</span>)</span>
+<span id="cb321-2"><a href="cellchat.html#cb321-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_aggregate</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>, <span class="at">vertex.receiver=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) )</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-1.png" width="672" /></p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="cellchat.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_aggregate</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>, <span class="at">layout =</span> <span class="st">&quot;circle&quot;</span>)</span>
+<span id="cb322-2"><a href="cellchat.html#cb322-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_aggregate</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>, <span class="at">layout =</span> <span class="st">&quot;chord&quot;</span>)</span></code></pre></div>
+<pre><code>## Note: The second link end is drawn out of sector &#39;CD14+ Mono&#39;.</code></pre>
+<pre><code>## Note: The second link end is drawn out of sector &#39;B&#39;.</code></pre>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-2.png" width="672" /></p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="cellchat.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 进阶弦图可视化展示</span></span>
+<span id="cb325-2"><a href="cellchat.html#cb325-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb325-3"><a href="cellchat.html#cb325-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(cellchat<span class="sc">@</span>idents)</span></code></pre></div>
+<pre><code>## [1] &quot;Naive CD4 T&quot;  &quot;Memory CD4 T&quot; &quot;CD14+ Mono&quot;   &quot;B&quot;            &quot;CD8 T&quot;       
+## [6] &quot;FCGR3A+ Mono&quot; &quot;NK&quot;           &quot;DC&quot;           &quot;Platelet&quot;</code></pre>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="cellchat.html#cb327-1" aria-hidden="true" tabindex="-1"></a>ct_group <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;T&#39;</span>,<span class="st">&#39;T&#39;</span>,<span class="st">&#39;M&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;T&#39;</span>,<span class="st">&#39;M&#39;</span>,<span class="st">&#39;MK&#39;</span>,<span class="st">&#39;DC&#39;</span>,<span class="st">&#39;P&#39;</span>)</span>
+<span id="cb327-2"><a href="cellchat.html#cb327-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ct_group) <span class="ot">=</span> <span class="fu">levels</span>(cellchat<span class="sc">@</span>idents)</span>
+<span id="cb327-3"><a href="cellchat.html#cb327-3" aria-hidden="true" tabindex="-1"></a>ct_group</span></code></pre></div>
+<pre><code>##  Naive CD4 T Memory CD4 T   CD14+ Mono            B        CD8 T FCGR3A+ Mono 
+##          &quot;T&quot;          &quot;T&quot;          &quot;M&quot;          &quot;B&quot;          &quot;T&quot;          &quot;M&quot; 
+##           NK           DC     Platelet 
+##         &quot;MK&quot;         &quot;DC&quot;          &quot;P&quot;</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="cellchat.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_chord_cell</span>(cellchat, <span class="at">signaling=</span> <span class="st">&#39;MIF&#39;</span>, <span class="at">group=</span> ct_group, <span class="at">small.gap=</span><span class="dv">0</span>, <span class="at">big.gap=</span><span class="dv">10</span> )</span></code></pre></div>
+<pre><code>## Plot the aggregated cell-cell communication network at the signaling pathway level</code></pre>
+<pre><code>## Note: The second link end is drawn out of sector &#39;CD14+ Mono&#39;.</code></pre>
+<pre><code>## Note: The second link end is drawn out of sector &#39;B&#39;.</code></pre>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-3.png" width="672" /></p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="cellchat.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 热图可视化展示</span></span>
+<span id="cb333-2"><a href="cellchat.html#cb333-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;count&quot;: comparing the number of interactions; &quot;weight&quot;: comparing the total interaction weights (strength)</span></span>
+<span id="cb333-3"><a href="cellchat.html#cb333-3" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_heatmap</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>, <span class="at">color.heatmap =</span> <span class="st">&quot;Reds&quot;</span>, <span class="at">measure=</span> <span class="st">&#39;weight&#39;</span>)</span></code></pre></div>
+<pre><code>## Do heatmap based on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-4.png" width="672" /></p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="cellchat.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_heatmap</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>, <span class="at">color.heatmap =</span> <span class="st">&quot;Reds&quot;</span>, <span class="at">measure=</span> <span class="st">&#39;count&#39;</span>)</span></code></pre></div>
+<pre><code>## Do heatmap based on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-5.png" width="672" /></p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="cellchat.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_heatmap</span>(cellchat, <span class="at">signaling =</span> <span class="cn">NULL</span>, <span class="at">color.heatmap =</span> <span class="st">&quot;Reds&quot;</span>, <span class="at">measure=</span> <span class="st">&#39;count&#39;</span>)</span></code></pre></div>
+<pre><code>## Do heatmap based on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-6.png" width="672" /></p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="cellchat.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 通路中互作对贡献程度计算和展示</span></span>
+<span id="cb339-2"><a href="cellchat.html#cb339-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netAnalysis_contribution</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/vis_pathway_level-7.png" width="672" /></p>
+</div>
+<div id="快速探索推演的网络" class="section level3" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> 快速探索推演的网络</h3>
+<p><code>netVisual</code> supports an output in the formats of svg, png and pdf.</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="cellchat.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access all the signaling pathways showing significant communications</span></span>
+<span id="cb340-2"><a href="cellchat.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pathways.show.all &lt;- cellchat@netP$pathways</span></span>
+<span id="cb340-3"><a href="cellchat.html#cb340-3" aria-hidden="true" tabindex="-1"></a><span class="co"># # check the order of cell identity to set suitable vertex.receiver</span></span>
+<span id="cb340-4"><a href="cellchat.html#cb340-4" aria-hidden="true" tabindex="-1"></a><span class="co"># levels(cellchat@idents)</span></span>
+<span id="cb340-5"><a href="cellchat.html#cb340-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vertex.receiver = seq(1,4)</span></span>
+<span id="cb340-6"><a href="cellchat.html#cb340-6" aria-hidden="true" tabindex="-1"></a><span class="co"># for (i in 1:length(pathways.show.all)) {</span></span>
+<span id="cb340-7"><a href="cellchat.html#cb340-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Visualize communication network associated with both signaling pathway and individual L-R pairs</span></span>
+<span id="cb340-8"><a href="cellchat.html#cb340-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   netVisual(cellchat, signaling = pathways.show.all[i], vertex.receiver = vertex.receiver, layout = &quot;hierarchy&quot;)</span></span>
+<span id="cb340-9"><a href="cellchat.html#cb340-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Compute and visualize the contribution of each ligand-receptor pair to the overall signaling pathway</span></span>
+<span id="cb340-10"><a href="cellchat.html#cb340-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   gg &lt;- netAnalysis_contribution(cellchat, signaling = pathways.show.all[i])</span></span>
+<span id="cb340-11"><a href="cellchat.html#cb340-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggsave(filename=paste0(pathways.show.all[i], &quot;_L-R_contribution.pdf&quot;), plot=gg, width = 3, height = 2, units = &#39;in&#39;, dpi = 300)</span></span>
+<span id="cb340-12"><a href="cellchat.html#cb340-12" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code></pre></div>
+</div>
+<div id="通讯互作配受体对水平展示" class="section level3" number="6.4.4">
+<h3><span class="header-section-number">6.4.4</span> 通讯互作配受体对水平展示</h3>
+<p>展示指定受配体对的信号网络
+主要功能函数：<code>netVisual_individual</code> to extract all the significant interactions (L-R pairs) and related signaling genes for a given signaling pathway.</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="cellchat.html#cb341-1" aria-hidden="true" tabindex="-1"></a>pairLR <span class="ot">&lt;-</span> <span class="fu">extractEnrichedLR</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;ANNEXIN&quot;</span>, <span class="at">geneLR.return =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb341-2"><a href="cellchat.html#cb341-2" aria-hidden="true" tabindex="-1"></a>pairLR</span></code></pre></div>
+<pre><code>##   interaction_name
+## 1       ANXA1_FPR1</code></pre>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="cellchat.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_individual</span>(cellchat, <span class="at">signaling=</span> <span class="st">&quot;ANNEXIN&quot;</span>, <span class="at">pairLR.use=</span> pairLR[<span class="dv">1</span>] , <span class="at">vertex.receiver=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) )</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="cellchat.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_individual</span>(cellchat, <span class="at">signaling=</span> <span class="st">&quot;ANNEXIN&quot;</span>, <span class="at">pairLR.use=</span> pairLR[<span class="dv">1</span>] , <span class="at">layout =</span> <span class="st">&quot;circle&quot;</span> )</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<pre><code>## [[1]]</code></pre>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="cellchat.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_individual</span>(cellchat, <span class="at">signaling=</span> <span class="st">&quot;ANNEXIN&quot;</span>, <span class="at">pairLR.use=</span> <span class="st">&quot;ANXA1_FPR1&quot;</span> , <span class="at">layout =</span> <span class="st">&quot;chord&quot;</span> )</span></code></pre></div>
+<pre><code>## Note: The second link end is drawn out of sector &#39;Memory CD4 T&#39;.</code></pre>
+<pre><code>## Note: The second link end is drawn out of sector &#39;FCGR3A+ Mono&#39;.</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-18-3.png" width="672" /></p>
+<pre><code>## [[1]]</code></pre>
+</div>
+<div id="多个信号通路或互作对的可视化" class="section level3" number="6.4.5">
+<h3><span class="header-section-number">6.4.5</span> 多个信号通路或互作对的可视化</h3>
+<p>气泡图展示指定通路或受配体对互作可能性及统计学显著性
+主要功能函数：<code>netVisual_bubble</code></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="cellchat.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定细胞类型</span></span>
+<span id="cb350-2"><a href="cellchat.html#cb350-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat, <span class="at">sources.use =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">targets.use =</span> <span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>), <span class="at">remove.isolate =</span> <span class="cn">FALSE</span> )</span></code></pre></div>
+<pre><code>## Comparing communications on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="cellchat.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定信号通路</span></span>
+<span id="cb352-2"><a href="cellchat.html#cb352-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat, <span class="at">signaling =</span> <span class="fu">c</span>(<span class="st">&quot;MIF&quot;</span>,<span class="st">&quot;ANNEXIN&quot;</span>) )</span></code></pre></div>
+<pre><code>## Comparing communications on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="cellchat.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定配受体对</span></span>
+<span id="cb354-2"><a href="cellchat.html#cb354-2" aria-hidden="true" tabindex="-1"></a>pairLR.use <span class="ot">&lt;-</span> <span class="fu">extractEnrichedLR</span>(cellchat, <span class="at">signaling =</span> <span class="fu">c</span>(<span class="st">&quot;MIF&quot;</span>,<span class="st">&quot;ANNEXIN&quot;</span>,<span class="st">&quot;IL16&quot;</span>))</span>
+<span id="cb354-3"><a href="cellchat.html#cb354-3" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat, <span class="at">pairLR.use =</span> pairLR.use )</span></code></pre></div>
+<pre><code>## Comparing communications on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-19-3.png" width="672" /></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="cellchat.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 信号通路互作基因表达水平</span></span>
+<span id="cb356-2"><a href="cellchat.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotGeneExpression</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;IL16&quot;</span>)</span></code></pre></div>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+## replace the existing scale.</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+## replace the existing scale.</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-19-4.png" width="672" /></p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="cellchat.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_bubble</span>(cellchat, <span class="at">pairLR.use =</span> <span class="fu">extractEnrichedLR</span>(cellchat, <span class="at">signaling=</span><span class="st">&#39;IL16&#39;</span>) )</span></code></pre></div>
+<pre><code>## Comparing communications on a single object</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-19-5.png" width="672" /></p>
+</div>
+</div>
+<div id="系统性分析细胞通讯网络" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> 系统性分析细胞通讯网络</h2>
+<p>为了便于理解复杂的细胞间通信网络，CellChat通过从图论、模式识别和流形学习中提取的方法量化互作网络</p>
+<ul>
+<li>通过网络中心性判断给定信号网络的主要信号来源和目标以及调节者和影响者</li>
+<li>利用模式识别的方法预测特定细胞类型的关键输入输出信号</li>
+<li>从功能和拓扑学角度将信号通路分组</li>
+<li>通过多个网络的联合流形学习来描述保守的和上下文特定的信号通路</li>
+</ul>
+<div id="识别信号角色和主要贡献信号" class="section level3" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> 识别信号角色和主要贡献信号</h3>
+<p>CellChat通过计算细胞组的网络中心性识别细胞通讯网络中的：发送者，接收者，调节者和影响者</p>
+</div>
+<div id="通路信号角色识别及可视化" class="section level3" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> 通路信号角色识别及可视化</h3>
+<p>To visualize the dominant senders (sources) and receivers (targets) in a 2D space using scatter plot.</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="cellchat.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算网络中心性</span></span>
+<span id="cb361-2"><a href="cellchat.html#cb361-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">netAnalysis_computeCentrality</span>(cellchat, <span class="at">slot.name =</span> <span class="st">&quot;netP&quot;</span>) </span>
+<span id="cb361-3"><a href="cellchat.html#cb361-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 通路网络中心性热图</span></span>
+<span id="cb361-4"><a href="cellchat.html#cb361-4" aria-hidden="true" tabindex="-1"></a><span class="fu">netAnalysis_signalingRole_network</span>(cellchat, <span class="at">signaling =</span> <span class="st">&quot;MIF&quot;</span>, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">font.size =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="特定细胞类型中输入输出信号贡献程度" class="section level3" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> 特定细胞类型中输入输出信号贡献程度</h3>
+<ul>
+<li>Outgoing：揭示了发送细胞(即作为信号源的细胞)如何相互协调，以及它们如何与特定的信号通路协调以驱动通信</li>
+<li>Incoming：展示目标细胞(即作为信号接收器的细胞)如何相互协调，以及它们如何与特定的信号通路协调以响应传入信号</li>
+</ul>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="cellchat.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 信号角色散点图展示</span></span>
+<span id="cb362-2"><a href="cellchat.html#cb362-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netAnalysis_signalingRole_scatter</span>(cellchat)</span></code></pre></div>
+<pre><code>## Signaling role analysis on the aggregated cell-cell communication network from all signaling pathways</code></pre>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="cellchat.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 热图展示</span></span>
+<span id="cb364-2"><a href="cellchat.html#cb364-2" aria-hidden="true" tabindex="-1"></a>ht1 <span class="ot">&lt;-</span> <span class="fu">netAnalysis_signalingRole_heatmap</span>(cellchat, <span class="at">pattern =</span> <span class="st">&quot;outgoing&quot;</span>)</span>
+<span id="cb364-3"><a href="cellchat.html#cb364-3" aria-hidden="true" tabindex="-1"></a>ht2 <span class="ot">&lt;-</span> <span class="fu">netAnalysis_signalingRole_heatmap</span>(cellchat, <span class="at">pattern =</span> <span class="st">&quot;incoming&quot;</span>)</span>
+<span id="cb364-4"><a href="cellchat.html#cb364-4" aria-hidden="true" tabindex="-1"></a>ht1 <span class="sc">+</span> ht2</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/unnamed-chunk-21-2.png" width="672" /></p>
+</div>
+</div>
+<div id="全局信号模式识别" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> 全局信号模式识别</h2>
+<p>除了对单个信号通路通讯的分析，cellchat还提供了全局通讯模式分析的方法来探索多个细胞和通路对功能的协调.</p>
+<p>An important question is how multiple cell groups and signaling pathways coordinate to function.</p>
+<div id="确定信号模式数量" class="section level3" number="6.6.1">
+<h3><span class="header-section-number">6.6.1</span> 确定信号模式数量</h3>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="cellchat.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NMF)</span>
+<span id="cb365-2"><a href="cellchat.html#cb365-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalluvial)</span>
+<span id="cb365-3"><a href="cellchat.html#cb365-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-4"><a href="cellchat.html#cb365-4" aria-hidden="true" tabindex="-1"></a><span class="co"># selectK to infer the number of patterns, which is based on two metrics that have been implemented in the NMF R package, including Cophenetic and Silhouette. </span></span>
+<span id="cb365-5"><a href="cellchat.html#cb365-5" aria-hidden="true" tabindex="-1"></a><span class="fu">selectK</span>(cellchat, <span class="at">pattern =</span> <span class="st">&quot;outgoing&quot;</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/selectK-1.png" width="672" /></p>
+</div>
+<div id="识别信号模式" class="section level3" number="6.6.2">
+<h3><span class="header-section-number">6.6.2</span> 识别信号模式</h3>
+<p>分泌信号类型分为：outgoing和incoming</p>
+<p>信号模式有助于探索多个细胞类型或信号通路的协同作用</p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="cellchat.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Both Cophenetic and Silhouette values begin to drop suddenly when the number of outgoing patterns is 3.</span></span>
+<span id="cb366-2"><a href="cellchat.html#cb366-2" aria-hidden="true" tabindex="-1"></a>nPatterns <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb366-3"><a href="cellchat.html#cb366-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Outgoing patterns reveal how the sender cells (i.e. cells as signal source) coordinate with each other as well as how they coordinate with certain signaling pathways to drive communication.</span></span>
+<span id="cb366-4"><a href="cellchat.html#cb366-4" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">identifyCommunicationPatterns</span>(cellchat, <span class="at">pattern =</span> <span class="st">&quot;outgoing&quot;</span>, <span class="at">k =</span> nPatterns)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/identifyCommunicationPatterns-1.png" width="672" /></p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="cellchat.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netAnalysis_river</span>(cellchat, <span class="at">pattern =</span> <span class="st">&quot;outgoing&quot;</span>)</span></code></pre></div>
+<pre><code>## Please make sure you have load `library(ggalluvial)` when running this function</code></pre>
+<p><img src="Single_cell_training_files/figure-html/identifyCommunicationPatterns-2.png" width="672" /></p>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="cellchat.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netAnalysis_dot</span>(cellchat, <span class="at">pattern =</span> <span class="st">&quot;outgoing&quot;</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/identifyCommunicationPatterns-3.png" width="672" /></p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="cellchat.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Incoming patterns show how the target cells (i.e. cells as signal receivers) coordinate with each other as well as how they coordinate with certain signaling pathways to respond to incoming signals.</span></span>
+<span id="cb370-2"><a href="cellchat.html#cb370-2" aria-hidden="true" tabindex="-1"></a><span class="co"># selectK(cellchat, pattern = &quot;incoming&quot;)</span></span></code></pre></div>
+</div>
+</div>
+<div id="manifold-and-classification-learning-analysis-of-signaling-networks" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Manifold and classification learning analysis of signaling networks</h2>
+<p>CellChat is able to quantify the similarity between all significant signaling pathways and then group them based on their cellular communication network similarity. Grouping can be done either based on the functional or structural similarity.</p>
+<ul>
+<li>Functional similarity: High degree of functional similarity indicates major senders and receivers are similar, and it can be interpreted as the two signaling pathways or two ligand-receptor pairs exhibit similar and/or redundant roles. The functional similarity analysis requires the same cell population composition between two datasets.</li>
+<li>Structural similarity: A structural similarity was used to compare their signaling network structure, without considering the similarity of senders and receivers.</li>
+</ul>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="cellchat.html#cb371-1" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">computeNetSimilarity</span>(cellchat, <span class="at">type =</span> <span class="st">&quot;structural&quot;</span>)</span>
+<span id="cb371-2"><a href="cellchat.html#cb371-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">netEmbedding</span>(cellchat, <span class="at">type =</span> <span class="st">&quot;structural&quot;</span>)</span></code></pre></div>
+<pre><code>## Manifold learning of the signaling networks for a single dataset</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="cellchat.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Manifold learning of the signaling networks for a single dataset</span></span>
+<span id="cb373-2"><a href="cellchat.html#cb373-2" aria-hidden="true" tabindex="-1"></a>cellchat <span class="ot">&lt;-</span> <span class="fu">netClustering</span>(cellchat, <span class="at">type =</span> <span class="st">&quot;structural&quot;</span>)</span></code></pre></div>
+<pre><code>## Classification learning of the signaling networks for a single dataset</code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="cellchat.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Classification learning of the signaling networks for a single dataset</span></span>
+<span id="cb375-2"><a href="cellchat.html#cb375-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualization in 2D-space</span></span>
+<span id="cb375-3"><a href="cellchat.html#cb375-3" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_embedding</span>(cellchat, <span class="at">type =</span> <span class="st">&quot;structural&quot;</span>, <span class="at">label.size =</span> <span class="fl">3.5</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/computeNetSimilarity-1.png" width="672" /></p>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="cellchat.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">netVisual_embeddingZoomIn</span>(cellchat, <span class="at">type =</span> <span class="st">&quot;structural&quot;</span>, <span class="at">nCol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="Single_cell_training_files/figure-html/computeNetSimilarity-2.png" width="672" /></p>
+</div>
+<div id="sessioninfo-4" class="section level2" number="6.8">
+<h2><span class="header-section-number">6.8</span> sessionInfo</h2>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="富集分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ref-httpsgithub-comsqjincellchat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Single_cell_training.pdf", "Single_cell_training.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -139,7 +139,8 @@ ABC@meta.data <- ABC_meta
 
 #### 线粒体
 ```{r}
-ABC[["percent.mt"]] <- PercentageFeatureSet(ABC, pattern = "^MT-")
+ABC <- PercentageFeatureSet(ABC, pattern = "^MT-", col.name = "percent.mt") 
+# ABC[["percent.mt"]] <- PercentageFeatureSet(ABC, pattern = "^MT-")
 head(ABC@meta.data)
 ```
 
@@ -161,27 +162,36 @@ boxplot(ABC@meta.data$nFeature_RNA)
 ## Figure 1D
 ### LogNormalize
 ```{r}
-ABC <- NormalizeData(object=ABC, 
-                     normalization.method= 'LogNormalize', 
-                     scale.factor=10000 )
+## ref: https://satijalab.org/seurat/articles/sctransform_vignette.html
+## SCTransform replaces NormalizeData, ScaleData, and FindVariableFeatures.
+## During normalization, we can also remove confounding sources of variation, 
+## for example, mitochondrial mapping percentage
+ABC <- SCTransform(ABC, vars.to.regress = "percent.mt", verbose = FALSE)
+
+
+# ABC <- NormalizeData(object=ABC, 
+#                      normalization.method= 'LogNormalize', 
+#                      scale.factor=10000 )
 ```
 
 ### 筛选高变基因
 ```{r}
-ABC <- FindVariableFeatures(ABC,
-                            selection.method = "vst", 
-                            nfeatures = 2000)
-head(VariableFeatures(ABC))
-
-ABC <- ScaleData(ABC)
+# ABC <- FindVariableFeatures(ABC,
+#                             selection.method = "vst", 
+#                             nfeatures = 2000)
+# head(VariableFeatures(ABC))
+# 
+# ABC <- ScaleData(ABC)
 ```
 ### 筛选高变基因 and PCA降维
 ```{r}
 
-hvg <- VariableFeatures(object = ABC)
-ABC <- RunPCA(ABC, features = hvg )
+# hvg <- VariableFeatures(object = ABC)
+# ABC <- RunPCA(ABC, features = hvg )
+ABC <- RunPCA(ABC )
 ElbowPlot(ABC)
 ```
+
 ### 聚类分簇
 ```{r}
 ABC <- FindNeighbors(ABC, reduction = "pca", dims = 1:15)
@@ -194,14 +204,14 @@ levels(ABC)
 ```{r}
 ABC <- RunUMAP(ABC, 
                reduction = "pca", 
-               dims = 1:15,
+               dims = 1:30,
                verbose=TRUE )
 DimPlot(ABC, reduction = "umap", label=TRUE)
 ```
 
 ## Figure 1E
 ### 细胞簇差异基因分析
-```{r all_markers_ABC, message=FALSE}
+```{r all_markers_ABC, message=FALSE, cache=TRUE}
 all_markers <- FindAllMarkers(ABC, 
                               only.pos = TRUE, 
                               min.pct= 0.1, 
@@ -213,6 +223,7 @@ top_markers <- all_markers %>% group_by( cluster) %>% top_n( n = 5, wt= avg_log2
 top_markers
 
 DoHeatmap(ABC, features = top_markers$gene) + NoLegend()
+# saveRDS(ABC, file="./ABC/ABC.RDS")
 ```
 
 ### marker基因展示
