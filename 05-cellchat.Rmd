@@ -18,6 +18,8 @@ REF:
 * [CellChat-Vignette](https://htmlpreview.github.io/?https://github.com/sqjin/CellChat/blob/master/tutorial/CellChat-vignette.html)
 * [cellchatDB-Vignette](https://htmlpreview.github.io/?https://github.com/sqjin/CellChat/blob/master/tutorial/Update-CellChatDB.html)
 
+* `单细胞高级分析.pdf`
+
 ## 数据加载与预处理
 
 本次课程使用的数据为10X单细胞的PBMC_3K数据(see `Chapter 5 富集分析`)，基于上一次基本分析课程中生成的最后的rds文件.

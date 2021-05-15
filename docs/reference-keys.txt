@@ -83,7 +83,6 @@ cellchat
 识别信号模式
 manifold-and-classification-learning-analysis-of-signaling-networks
 sessioninfo-4
-ref-httpsgithub.comsqjincellchat
 single-cell-transcriptomic-landscape-of-human-blood-cells
 read-scrna-data
 read-hspc-data
